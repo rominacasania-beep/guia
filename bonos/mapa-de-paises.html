@@ -35,6 +35,12 @@ th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vert
 tr:last-child td{border-bottom:0}
 th{font-size:.74rem;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);font-weight:600}
 .pide{background:var(--sea-soft);border-radius:10px;padding:10px 14px}
+.dot{display:inline-block;width:11px;height:11px;border-radius:50%;margin-right:7px;vertical-align:-1px}
+.dot.v{background:var(--ok)}.dot.a{background:var(--warn)}.dot.r{background:var(--bad)}.dot.g{background:var(--line)}
+.ir{display:flex;flex-wrap:wrap;gap:8px}
+.ir a{border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:6px 14px;text-decoration:none;font-weight:500;font-size:.92rem}
+section{display:flex;flex-direction:column;gap:12px;scroll-margin-top:16px}
+.nota{border-left:4px solid var(--sun);background:var(--surface);border-radius:8px;padding:10px 14px}
 </style>
 </head>
 <body>
@@ -43,10 +49,12 @@ th{font-size:.74rem;letter-spacing:.07em;text-transform:uppercase;color:var(--mu
   <header>
     <p class="eyebrow">Bono · Mapa de países</p>
     <h1>¿Abro este país o no?</h1>
-    <p class="sub">Seis preguntas antes de traducir una sola palabra. Respondelas con lo que te muestre Claude en la Biblioteca de Anuncios y te sale un semáforo.</p>
+    <p class="sub">Seis preguntas antes de traducir una sola palabra, mi ranking de los 13 países que probé y cómo cobrar afuera sin una empresa en Estados Unidos.</p>
   </header>
 
-  <p class="pide"><b>Antes, pedile esto a Claude:</b> «Mirá en la Biblioteca de Anuncios si mi producto, o algo parecido, se está vendiendo en [PAÍS] y en otros idiomas. Decime cuántos anunciantes hay, hace cuánto corren y si mi plataforma de cobro funciona ahí.»</p>
+  <nav class="ir" aria-label="En esta página"><a href="#semaforo">El semáforo</a><a href="#ranking">Mi ranking de países</a><a href="#cobrar">Cobrar afuera sin empresa en EE. UU.</a><a href="#cobros">Cómo me cobró cada país</a></nav>
+
+  <p class="pide" id="semaforo"><b>Antes, pedile esto a Claude:</b> «Mirá en la Biblioteca de Anuncios si mi producto, o algo parecido, se está vendiendo en [PAÍS] y en otros idiomas. Decime cuántos anunciantes hay, hace cuánto corren y si mi plataforma de cobro funciona ahí.»</p>
 
   <div class="preg" id="preg"></div>
 
@@ -66,6 +74,89 @@ th{font-size:.74rem;letter-spacing:.07em;text-transform:uppercase;color:var(--mu
       </tbody>
     </table></div>
     <p class="sub" style="margin-top:10px">Y una regla que me costó aprender: que a otra persona le vaya bien en un país no me garantiza nada a mí.</p>
+  </section>
+
+  <section id="ranking">
+    <h2>Mi ranking de países</h2>
+    <p class="sub">Los 13 lugares donde probé el mismo producto traducido, ordenados por cómo me fue. Verde: me funciona. Amarillo: abierto y midiendo. Rojo: lo probé y lo apagué.</p>
+    <div class="tw"><table>
+      <thead><tr><th>País</th><th>Idioma</th><th>Cómo me fue</th></tr></thead>
+      <tbody>
+        <tr><td><span class="dot v"></span>Italia</td><td>Italiano</td><td>De los que sostienen el negocio</td></tr>
+        <tr><td><span class="dot v"></span>Israel</td><td>Hebreo</td><td>De los que sostienen. De ahí salió el extra del checkout que más aceptan</td></tr>
+        <tr><td><span class="dot v"></span>Hungría</td><td>Húngaro</td><td>La página que mejor convirtió de todas</td></tr>
+        <tr><td><span class="dot v"></span>Dinamarca</td><td>Danés</td><td>País chico con buen poder de compra: la oferta de después del pago pesa tanto como la venta</td></tr>
+        <tr><td><span class="dot a"></span>Polonia</td><td>Polaco</td><td>Abierto y vendiendo, todavía midiendo</td></tr>
+        <tr><td><span class="dot a"></span>Alemania y Suiza</td><td>Alemán</td><td>Abierto. Compran con desconfianza: hay que decir «pago único» bien claro</td></tr>
+        <tr><td><span class="dot a"></span>Taiwán</td><td>Chino tradicional</td><td>Abierto. Meta pide una declaración especial para anunciar ahí</td></tr>
+        <tr><td><span class="dot a"></span>Francia</td><td>Francés</td><td>Estuvo perdiendo por una pantalla rota después del pago. Arreglada, se está midiendo de nuevo</td></tr>
+        <tr><td><span class="dot a"></span>Grecia y Chipre</td><td>Griego</td><td>Recién lanzado. Todavía no sé si funciona</td></tr>
+        <tr><td><span class="dot r"></span>Portugal</td><td>Portugués</td><td>Apagado: pocas ventas, no cubrían el gasto</td></tr>
+        <tr><td><span class="dot r"></span>Países Bajos y Bélgica</td><td>Holandés</td><td>Apagado: gastó varios días sin vender</td></tr>
+        <tr><td><span class="dot r"></span>Corea</td><td>Coreano</td><td>Apagado: pocas visitas y ninguna compra</td></tr>
+        <tr><td><span class="dot r"></span>Ruso en el Báltico</td><td>Ruso</td><td>Apagado: el público era demasiado chico y se repetía</td></tr>
+      </tbody>
+    </table></div>
+    <p class="nota"><b>Cómo leerlo.</b> Es lo que pasó con mi producto, mi página y mis anuncios. Un país en rojo para mí no es un país malo, y uno en verde no te garantiza nada a vos. Usalo para saber dónde mirar primero, y después pasá cada país por el semáforo de arriba.</p>
+    <div class="tw"><table>
+      <thead><tr><th>Lo que se repite</th><th>Qué hago con eso</th></tr></thead>
+      <tbody>
+        <tr><td>Los países chicos con buen poder de compra me rindieron más que los grandes</td><td>No descarto un país por tener pocos habitantes</td></tr>
+        <tr><td>Los que apagué, los apagué rápido</td><td>Si a los 4 días gastó y no vendió, se apaga y se abre el siguiente</td></tr>
+        <tr><td>Un público demasiado chico ve el mismo anuncio muchas veces y no compra</td><td>Miro el tamaño del público antes de traducir todo</td></tr>
+        <tr><td>Un alfabeto distinto no fue una barrera</td><td>Suma días de trabajo, no frena</td></tr>
+        <tr><td>Entrar a un país «porque a otras les va bien» me salió mal</td><td>Lo decide la Biblioteca de Anuncios y mi propia prueba</td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <section id="cobrar">
+    <h2>Cobrar en otros países sin tener una empresa en Estados Unidos</h2>
+    <p class="sub">La pregunta que más me hacen. Yo vendo en todos esos países desde Uruguay, sin una empresa en Estados Unidos (lo que vas a escuchar como «LLC»).</p>
+    <div class="tw"><table>
+      <thead><tr><th>Camino</th><th>Cómo funciona</th><th>Para quién</th></tr></thead>
+      <tbody>
+        <tr><td><span class="dot v"></span>Una plataforma que cobra por vos</td><td>La compradora le paga a la plataforma, y la plataforma te paga a vos. Se ocupa del cobro con tarjeta en cada país y de los impuestos de la venta en Europa. Yo uso Whop, que viene conectada dentro de mi tienda</td><td>Para arrancar desde cualquier país de Latinoamérica. Es como lo hago yo</td></tr>
+        <tr><td><span class="dot v"></span>PayPal</td><td>Lo sumo como segunda forma de pago en el mismo checkout. Hay compradoras que solo pagan así</td><td>Para todas, además de la tarjeta</td></tr>
+        <tr><td><span class="dot a"></span>Empresa en Estados Unidos + Stripe</td><td>Stripe no abre cuentas en muchos países de Latinoamérica. Con una empresa en Estados Unidos sí, y en algunos países aprueba más pagos</td><td>Para más adelante, cuando ya vendés y un país te lo pide. No es para empezar</td></tr>
+      </tbody>
+    </table></div>
+    <div class="tw"><table>
+      <thead><tr><th>Antes de abrir un país, comprobá</th><th>Por qué</th></tr></thead>
+      <tbody>
+        <tr><td>Que tu plataforma cobre en ese país y en su moneda</td><td>Hay monedas que no están: ahí se cobra en dólares o euros y convierte menos</td></tr>
+        <tr><td>Que el precio esté elegido directo en la moneda local</td><td>Un número convertido se ve raro y delata que la tienda es de afuera</td></tr>
+        <tr><td>Cuánto te llega neto de una venta</td><td>Entre comisiones y cambio de moneda, lo que llega no es lo que pagó la compradora</td></tr>
+        <tr><td>Cuánto tarda en liberarse la plata</td><td>Una cuenta nueva puede tener la plata retenida varias semanas</td></tr>
+        <tr><td>Cuántos pagos fallan en la primera semana</td><td>Si fallan muchos, primero se arregla el cobro y después se escala</td></tr>
+      </tbody>
+    </table></div>
+    <p class="pide"><b>Pedile esto a Claude:</b> «Fijate en mi tienda si puedo cobrar en [PAÍS] y en qué moneda. Decime qué formas de pago quedan activas ahí y qué tengo que comprobar antes de lanzar.»</p>
+    <p class="nota">Las condiciones de cada plataforma cambian y dependen de tu país. Confirmalas en la tuya antes de lanzar: esto es cómo me funciona a mí hoy.</p>
+  </section>
+
+  <section id="cobros">
+    <h2>Cómo me cobró cada país</h2>
+    <p class="sub">Vender no es lo mismo que cobrar. Esto es lo que vi en mis propias tiendas.</p>
+    <div class="tw"><table>
+      <thead><tr><th>País</th><th>Qué pasó</th><th>Qué hay que cuidar</th></tr></thead>
+      <tbody>
+        <tr><td><span class="dot v"></span>Hungría</td><td>Cobró desde el primer día</td><td>Nada</td></tr>
+        <tr><td><span class="dot v"></span>Israel</td><td>Cobra en moneda local sin problemas</td><td>Nada</td></tr>
+        <tr><td><span class="dot a"></span>Italia</td><td>Vendía bien, pero la plata quedó retenida varias semanas por ser cuenta nueva</td><td>No reinvertir plata que todavía no llegó</td></tr>
+        <tr><td><span class="dot a"></span>Dinamarca</td><td>Una parte de los pagos con tarjeta falla</td><td>Mirar los pagos fallados antes de subir presupuesto</td></tr>
+        <tr><td><span class="dot a"></span>Alemania y Suiza</td><td>Hasta la primera venta no sabés cuánto llega neto</td><td>Hacer la cuenta con la primera venta real</td></tr>
+        <tr><td><span class="dot g"></span>Polonia, Francia, Taiwán, Grecia</td><td>Sin una observación propia clara</td><td>Mirarlo en tu tienda la primera semana</td></tr>
+      </tbody>
+    </table></div>
+    <div class="tw"><table>
+      <thead><tr><th>Lo que aprendí cobrando</th></tr></thead>
+      <tbody>
+        <tr><td>El botón «reintentar» de un pago fallado no me sirvió nunca. Lo que funciona es mandarle el enlace de pago por mail</td></tr>
+        <tr><td>Casi la mitad de los pagos «fallados» ya habían pagado en otro intento. Cruzá por mail antes de escribirles</td></tr>
+        <tr><td>Un mail mal escrito por la compradora es una entrega que no sale. Revisá las entregas que rebotan</td></tr>
+      </tbody>
+    </table></div>
   </section>
 </div>
 <script>
