@@ -52,7 +52,7 @@ section{display:flex;flex-direction:column;gap:12px;scroll-margin-top:16px}
     <p class="sub">Seis preguntas antes de traducir una sola palabra, mi ranking de los 13 países que probé y cómo cobrar afuera sin una empresa en Estados Unidos.</p>
   </header>
 
-  <nav class="ir" aria-label="En esta página"><a href="#semaforo">El semáforo</a><a href="#ranking">Mi ranking de países</a><a href="#cobrar">Cobrar afuera sin empresa en EE. UU.</a><a href="#cobros">Cómo me cobró cada país</a></nav>
+  <nav class="ir" aria-label="En esta página"><a href="#semaforo">El semáforo</a><a href="#ranking">Mi ranking de países</a><a href="#cobrar">Cobrar afuera sin empresa en EE. UU.</a><a href="#aprobacion">Dónde se aprueban más pagos</a><a href="#cobros">Cómo me cobró cada país</a></nav>
 
   <p class="pide" id="semaforo"><b>Antes, pedile esto a Claude:</b> «Mirá en la Biblioteca de Anuncios si mi producto, o algo parecido, se está vendiendo en [PAÍS] y en otros idiomas. Decime cuántos anunciantes hay, hace cuánto corren y si mi plataforma de cobro funciona ahí.»</p>
 
@@ -133,6 +133,39 @@ section{display:flex;flex-direction:column;gap:12px;scroll-margin-top:16px}
     </table></div>
     <p class="pide"><b>Pedile esto a Claude:</b> «Fijate en mi tienda si puedo cobrar en [PAÍS] y en qué moneda. Decime qué formas de pago quedan activas ahí y qué tengo que comprobar antes de lanzar.»</p>
     <p class="nota">Las condiciones de cada plataforma cambian y dependen de tu país. Confirmalas en la tuya antes de lanzar: esto es cómo me funciona a mí hoy.</p>
+  </section>
+
+  <section id="aprobacion">
+    <h2>Dónde se aprueban más pagos</h2>
+    <p class="sub">No todos los pagos con tarjeta pasan. Según el país y quién cobra, se aprueban más o menos. Verde: pasan casi todos. Amarillo: se pierde alguno. Rojo: se pierden bastantes.</p>
+    <div class="tw"><table>
+      <thead><tr><th>País</th><th>Con Whop (sin empresa en EE. UU.)</th><th>Con Stripe (pide empresa en EE. UU.)</th><th>Qué significa</th></tr></thead>
+      <tbody>
+        <tr><td>España</td><td><span class="dot v"></span>Alta</td><td><span class="dot v"></span>Alta</td><td>Whop aprueba incluso un poco más</td></tr>
+        <tr><td>México</td><td><span class="dot v"></span>Alta</td><td><span class="dot v"></span>Alta</td><td>Parejos</td></tr>
+        <tr><td>Italia</td><td><span class="dot v"></span>Alta</td><td><span class="dot a"></span>Media</td><td>Acá Whop es la buena</td></tr>
+        <tr><td>Chile</td><td><span class="dot v"></span>Alta</td><td><span class="dot v"></span>Alta</td><td>Parejos</td></tr>
+        <tr><td>Polonia</td><td><span class="dot v"></span>Alta</td><td><span class="dot v"></span>Alta</td><td>Stripe aprueba un poco más</td></tr>
+        <tr><td>Uruguay</td><td><span class="dot a"></span>Media</td><td><span class="dot a"></span>Media</td><td>Parejos</td></tr>
+        <tr><td>Dinamarca</td><td><span class="dot a"></span>Media</td><td><span class="dot v"></span>Alta</td><td>Con Whop se pierde alguno: mirá los fallados</td></tr>
+        <tr><td>Francia</td><td><span class="dot r"></span>Baja</td><td><span class="dot v"></span>Alta</td><td>Con Whop rebotan bastantes</td></tr>
+        <tr><td>Argentina</td><td><span class="dot r"></span>Baja</td><td><span class="dot a"></span>Media</td><td>Con Whop rebotan bastantes</td></tr>
+        <tr><td>Turquía</td><td><span class="dot r"></span>Muy baja</td><td><span class="dot a"></span>Media</td><td>Con Whop se pierde muchísimo</td></tr>
+        <tr><td>Corea del Sur, Croacia, India, Austria</td><td><span class="dot r"></span>Baja</td><td><span class="dot r"></span>Baja</td><td>Flojos con las dos</td></tr>
+        <tr><td>Suecia, República Dominicana, Moldavia</td><td><span class="dot r"></span>Baja</td><td><span class="dot g"></span>Sin dato</td><td>Flojos con Whop</td></tr>
+        <tr><td>Alemania, Países Bajos, Bélgica, Portugal</td><td><span class="dot g"></span>Sin dato</td><td><span class="dot a"></span>Media</td><td>Stripe pierde alguno</td></tr>
+        <tr><td>Brasil</td><td><span class="dot g"></span>Sin dato</td><td><span class="dot r"></span>Baja</td><td>Flojo con Stripe</td></tr>
+      </tbody>
+    </table></div>
+    <p class="nota"><b>De dónde sale.</b> Es un dato general de la plataforma de tienda, de fines de octubre de 2026. No lo medí yo en mis tiendas y puede haber cambiado. Usalo para saber dónde mirar: lo que manda es cuántos pagos fallan en tu propia tienda la primera semana.</p>
+    <div class="tw"><table>
+      <thead><tr><th>Cómo lo uso</th></tr></thead>
+      <tbody>
+        <tr><td>Un país en rojo no se descarta: se entra con presupuesto chico y se miran los pagos fallados antes de subir</td></tr>
+        <tr><td>Si un país vende pero pierde muchos pagos, ahí es donde una empresa en Estados Unidos con Stripe cambia la cuenta</td></tr>
+        <tr><td>Que se apruebe el pago no es lo mismo que cuánto termina pagando la compradora: mirá también la conversión de moneda</td></tr>
+      </tbody>
+    </table></div>
   </section>
 
   <section id="cobros">
