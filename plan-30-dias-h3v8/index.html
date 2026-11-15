@@ -1,0 +1,115 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>Tu plan de 30 días</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Poppins:wght@300;400;500;600&display=swap">
+<style>:root{--bg:#fbf7f3;--card:#fffdfb;--ink:#2e2a2a;--mut:#6b6363;--line:#e6d9cf;--rosa:#c2185b;--rosa2:#fbe4ec;--oro:#c9a24b}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Poppins,system-ui,sans-serif;font-weight:300;font-size:17px;line-height:1.55}
+.w{max-width:760px;margin:0 auto;padding:34px 18px 70px;display:flex;flex-direction:column;gap:24px}
+h1,h2{font-family:"Cormorant Garamond",Georgia,serif;margin:0;line-height:1.05;text-wrap:balance}h1{font-size:clamp(2.4rem,8vw,3.6rem)}h2{font-size:1.9rem}
+p{margin:0}b{font-weight:600}.eye{font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:var(--rosa);font-weight:600}.sub{color:var(--mut)}
+.btn{display:inline-block;background:var(--rosa);color:#fff;text-decoration:none;font-weight:600;padding:16px 28px;border-radius:999px;font-size:1.05rem;box-shadow:0 10px 26px rgb(194 24 91 / .28)}
+table{width:100%;border-collapse:collapse;background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden;font-size:.96rem}
+td,th{padding:12px 14px;border-bottom:1px solid var(--line);vertical-align:top;text-align:left}tr:last-child td{border-bottom:0}th{font-size:.74rem;letter-spacing:.07em;text-transform:uppercase;color:var(--mut);font-weight:600}td:first-child{font-weight:600}
+.pide{background:var(--rosa2);border-radius:14px;padding:16px 18px;font-weight:400}.nota{border-left:4px solid var(--oro);background:var(--card);border-radius:8px;padding:10px 14px}
+section{display:flex;flex-direction:column;gap:12px}.n{display:inline-grid;place-items:center;width:30px;height:30px;border-radius:50%;background:var(--rosa);color:#fff;font-weight:600;margin-right:8px}</style>
+<style>button.btn{border:0;cursor:pointer;font-family:inherit}
+.avance{position:sticky;top:0;z-index:2;background:var(--bg);padding:10px 0;display:flex;flex-direction:column;gap:6px}
+.barra{height:10px;border-radius:999px;background:var(--line);overflow:hidden}.barra span{display:block;height:10px;background:var(--rosa);transform:scaleX(0);transform-origin:left;transition:transform .25s}
+#cuenta{font-size:.85rem;color:var(--mut);font-weight:500}
+.plan td:nth-child(1){width:52px;font-family:"Cormorant Garamond",Georgia,serif;font-size:1.5rem;line-height:1;color:var(--rosa)}
+.plan td:nth-child(3){color:var(--mut)}.plan td:nth-child(4){white-space:nowrap;font-size:.86rem}.plan td:nth-child(5){width:48px;text-align:center}
+.plan input{width:24px;height:24px;accent-color:var(--rosa);cursor:pointer;margin:0}
+.plan tr.q td{background:#fbf3e2}.plan tr.ok td:nth-child(2){text-decoration:line-through;color:var(--mut)}
+.q b{color:#8a6a1c}
+@media (max-width:640px){.plan tr.h{display:none}.plan tr{display:grid;grid-template-columns:46px 1fr 44px;border-bottom:1px solid var(--line)}.plan tr:last-child{border-bottom:0}
+.plan td{border:0;padding:4px 10px}.plan td:nth-child(1){grid-column:1;grid-row:1/4;width:auto;padding-top:12px}.plan td:nth-child(2){grid-column:2;grid-row:1;padding-top:12px}
+.plan td:nth-child(5){grid-column:3;grid-row:1;width:auto;padding-top:12px}.plan td:nth-child(3){grid-column:2/4;grid-row:2;font-size:.9rem}.plan td:nth-child(4){grid-column:2/4;grid-row:3;padding-bottom:12px;white-space:normal}
+.plan td:nth-child(3)::before{content:"A Claude: ";font-weight:600;color:var(--ink)}.plan td:nth-child(4)::before{content:"Tiempo: ";font-weight:600}
+table:not(.plan) td,table:not(.plan) th{padding:10px 9px}table:not(.plan){font-size:.9rem}}
+@media print{body{background:#fff;font-size:10.5pt}.w{max-width:none;padding:0;gap:14px}.noprint{display:none}.avance{position:static}tr,.nota,.pide{break-inside:avoid}h2{break-after:avoid}.plan tr.q td{background:#fff}td,th{padding:6px 8px}}</style></head><body><div class="w">
+<header><p class="eye">RomiManifiesta · Tu plan de 30 días</p><h1>Un día, una sola cosa</h1>
+<p class="sub" style="margin-top:12px">La guía te dice qué hacer. Esto te dice qué día. Abrís la página, mirás el día que te toca, lo hacés y lo tildás.</p></header>
+<div class="avance"><div class="barra"><span id="barra"></span></div><p id="cuenta">0 de 30 días hechos</p></div>
+<section><h2>Cómo se usa</h2>
+<table><tr><td><span class="n">1</span></td><td>Cada día tiene una sola tarea. Hacé esa y cerrá la computadora</td></tr>
+<tr><td><span class="n">2</span></td><td>La columna «A Claude» es lo que le escribís. Cuando dice «pedido del escalón», está completo en la guía, listo para copiar</td></tr>
+<tr><td><span class="n">3</span></td><td>Tildá la casilla al terminar. Tu avance queda guardado en este navegador</td></tr></table>
+<p class="noprint"><button class="btn" type="button" id="imp">Imprimir</button></p>
+<p class="nota"><b>Si te atrasás, el plan se corre. No se saltea.</b> Seguí siempre por la primera casilla sin tildar, aunque el calendario diga otra cosa. Los días son pasos, no fechas.</p></section>
+
+<section><h2>Semana 1 · Armar lo que vas a vender</h2>
+<p class="sub">Días 1 al 7. Todavía no se gasta nada en anuncios.</p>
+<table class="plan"><tr class="h"><th>Día</th><th>Qué hacés vos</th><th>Qué le pedís a Claude</th><th>Tiempo</th><th>Listo</th></tr>
+<tr><td>1</td><td>Instalás Claude y el kit. Nada más</td><td>«Instalá el kit kit-de-0-a-100 que está en mi carpeta Descargas y guiame paso a paso.»</td><td>1 a 1,5 horas</td><td><input type="checkbox" data-d="1" aria-label="Día 1 hecho"></td></tr>
+<tr><td>2</td><td>Hacés tu primer «buen día» y dejás el navegador conectado</td><td>«Buen día». Después: «Ayudame a conectar el navegador»</td><td>45 minutos</td><td><input type="checkbox" data-d="2" aria-label="Día 2 hecho"></td></tr>
+<tr><td>3</td><td>Elegís qué vender y lo mirás por dentro</td><td>Pedido del escalón 1. Cuando elijas: pedido del escalón 2</td><td>1 a 1,5 horas</td><td><input type="checkbox" data-d="3" aria-label="Día 3 hecho"></td></tr>
+<tr><td>4</td><td>Creás tu cuenta en la tienda y empezás el trámite del cobro</td><td>«Guiame para conectar el cobro de mi tienda según mi país»</td><td>45 minutos</td><td><input type="checkbox" data-d="4" aria-label="Día 4 hecho"></td></tr>
+<tr><td>5</td><td>Armás tu producto y lo leés entero</td><td>Pedido del escalón 3</td><td>1,5 a 2 horas</td><td><input type="checkbox" data-d="5" aria-label="Día 5 hecho"></td></tr>
+<tr><td>6</td><td>Cargás el producto en la tienda y te lo comprás vos</td><td>Pedido del escalón 4</td><td>1 a 1,5 horas</td><td><input type="checkbox" data-d="6" aria-label="Día 6 hecho"></td></tr>
+<tr><td>7</td><td>Leés tu página de venta en el celular, de arriba abajo</td><td>Pedido del escalón 5</td><td>1 hora</td><td><input type="checkbox" data-d="7" aria-label="Día 7 hecho"></td></tr></table>
+<p class="nota">El cobro se empieza el día 4 porque la aprobación puede tardar de minutos a varios días. Si el día 6 todavía no está aprobado, esperá: sin la compra de prueba no se avanza.</p></section>
+
+<section><h2>Semana 2 · Salir a anunciar</h2>
+<p class="sub">Días 8 al 14. El día 10 se prende tu primera campaña.</p>
+<table class="plan"><tr class="h"><th>Día</th><th>Qué hacés vos</th><th>Qué le pedís a Claude</th><th>Tiempo</th><th>Listo</th></tr>
+<tr><td>8</td><td>Dejás lista tu página de Facebook, la cuenta de anuncios sin tarjeta y el píxel</td><td>Pedido del escalón 6</td><td>1,5 a 2 horas</td><td><input type="checkbox" data-d="8" aria-label="Día 8 hecho"></td></tr>
+<tr><td>9</td><td>Generás las imágenes de tus 5 primeros anuncios y las mirás en grande</td><td>Pedido del escalón 7</td><td>1,5 a 2 horas</td><td><input type="checkbox" data-d="9" aria-label="Día 9 hecho"></td></tr>
+<tr><td>10</td><td>Cargás la tarjeta, revisás la campaña y la prendés. Arranca sola a las 00:00</td><td>Pedido del escalón 8</td><td>45 minutos a 1 hora</td><td><input type="checkbox" data-d="10" aria-label="Día 10 hecho"></td></tr>
+<tr class="q"><td>11</td><td><b>Hoy no toques nada.</b> Primer día de campaña: solo mirás la tabla</td><td>«Buen día»</td><td>10 minutos</td><td><input type="checkbox" data-d="11" aria-label="Día 11 hecho"></td></tr>
+<tr class="q"><td>12</td><td><b>Hoy no toques nada</b> más que la regla de apagar</td><td>Pedido del escalón 9</td><td>10 minutos</td><td><input type="checkbox" data-d="12" aria-label="Día 12 hecho"></td></tr>
+<tr class="q"><td>13</td><td>Tercer día. Apagás lo que la regla marque, y nada más</td><td>Pedido del escalón 9. Después: «Apagá el anuncio [NÚMERO]»</td><td>15 minutos</td><td><input type="checkbox" data-d="13" aria-label="Día 13 hecho"></td></tr>
+<tr><td>14</td><td>Preparás tu segunda tanda. Sale a las 00:00</td><td>Pedido del escalón 10</td><td>45 minutos a 1 hora</td><td><input type="checkbox" data-d="14" aria-label="Día 14 hecho"></td></tr></table>
+<p class="nota"><b>Entre el día 5 y el 10.</b> Si tenés más horas y el cobro se aprueba rápido, podés juntar dos días en uno y prender la campaña antes. Lo normal es entre el día 5 y el 10. Antes de prender, tené apartada la plata de cuatro días de prueba: el monto está en la guía.</p>
+<p class="nota"><b>Los primeros 3 días de campaña solo se aplica la regla de apagar:</b> si un anuncio gastó la mitad del precio de tu producto y no vendió, se apaga. No se toca el presupuesto, ni el texto, ni el público. Cada cambio hace que el anuncio vuelva a empezar de cero.</p></section>
+
+<section><h2>Semana 3 · Renovar y esperar</h2>
+<p class="sub">Días 15 al 21. Cada 48 horas sale una tanda nueva. Entre una y otra, no se toca.</p>
+<table class="plan"><tr class="h"><th>Día</th><th>Qué hacés vos</th><th>Qué le pedís a Claude</th><th>Tiempo</th><th>Listo</th></tr>
+<tr class="q"><td>15</td><td><b>Hoy no toques nada.</b> Mirás la tabla y aplicás la regla de apagar</td><td>«Buen día»</td><td>10 minutos</td><td><input type="checkbox" data-d="15" aria-label="Día 15 hecho"></td></tr>
+<tr><td>16</td><td>Preparás tu tercera tanda. Sale a las 00:00</td><td>Pedido del escalón 10</td><td>45 minutos a 1 hora</td><td><input type="checkbox" data-d="16" aria-label="Día 16 hecho"></td></tr>
+<tr class="q"><td>17</td><td><b>Hoy no toques nada.</b> Mirás la tabla y aplicás la regla de apagar</td><td>«Buen día»</td><td>10 minutos</td><td><input type="checkbox" data-d="17" aria-label="Día 17 hecho"></td></tr>
+<tr class="q"><td>18</td><td><b>Hoy no toques nada.</b> La tercera tanda necesita sus días</td><td>«Buen día»</td><td>10 minutos</td><td><input type="checkbox" data-d="18" aria-label="Día 18 hecho"></td></tr>
+<tr class="q"><td>19</td><td>Ordenás tus notas. La campaña no se toca</td><td>«Ordená el cerebro»</td><td>15 minutos</td><td><input type="checkbox" data-d="19" aria-label="Día 19 hecho"></td></tr>
+<tr><td>20</td><td>Día de decisión: mirás si tenés un ganador</td><td>«¿Tengo un ganador? Mostrame por anuncio las ventas cobradas y cuánto volvió de lo gastado»</td><td>20 minutos</td><td><input type="checkbox" data-d="20" aria-label="Día 20 hecho"></td></tr>
+<tr><td>21</td><td>Con ganador: armás tu oferta extra y la ves aparecer en una compra de prueba</td><td>Pedido del escalón 11</td><td>1 a 1,5 horas</td><td><input type="checkbox" data-d="21" aria-label="Día 21 hecho"></td></tr></table>
+<h2 style="font-size:1.5rem">Día 20: los tres caminos</h2>
+<table><tr><th>Lo que ves</th><th>Qué hacés</th></tr>
+<tr><td>Un anuncio con 4 ventas cobradas o más, y cobró más del doble de lo que gastó</td><td>Tenés un ganador. Seguís con el día 21</td></tr>
+<tr><td>Hay ventas, pero ninguno llega a eso</td><td>Seguís con una tanda nueva cada 48 horas. El día 21 espera hasta que haya ganador</td></tr>
+<tr><td>Salieron tres tandas y no hay ninguno</td><td>Volvés al día 3 con otro producto. Destildá del 3 en adelante</td></tr></table>
+<p class="nota">Volver al día 3 no es volver a cero. Claude, tu tienda, tu página de Facebook y tu píxel ya están armados: la segunda vuelta es más corta. No te puedo prometer en qué vuelta aparece el ganador; hay productos que no venden nunca, y por eso se corta rápido.</p></section>
+
+<section><h2>Semana 4 · Crecer con tu ganador</h2>
+<p class="sub">Días 22 al 30. Solo si ya tenés un ganador. Las ofertas extra y la escala no van antes.</p>
+<table class="plan"><tr class="h"><th>Día</th><th>Qué hacés vos</th><th>Qué le pedís a Claude</th><th>Tiempo</th><th>Listo</th></tr>
+<tr><td>22</td><td>Renovás tu ganador: versiones nuevas con un solo cambio</td><td>Pedido del escalón 10</td><td>45 minutos</td><td><input type="checkbox" data-d="22" aria-label="Día 22 hecho"></td></tr>
+<tr><td>23</td><td>Mirás a qué hora compra tu país. Subís solo si hoy hubo venta</td><td>Pedido del escalón 12</td><td>15 minutos</td><td><input type="checkbox" data-d="23" aria-label="Día 23 hecho"></td></tr>
+<tr><td>24</td><td>Tanda nueva de renovación</td><td>Pedido del escalón 10</td><td>45 minutos</td><td><input type="checkbox" data-d="24" aria-label="Día 24 hecho"></td></tr>
+<tr><td>25</td><td>Revisás los pagos que fallaron y dejás el mail en borrador</td><td>«Listá los pagos rechazados de esta semana y redactá un mail corto para recuperarlos. No envíes nada sin mi OK»</td><td>20 minutos</td><td><input type="checkbox" data-d="25" aria-label="Día 25 hecho"></td></tr>
+<tr><td>26</td><td>Tanda nueva de renovación</td><td>Pedido del escalón 10</td><td>45 minutos</td><td><input type="checkbox" data-d="26" aria-label="Día 26 hecho"></td></tr>
+<tr class="q"><td>27</td><td><b>Hoy no toques nada.</b> Ordenás tus notas y mirás el plan de escala</td><td>«Ordená el cerebro»</td><td>15 minutos</td><td><input type="checkbox" data-d="27" aria-label="Día 27 hecho"></td></tr>
+<tr><td>28</td><td>Tanda nueva de renovación</td><td>Pedido del escalón 10</td><td>45 minutos</td><td><input type="checkbox" data-d="28" aria-label="Día 28 hecho"></td></tr>
+<tr><td>29</td><td>Medís tu oferta extra: ya lleva 7 días activa</td><td>«¿Cuánto se cobró por venta antes y después de la oferta extra? Mostrámelo en una tabla»</td><td>15 minutos</td><td><input type="checkbox" data-d="29" aria-label="Día 29 hecho"></td></tr>
+<tr><td>30</td><td>Hacés el repaso del mes y elegís qué sigue</td><td>«Haceme el repaso del mes en una tabla: qué funcionó, qué no y qué sigue. Guardalo en el cerebro»</td><td>20 minutos</td><td><input type="checkbox" data-d="30" aria-label="Día 30 hecho"></td></tr></table>
+<p class="nota">Desde el día 23, el plan de escala se pide todos los días. Un día sin ventas no se sube nada, aunque ayer haya ido bien.</p></section>
+
+<section><h2>Lo de todos los días, desde el día 11</h2>
+<table><tr><th>Momento</th><th>Qué le escribís</th><th>Tiempo</th></tr>
+<tr><td>A la mañana</td><td>«Buen día»</td><td>10 minutos</td></tr>
+<tr><td>A la noche</td><td>«Guardá esto»</td><td>2 minutos</td></tr></table>
+<p class="sub">Los números se miran dos veces por día, no cada hora. Mirarlos más no vende más.</p></section>
+
+<section><h2>Si te atrasás</h2>
+<table><tr><th>Qué pasó</th><th>Qué hacés</th></tr>
+<tr><td>Perdí uno o varios días</td><td>Retomás en la primera casilla sin tildar. No juntes tres días en uno para alcanzar el calendario</td></tr>
+<tr><td>El cobro de la tienda no se aprueba</td><td>Esperás. Mientras tanto podés adelantar la página de venta del día 7</td></tr>
+<tr><td>Me piden verificar la cuenta de anuncios</td><td>Lo hacés con tus datos reales y esperás. No abras otra cuenta</td></tr>
+<tr><td>No me alcanzan las imágenes de hoy</td><td>Repartí el día 9 en dos o tres días</td></tr>
+<tr><td>Claude dice que llegué al límite</td><td>No se rompió nada. Se recarga solo en unas horas: seguís después</td></tr>
+<tr><td>Ya prendí la campaña y falté un día</td><td>La campaña sigue corriendo sola. Al volver, pedí la tabla y aplicá la regla de apagar antes que cualquier otra cosa</td></tr></table>
+<p class="nota">Este plan ordena los pasos de la guía. No garantiza ventas ni fechas: muestra el camino y cuándo conviene quedarse quieta.</p></section>
+</div>
+<script>(function(){var K='plan-30-dias',c=[].slice.call(document.querySelectorAll('input[data-d]')),b=document.getElementById('barra'),t=document.getElementById('cuenta'),s={};
+try{s=JSON.parse(localStorage.getItem(K)||'{}')||{}}catch(e){s={}}
+function pinta(){var n=0;c.forEach(function(x){if(x.checked)n++;x.closest('tr').classList.toggle('ok',x.checked)});b.style.transform='scaleX('+(n/c.length)+')';t.textContent=n+' de '+c.length+' días hechos'}
+c.forEach(function(x){x.checked=!!s[x.getAttribute('data-d')];x.addEventListener('change',function(){s[x.getAttribute('data-d')]=x.checked;try{localStorage.setItem(K,JSON.stringify(s))}catch(e){}pinta()})});
+pinta();document.getElementById('imp').addEventListener('click',function(){window.print()})})();</script>
+</body></html>
