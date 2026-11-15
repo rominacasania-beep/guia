@@ -14,27 +14,50 @@ section{display:flex;flex-direction:column;gap:12px}.n{display:inline-grid;place
 .pide .t{display:block;font-weight:600;margin-bottom:6px}.pide .txt{display:block}
 .copiar{margin-top:12px;font:inherit;font-weight:600;font-size:.92rem;background:var(--rosa);color:#fff;border:0;border-radius:999px;padding:10px 20px;cursor:pointer}
 .idx{display:flex;flex-wrap:wrap;gap:8px}.idx a{color:var(--rosa);text-decoration:none;font-weight:500;font-size:.9rem;border:1px solid var(--line);background:var(--card);border-radius:999px;padding:6px 12px}
+.dgs{display:grid;grid-template-columns:1fr 1fr;gap:12px}.dg{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 12px;display:flex;flex-direction:column;align-items:center;gap:6px;min-width:0}.dg.full{grid-column:1/-1}
+.dg .tt{font-weight:600;font-size:.95rem;text-align:center}.dg .le{font-size:.78rem;color:var(--mut);text-align:center}
+.dg .c{background:var(--rosa);color:#fff;border-radius:10px;padding:7px 14px;font-weight:600;font-size:.8rem;text-align:center}
+.dg .fl{width:2px;height:14px;background:var(--oro)}
+.dg .cj{display:grid;gap:6px;width:100%;grid-template-columns:repeat(var(--k),minmax(0,1fr))}
+.dg .j{border:1.5px dashed var(--oro);border-radius:10px;padding:6px 4px;display:flex;flex-wrap:wrap;gap:4px;justify-content:center;align-items:center}
+.dg .j i{font-style:normal;font-size:.62rem;color:var(--mut);width:100%;text-align:center;letter-spacing:.04em;text-transform:uppercase}
+.dg .a{background:var(--rosa2);border-radius:6px;padding:4px 7px;font-size:.7rem;font-weight:500;animation:lat 3.2s ease-in-out infinite;animation-delay:calc(var(--i,0)*.3s)}
+@keyframes lat{0%,100%{opacity:.5;transform:scale(.94)}50%{opacity:1;transform:scale(1)}}
+@media(prefers-reduced-motion:reduce){.dg .a{animation:none}}
+@media(max-width:480px){.dgs{grid-template-columns:1fr}}
 @media(max-width:480px){table{font-size:.86rem}td,th{padding:9px 8px}th{font-size:.66rem;letter-spacing:.03em}h2{font-size:1.7rem}}
-@media print{body{background:#fff;font-size:12pt}.w{max-width:none;padding:0}.copiar,.idx{display:none}table,.pide,.nota,.ojo{break-inside:avoid}h2,h3{break-after:avoid}}</style></head><body><div class="w">
+@media(max-width:480px){table.ap,table.ap tbody,table.ap tr,table.ap td{display:block}table.ap tr:first-child{display:none}table.ap tr{border-bottom:1px solid var(--line);padding:8px 0}table.ap tr:last-child{border-bottom:0}table.ap td{border:0;padding:3px 12px}table.ap td:first-child{font-size:1rem;color:var(--rosa);padding-top:6px}table.ap td:not(:first-child)::before{content:attr(data-l) ": ";font-weight:600;font-size:.72rem;letter-spacing:.05em;text-transform:uppercase;color:var(--mut)}}
+@media print{.dg .a{animation:none}.dg{break-inside:avoid}body{background:#fff;font-size:12pt}.w{max-width:none;padding:0}.copiar,.idx{display:none}table,.pide,.nota,.ojo{break-inside:avoid}h2,h3{break-after:avoid}}</style></head><body><div class="w">
 
 <header><p class="eye">RomiManifiesta · Extra de la guía «De 0 a 100 por día»</p><h1>Cómo escalo mi producto</h1>
 <p class="sub" style="margin-top:12px">La guía te llevó hasta tener un anuncio ganador. Esto es lo que hago yo después: qué campañas armo, cómo cargo cada casilla, cómo subo la plata y por qué uso más de una cuenta.</p></header>
 
 <p class="ojo"><b>Antes de empezar.</b> Escalar es poner más plata en lo que ya vendió. Nada más. Y esa plata se puede perder: un anuncio que vendía con poco puede dejar de vender con mucho. Así lo hago yo hoy; no es la única forma ni te garantiza un resultado.</p>
 
-<nav class="idx"><a href="#mapa">El mapa</a><a href="#c111">La 1·1·1</a><a href="#c113">La 1·1·3</a><a href="#c1110">La 1·1·10</a><a href="#limite">Costo límite</a><a href="#subir">Subir la plata</a><a href="#cuentas">Varias cuentas</a><a href="#no">Cuándo no</a><a href="#pedidos">Pedidos</a><a href="#glosario">Glosario</a></nav>
+<nav class="idx"><a href="#mapa">El mapa</a><a href="#estructuras">Mis estructuras</a><a href="#c111">La 1·1·1</a><a href="#c113">La Pocket</a><a href="#gran">La gran Pocket</a><a href="#c1110">La 1·1·10</a><a href="#limite">Costo límite</a><a href="#metricas">Qué miro</a><a href="#subir">Subir la plata</a><a href="#cuentas">Varias cuentas</a><a href="#no">Cuándo no</a><a href="#pedidos">Pedidos</a><a href="#glosario">Glosario</a></nav>
 
 <section id="mapa"><h2>El mapa: de la prueba a la escala</h2>
 <p class="sub">Los tres números son siempre campañas · conjuntos · anuncios por conjunto. La campaña de prueba ya la tenés armada desde la guía. Acá sigue lo demás.</p>
 <table><tr><th>Campaña</th><th>Para qué</th><th>Cuándo paso a la siguiente</th></tr>
 <tr><td>Prueba 1·5·1</td><td>Encontrar un anuncio que venda. Ya está en la guía</td><td>Cuando un anuncio es ganador: 4 ventas cobradas o más, y lo cobrado supera el doble del gasto</td></tr>
 <tr><td>1·1·1 del ganador</td><td>Darle al ganador su propia plata, de a poco</td><td>Cuando ese país junta 3 ganadores y sigue vendiendo hoy</td></tr>
-<tr><td>1·1·3 de escala</td><td>Que Meta reparta la plata entre los 3 ganadores del país</td><td>No se «pasa»: se queda corriendo. Cuando el país anda solo, abro otro país</td></tr>
+<tr><td>Pocket (1·1·3 o 1·1·5)</td><td>Que Meta reparta la plata entre los ganadores del país</td><td>Cuando la Pocket vende varios días seguidos y tengo más ganadores para sumar</td></tr>
+<tr><td>Gran Pocket (1·8·1)</td><td>Darle a cada ganador su conjunto, con un presupuesto más grande</td><td>No se «pasa»: se queda corriendo. Cuando el país anda solo, abro otro país</td></tr>
 <tr><td>1·1·10 de salida</td><td>Arrancar un país nuevo con lo que ya vendió en los otros</td><td>Cuando el país nuevo muestra sus propios ganadores, vuelve a empezar la fila de arriba</td></tr></table>
 <p class="nota"><b>La prueba nunca se apaga.</b> Es mi campaña madre. Cuando saco un ganador a una campaña de escala, el anuncio original sigue prendido donde estaba. La escala se suma; no reemplaza.</p></section>
 
+<section id="estructuras"><h2>Mis estructuras de escala</h2>
+<p class="sub">Todas son de presupuesto por campaña: la plata va arriba y Meta la reparte. Los números se leen campañas · conjuntos · anuncios por conjunto.</p>
+<table class="ap"><tr><th>Cómo le digo</th><th>Cómo se lee</th><th>Para qué</th><th>Cuándo la armo</th><th>Con qué arranco</th></tr>
+<tr><td data-l="Cómo le digo">1·1·1</td><td data-l="Cómo se lee">1 campaña, 1 conjunto, 1 anuncio</td><td data-l="Para qué">Sacar al ganador solo</td><td data-l="Cuándo la armo">Con mi primer ganador</td><td data-l="Con qué arranco">Poco. Sube con ventas</td></tr>
+<tr><td data-l="Cómo le digo">Pocket</td><td data-l="Cómo se lee">1·1·5: 1 campaña, 1 conjunto, 5 anuncios. También la armo de 3</td><td data-l="Para qué">Juntar a los ganadores y que Meta elija</td><td data-l="Cuándo la armo">Con 3 a 5 ganadores en el país</td><td data-l="Con qué arranco">Más que la 1·1·1: come más de un anuncio</td></tr>
+<tr><td data-l="Cómo le digo">Gran Pocket</td><td data-l="Cómo se lee">1·8·1: 1 campaña, 8 conjuntos, 1 anuncio en cada uno</td><td data-l="Para qué">Escalar en serio un país que ya vende todos los días</td><td data-l="Cuándo la armo">Con muchos ganadores y varios días de venta</td><td data-l="Con qué arranco">Un ejemplo: 100 dólares por día. Es un ejemplo, no una regla</td></tr>
+<tr><td data-l="Cómo le digo">Costo límite</td><td data-l="Cómo se lee">Cualquiera de las anteriores con un tope de pago por compra</td><td data-l="Para qué">Cuidar cuánto pago por cada venta</td><td data-l="Cuándo la armo">Cuando ya sé cuánto me cuesta una venta</td><td data-l="Con qué arranco">Límite bajo, y lo subo de a poco hasta que entrega</td></tr></table>
+<div class="dgs"><div class="dg"><span class="tt">1·1·1</span><span class="c">Campaña · la plata va acá</span><span class="fl"></span><div class="cj" style="--k:1"><div class="j"><i>Conjunto</i><span class="a" style="--i:0">A1</span></div></div><span class="le">El ganador solo</span></div><div class="dg"><span class="tt">Pocket 1·1·5</span><span class="c">Campaña · la plata va acá</span><span class="fl"></span><div class="cj" style="--k:1"><div class="j"><i>Conjunto</i><span class="a" style="--i:0">A1</span><span class="a" style="--i:1">A2</span><span class="a" style="--i:2">A3</span><span class="a" style="--i:3">A4</span><span class="a" style="--i:4">A5</span></div></div><span class="le">Cinco anuncios en un mismo conjunto</span></div><div class="dg full"><span class="tt">Gran Pocket 1·8·1</span><span class="c">Campaña · la plata va acá</span><span class="fl"></span><div class="cj" style="--k:4"><div class="j"><i>C1</i><span class="a" style="--i:0">A</span></div><div class="j"><i>C2</i><span class="a" style="--i:1">A</span></div><div class="j"><i>C3</i><span class="a" style="--i:2">A</span></div><div class="j"><i>C4</i><span class="a" style="--i:3">A</span></div><div class="j"><i>C5</i><span class="a" style="--i:4">A</span></div><div class="j"><i>C6</i><span class="a" style="--i:5">A</span></div><div class="j"><i>C7</i><span class="a" style="--i:6">A</span></div><div class="j"><i>C8</i><span class="a" style="--i:7">A</span></div></div><span class="le">Ocho conjuntos, un anuncio en cada uno</span></div><div class="dg full"><span class="tt">Costo límite</span><span class="c">Campaña · la plata va acá</span><span class="fl"></span><div class="cj" style="--k:1"><div class="j"><i>Conjunto · acá va el límite: «hasta tanto por compra»</i><span class="a" style="--i:0">A1</span><span class="a" style="--i:1">A2</span><span class="a" style="--i:2">A3</span></div></div><span class="le">Cualquiera de las de arriba, con una casilla más</span></div></div>
+<p class="nota"><b>«Pocket»</b> es como yo le digo a mis campañas de escala con presupuesto por campaña. La chica junta varios anuncios en un conjunto. La grande le da un conjunto a cada uno.</p></section>
+
 <section id="c111"><h2>La 1·1·1: el ganador solo</h2>
-<p><b>Qué es.</b> Una campaña, un conjunto, un anuncio. El ganador, con plata propia. En mis notas le digo «Pocket», porque es una campaña de bolsillo: chica y fácil de mirar.</p>
+<p><b>Qué es.</b> Una campaña, un conjunto, un anuncio. El ganador, con plata propia.</p>
 <p><b>Cuándo la uso.</b> Es el primer paso después de la prueba. Tengo un ganador, el país vendió hoy y viene vendiendo los 4 días anteriores.</p>
 <table><tr><th>Casilla</th><th>Qué pongo</th><th>Por qué</th></tr>
 <tr><td>Cuenta publicitaria</td><td>La de escala, no la de prueba</td><td>Para no mezclar. Más abajo te cuento cómo las reparto</td></tr>
@@ -51,24 +74,39 @@ section{display:flex;flex-direction:column;gap:12px}.n{display:inline-grid;place
 <p><b>Con qué presupuesto arranco.</b> Con poco. Una plata que, si ese día se pierde entera, no me cambia el mes. Sube después, y solo con ventas cobradas.</p>
 <p class="ojo"><b>El error típico.</b> Elegir al ganador por lo que dice el panel de anuncios. A mí me pasó: en el panel se veía muy bien y en la tienda lo cobrado era mucho menos. El ganador se elige con lo cobrado.</p></section>
 
-<section id="c113"><h2>La 1·1·3: los tres ganadores del país</h2>
-<p><b>Qué es.</b> Una campaña, un conjunto y tres anuncios: los tres que más vendieron en ese país. La plata va en la campaña y Meta decide a cuál de los tres mandarla.</p>
-<p><b>Cuándo la uso.</b> Cuando el país ya tiene 3 ganadores. Y hoy tiene que haber vendido. Si hoy no vendió, no la armo, aunque la semana se vea linda.</p>
+<section id="c113"><h2>La Pocket: los ganadores juntos</h2>
+<p><b>Qué es.</b> Una campaña, un conjunto y varios anuncios adentro: los que más vendieron en ese país. La armo de 3 (1·1·3) o de 5 (1·1·5). La plata va en la campaña y Meta decide a cuál mandarla.</p>
+<p><b>Cuándo la uso.</b> Cuando el país ya tiene 3 ganadores o más. Y hoy tiene que haber vendido. Si hoy no vendió, no la armo, aunque la semana se vea linda.</p>
 <table><tr><th>Casilla</th><th>Qué pongo</th><th>Por qué</th></tr>
 <tr><td>Cuenta publicitaria</td><td>La de escala</td><td>La prueba del país sigue corriendo en su cuenta de siempre</td></tr>
 <tr><td>Objetivo y evento</td><td>Ventas · Compra con el píxel del país</td><td>Igual que siempre</td></tr>
-<tr><td>Presupuesto</td><td>En la campaña</td><td>Meta reparte entre los tres</td></tr>
+<tr><td>Presupuesto</td><td>En la campaña</td><td>Meta reparte entre los anuncios</td></tr>
 <tr><td>Conjuntos</td><td>Uno, con público abierto: país e idioma</td><td>No lo achico. Los ganadores ganaron así</td></tr>
-<tr><td>Anuncios</td><td>Los 3 ganadores, tal cual: misma imagen o video, mismo texto, mismo botón. Si puedo, la misma publicación</td><td>No «mejoro» nada. Un cambio lo vuelve un anuncio nuevo</td></tr>
+<tr><td>Anuncios</td><td>Los 3 o los 5 ganadores, tal cual: misma imagen o video, mismo texto, mismo botón. Si puedo, la misma publicación</td><td>No «mejoro» nada. Un cambio lo vuelve un anuncio nuevo</td></tr>
 <tr><td>Forma de pago</td><td>Normal, o con costo límite (está explicado más abajo)</td><td>El costo límite es opcional. Primero aprendé la normal</td></tr>
 <tr><td>Inicio</td><td>Mañana a las 00:00</td><td>Igual que todas</td></tr>
-<tr><td>Nombres</td><td>PAÍS · 1-1-3 · fecha</td><td>La estructura en el nombre me ahorra abrirla</td></tr>
+<tr><td>Nombres</td><td>PAÍS · 1-1-3 (o 1-1-5) · fecha</td><td>La estructura en el nombre me ahorra abrirla</td></tr>
 <tr><td>Estado</td><td>En pausa hasta revisarla</td><td>El clic de prender es mío</td></tr></table>
-<p><b>Con qué presupuesto arranco.</b> Más que la 1·1·1, porque tiene que alimentar tres anuncios. Pero la regla es la misma: una plata que pueda perder entera, y el tope escrito antes de prender.</p>
+<p><b>Con qué presupuesto arranco.</b> Más que la 1·1·1, porque tiene que alimentar varios anuncios. Pero la regla es la misma: una plata que pueda perder entera, y el tope escrito antes de prender.</p>
 <p class="ojo"><b>El error típico.</b> Armarla mirando los últimos 7 días del panel. Yo armé una para un país que ese día no había vendido nada. Ahora miro la tienda: hoy y los 4 días anteriores. Sin venta hoy, no hay campaña.</p></section>
 
+<section id="gran"><h2>La gran Pocket: un conjunto por ganador</h2>
+<p><b>Qué es.</b> Una campaña con 8 conjuntos y un anuncio en cada uno (1·8·1). La plata sigue arriba, en la campaña. Pero cada ganador tiene su casita: Meta reparte entre conjuntos y ninguno le tapa el lugar a otro.</p>
+<p><b>Cuándo la uso.</b> Cuando el país ya vende todos los días y tengo muchos ganadores. No es la primera campaña de escala: llego acá después de la 1·1·1 y de la Pocket.</p>
+<table><tr><th>Casilla</th><th>Qué pongo</th><th>Por qué</th></tr>
+<tr><td>Cuenta publicitaria</td><td>La de escala</td><td>Igual que todas las de escala</td></tr>
+<tr><td>Presupuesto</td><td>En la campaña, uno solo para los 8 conjuntos</td><td>No le pongo plata a cada conjunto: eso sería la campaña de prueba</td></tr>
+<tr><td>Conjuntos</td><td>Ocho. Todos con el mismo público abierto: país e idioma</td><td>Lo único que cambia entre uno y otro es el anuncio</td></tr>
+<tr><td>Anuncios</td><td>Uno por conjunto: un ganador en cada uno, con su misma publicación</td><td>Veo clarito cuál se lleva la plata y cuál vende</td></tr>
+<tr><td>Si no llego a 8 ganadores</td><td>La armo con los que tengo. No relleno con anuncios que no ganaron</td><td>Un anuncio flojo adentro le saca plata a los buenos</td></tr>
+<tr><td>Evento, seguimiento e inicio</td><td>Compra con el píxel del país · mis etiquetas · mañana a las 00:00</td><td>Igual que todas</td></tr>
+<tr><td>Nombres</td><td>PAÍS · 1-8-1 · fecha. Cada conjunto: A1, A2… con la fecha</td><td>El nombre del conjunto llega a la tienda con cada venta</td></tr>
+<tr><td>Estado</td><td>En pausa hasta revisarla</td><td>Prendo yo</td></tr></table>
+<p><b>Con qué presupuesto arranco.</b> Es la más grande de mi lista. Para que te des una idea de la escala: una gran Pocket puede salir con 100 dólares por día. Es un ejemplo de la estructura, no una regla ni lo que tenés que poner vos. Tu número sale de tu punto de empate y de lo que podés perder ese día.</p>
+<p class="ojo"><b>El error típico.</b> Armarla demasiado pronto, con uno o dos ganadores y el resto de relleno. Sin ganadores de verdad, es una campaña de prueba cara.</p></section>
+
 <section id="c1110"><h2>La 1·1·10: la salida de un país nuevo</h2>
-<p><b>Qué es.</b> Una campaña, un conjunto y diez anuncios: los diez que más vendieron sumando todos mis países, traducidos al idioma del país nuevo.</p>
+<p><b>Qué es.</b> Tiene forma de Pocket, pero para salir. Una campaña, un conjunto y diez anuncios: los diez que más vendieron sumando todos mis países, traducidos al idioma del país nuevo.</p>
 <p><b>Cuándo la uso.</b> Solo para abrir un país. Y solo si ya tengo ganadores en otro. Si todavía estás en tu primer país, esta no es para hoy: guardala.</p>
 <p class="nota">Es la más nueva de mi lista y todavía la estoy probando. La pongo a correr al lado de la campaña de prueba de ese país y comparo las dos con lo cobrado. No te puedo decir que sea mejor que arrancar con la prueba de siempre.</p>
 <table><tr><th>Casilla</th><th>Qué pongo</th><th>Por qué</th></tr>
@@ -85,16 +123,43 @@ section{display:flex;flex-direction:column;gap:12px}.n{display:inline-grid;place
 
 <section id="limite"><h2>Costo límite: decirle a Meta cuánto pago</h2>
 <p><b>Qué es.</b> No es otra campaña. Es una casilla. Normalmente Meta gasta todo el presupuesto y trae las ventas al precio que salgan. Con costo límite le digo: «por venta, en promedio, quiero pagar hasta tanto». Si no encuentra ventas a ese precio, no gasta.</p>
-<p><b>Cuándo la uso.</b> En la 1·1·3, cuando ya sé cuánto me cuesta una venta en ese país. La estoy empezando a usar: voy despacio y con una sola campaña.</p>
+<p><b>Cuándo la uso.</b> En una campaña de escala, cuando ya sé cuánto me cuesta una venta en ese país. El control va por resultado: le digo cuánto quiero pagar como mucho por cada compra. Arranco con el límite bajo y lo voy subiendo de a poco, hasta que la campaña empieza a entregar.</p>
 <table><tr><th>Casilla</th><th>Qué pongo</th><th>Por qué</th></tr>
 <tr><td>Dónde está</td><td>En el conjunto, al lado del objetivo de rendimiento: «Objetivo de costo por resultado»</td><td>Si la dejo vacía, la campaña es normal</td></tr>
 <tr><td>El número</td><td>Cerca de lo que hoy me cuesta una venta en la prueba. Siempre por debajo de mi punto de empate</td><td>Arriba del empate, cada venta me cuesta plata</td></tr>
 <tr><td>Presupuesto</td><td>En la campaña</td><td>El límite cuida el precio; el presupuesto es solo el techo</td></tr></table>
 <table><tr><th>Lo que veo</th><th>Qué hago</th></tr>
-<tr><td>No gasta casi nada</td><td>El límite está muy bajo. Lo subo un poquito y espero</td></tr>
+<tr><td>No gasta casi nada</td><td>El límite está muy bajo. Lo subo un poquito, espero y vuelvo a mirar. Así hasta que empieza a entregar</td></tr>
 <tr><td>Gasta, pero las ventas salen caras</td><td>Vuelvo al último número que funcionó</td></tr>
 <tr><td>Gasta y vende bien</td><td>Recién ahí pienso en el presupuesto</td></tr></table>
 <p class="ojo"><b>El error típico.</b> Mover el límite y el presupuesto a la vez. Después no sabés cuál de los dos hizo el cambio. Una cosa por vez.</p></section>
+
+<section id="metricas"><h2>Qué miro cuando escalo</h2>
+<p class="sub">En la guía están los números para decidir si un anuncio es ganador. Estos son los que miro cuando ya le estoy poniendo más plata. Van en orden: los de arriba deciden, los de abajo solo explican.</p>
+<h3>Los que deciden</h3>
+<table class="ap"><tr><th>Número</th><th>Dónde lo veo</th><th>Qué me dice</th><th>Qué hago</th></tr>
+<tr><td data-l="Número">Ventas cobradas de hoy</td><td data-l="Dónde lo veo">En la tienda</td><td data-l="Qué me dice">Si hoy ese país está comprando</td><td data-l="Qué hago">Sin venta hoy, no subo</td></tr>
+<tr><td data-l="Número">Ventas de los 4 días anteriores</td><td data-l="Dónde lo veo">En la tienda</td><td data-l="Qué me dice">Si lo de hoy es costumbre o casualidad</td><td data-l="Qué hago">Días flojos atrás: espero</td></tr>
+<tr><td data-l="Número">Retorno</td><td data-l="Dónde lo veo">Lo calcula Claude: cobrado dividido por gastado</td><td data-l="Qué me dice">Cuánto vuelve por cada dólar puesto</td><td data-l="Qué hago">Arriba del doble, puedo subir. Abajo, no</td></tr>
+<tr><td data-l="Número">Retorno desde la última subida</td><td data-l="Dónde lo veo">Lo calcula Claude, desde la hora del cambio</td><td data-l="Qué me dice">Si la plata que agregué rindió, o solo rindió la de antes</td><td data-l="Qué hago">Si la plata nueva no trajo ventas, vuelvo atrás</td></tr>
+<tr><td data-l="Número">Costo por venta</td><td data-l="Dónde lo veo">Lo calcula Claude: gasto dividido por ventas</td><td data-l="Qué me dice">Cuánto me cuesta cada compra</td><td data-l="Qué hago">Si se acerca a mi punto de empate, freno</td></tr>
+<tr><td data-l="Número">Cobrado por venta</td><td data-l="Dónde lo veo">En la tienda, con los extras sumados</td><td data-l="Qué me dice">Cuánto me deja cada clienta</td><td data-l="Qué hago">Si sube, puedo pagar un poco más por venta</td></tr></table>
+<h3>Los de la campaña</h3>
+<table class="ap"><tr><th>Número</th><th>Dónde lo veo</th><th>Qué me dice</th><th>Qué hago</th></tr>
+<tr><td data-l="Número">Gasto contra presupuesto</td><td data-l="Dónde lo veo">En Meta, columna de importe gastado</td><td data-l="Qué me dice">Si la campaña está entregando</td><td data-l="Qué hago">Si no gasta: reviso que no esté en pausa. Con costo límite, subo el límite un poquito</td></tr>
+<tr><td data-l="Número">Estado</td><td data-l="Dónde lo veo">En Meta, columna «Entrega»</td><td data-l="Qué me dice">Activa, en pausa, en revisión o procesando</td><td data-l="Qué hago">Después de cada edición la vuelvo a leer</td></tr>
+<tr><td data-l="Número">Cómo se reparte el gasto</td><td data-l="Dónde lo veo">En Meta, abriendo la campaña por conjunto o por anuncio</td><td data-l="Qué me dice">A quién le está mandando la plata Meta</td><td data-l="Qué hago">Si uno se lleva casi todo y otro vende con poco, a ese otro le armo su 1·1·1</td></tr>
+<tr><td data-l="Número">De dónde vino cada venta</td><td data-l="Dónde lo veo">En la tienda, por las etiquetas de seguimiento</td><td data-l="Qué me dice">Qué campaña, qué conjunto y qué anuncio la trajeron</td><td data-l="Qué hago">Decido con esto, no con las compras que cuenta el panel</td></tr>
+<tr><td data-l="Número">Hora de cada venta</td><td data-l="Dónde lo veo">En la tienda</td><td data-l="Qué me dice">En qué franja compra ese país</td><td data-l="Qué hago">Subo solo en esa franja</td></tr></table>
+<h3>Los que explican</h3>
+<p class="sub">Con estos no decido subir ni bajar. Los miro cuando algo se cae, para saber dónde buscar. Varios me los enseñaron a mirar así y todavía no los medí lo suficiente como para darte un número.</p>
+<table class="ap"><tr><th>Número</th><th>Dónde lo veo</th><th>Qué me dice</th><th>Qué hago</th></tr>
+<tr><td data-l="Número">Frecuencia</td><td data-l="Dónde lo veo">En Meta</td><td data-l="Qué me dice">Cuántas veces vio el anuncio la misma persona</td><td data-l="Qué hago">Si pasa de 2 o 3 en pocos días: versiones nuevas del ganador</td></tr>
+<tr><td data-l="Número">Costo por mil impresiones</td><td data-l="Dónde lo veo">En Meta. Lo vas a ver como CPM</td><td data-l="Qué me dice">Cuánto cobra Meta por mostrar el anuncio mil veces</td><td data-l="Qué hago">Si sube semana a semana, el país se está cansando: renuevo, o abro otro país antes que seguir subiendo</td></tr>
+<tr><td data-l="Número">Clics y costo por clic</td><td data-l="Dónde lo veo">En Meta</td><td data-l="Qué me dice">Si el anuncio llama la atención</td><td data-l="Qué hago">Me dice qué arreglar del anuncio. Nunca si es ganador</td></tr>
+<tr><td data-l="Número">Visitas a la página y al checkout</td><td data-l="Dónde lo veo">En la tienda</td><td data-l="Qué me dice">Dónde se me va la gente</td><td data-l="Qué hago">Mucha visita y poco checkout: la página. Mucho checkout y poca venta: el pago</td></tr>
+<tr><td data-l="Número">Pagos fallados</td><td data-l="Dónde lo veo">En la tienda</td><td data-l="Qué me dice">Ventas que quisieron entrar y no pasaron</td><td data-l="Qué hago">Si son muchos, primero el cobro. Después la escala</td></tr></table>
+<p class="ojo"><b>Manda la tienda.</b> El panel de anuncios a veces cuenta ventas que no se cobraron, y a veces no cuenta ventas que sí. Para mover plata miro lo cobrado.</p></section>
 
 <section id="subir"><h2>Cómo subo el presupuesto</h2>
 <p class="sub">No subo «porque viene bien». Subo cuando se cumplen estas cuatro cosas juntas.</p>
@@ -179,6 +244,7 @@ section{display:flex;flex-direction:column;gap:12px}.n{display:inline-grid;place
 <div class="pide"><span class="t">Pedido 5 · La misma campaña en otra cuenta</span><span class="txt">La campaña [nombre] de la cuenta [número] no está entregando o no vende. Antes de moverla, revisá y mostrame: si el píxel recibe compras, si la página y el checkout abren, si hay pagos fallados, si la cuenta tiene algún aviso o freno de Meta, y si algo quedó en pausa. Si la cuenta tiene un freno de Meta, pará ahí y avisame: no se cambia de cuenta para esquivarlo. Si está todo bien, armá la misma campaña en la cuenta [número]: misma estructura, mismos anuncios, mismo público, mismo presupuesto, inicio mañana a las 00:00 y la fecha nueva en el nombre. Comprobá que esa cuenta tenga el píxel y la página del país. Dejala en pausa y mostrame las dos lado a lado en una tabla. No prendas ni apagues nada.</span><button class="copiar" type="button">Copiar</button></div>
 
 <div class="pide"><span class="t">Pedido 6 · Una campaña que escalaba se cayó</span><span class="txt">La campaña [nombre] venía vendiendo y aflojó. Mostrame en una tabla, día por día, hoy y los 4 días anteriores: ventas cobradas en la tienda, gasto, presupuesto de cada día y cada cambio que se le hizo. Revisá también el píxel, la página, los pagos fallados y si quedó algo en pausa. Decime cuál fue el último presupuesto con el que rindió y proponeme una sola cosa: dejarla, volver a ese presupuesto, o apagarla. No cambies nada sin mi OK. La campaña de prueba no se toca.</span><button class="copiar" type="button">Copiar</button></div>
+<div class="pide"><span class="t">Pedido 7 · Una Pocket de 5 o la gran Pocket</span><span class="txt">Quiero armar una [Pocket 1·1·5 / gran Pocket 1·8·1] para [país]. Primero mostrame, con lo cobrado en la tienda, las ventas de hoy y de los 4 días anteriores, y la lista de anuncios ganadores de ese país ordenados por ventas cobradas. Si hoy no hubo venta, frená y avisame. Si no llegan los ganadores, decime con cuántos se puede armar y no rellenes con anuncios que no ganaron. Preguntame en qué cuenta va y comprobá el píxel y la página. Armala con el presupuesto en la campaña, de [monto] por día, público abierto (solo país e idioma) y mis etiquetas de seguimiento. Si es 1·1·5: un conjunto con los 5 anuncios. Si es 1·8·1: un conjunto por ganador, un anuncio en cada uno, todos con el mismo público. Usá la misma publicación de cada ganador. Inicio mañana a las 00:00, con la estructura y la fecha en el nombre. [Si quiero costo límite: arrancá en ___ por compra.] Campaña en pausa. Mostrame el resumen en una tabla y no prendas nada. La campaña de prueba no se toca.</span><button class="copiar" type="button">Copiar</button></div>
 </section>
 
 <section id="glosario"><h2>Glosario corto</h2>
@@ -186,8 +252,11 @@ section{display:flex;flex-direction:column;gap:12px}.n{display:inline-grid;place
 <tr><td>Escalar</td><td>Poner más plata en un anuncio que ya vendió</td></tr>
 <tr><td>Presupuesto por conjunto (ABO)</td><td>Vos le ponés la plata a cada conjunto. Lo uso para probar</td></tr>
 <tr><td>Presupuesto por campaña (CBO)</td><td>Le ponés la plata a la campaña y Meta la reparte. Lo uso para escalar</td></tr>
-<tr><td>1·1·1 · 1·1·3 · 1·1·10</td><td>Campañas · conjuntos · anuncios por conjunto</td></tr>
-<tr><td>Pocket</td><td>Como le digo a la 1·1·1 chiquita del ganador</td></tr>
+<tr><td>1·1·1 · 1·1·5 · 1·8·1</td><td>Campañas · conjuntos · anuncios por conjunto</td></tr>
+<tr><td>Pocket</td><td>Como le digo a mi campaña de escala con presupuesto por campaña. Por ejemplo, una 1·1·5</td></tr>
+<tr><td>Gran Pocket</td><td>La Pocket grande: 1·8·1, un conjunto por ganador</td></tr>
+<tr><td>Entregar</td><td>Que la campaña gaste y muestre los anuncios. Si no gasta, no entrega</td></tr>
+<tr><td>CPM</td><td>Costo por mil impresiones: lo que cobra Meta por mostrar el anuncio mil veces</td></tr>
 <tr><td>Campaña de salida</td><td>La primera campaña de un país nuevo</td></tr>
 <tr><td>Ganador</td><td>4 ventas cobradas o más, y lo cobrado supera el doble del gasto</td></tr>
 <tr><td>Costo límite</td><td>Lo máximo que le pedís a Meta pagar, en promedio, por cada venta</td></tr>
