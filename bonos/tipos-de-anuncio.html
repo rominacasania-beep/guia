@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Los tipos de anuncio</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Poppins:wght@300;400;500;600&display=swap">
+<style>
+:root{--bg:oklch(97.6% .007 65);--surface:oklch(99.5% .004 65);--ink:oklch(29% 0 0);--muted:oklch(46% 0 0);--line:oklch(87% .02 67);
+ --sea:oklch(55% .176 3);--sea-soft:oklch(93.8% .028 354);--sun:oklch(72.8% .112 85);--sun-ink:oklch(25% .03 85);--night:oklch(27% .03 350);--night-ink:oklch(97% .005 65);
+ --display:"Cormorant Garamond",Georgia,serif;--body:"Poppins","Segoe UI",system-ui,sans-serif}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:oklch(20% .01 350);--surface:oklch(25% .012 350);--ink:oklch(94% .005 65);--muted:oklch(76% .01 350);--line:oklch(34% .015 350);--sea:oklch(78% .12 3);--sea-soft:oklch(32% .05 354);--sun:oklch(78% .11 85);--night:oklch(14% .01 350);color-scheme:dark}}
+:root[data-theme="dark"]{--bg:oklch(20% .01 350);--surface:oklch(25% .012 350);--ink:oklch(94% .005 65);--muted:oklch(76% .01 350);--line:oklch(34% .015 350);--sea:oklch(78% .12 3);--sea-soft:oklch(32% .05 354);--sun:oklch(78% .11 85);--night:oklch(14% .01 350);color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-weight:300;font-size:16.5px;line-height:1.55}
+.wrap{max-width:860px;margin:0 auto;padding-block:28px 64px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:flex;flex-direction:column;gap:22px}
+h1,h2{font-family:var(--display);margin:0;line-height:1.05;text-wrap:balance}
+h1{font-size:clamp(2.4rem,8vw,3.6rem)} h2{font-size:1.7rem}
+p{margin:0} a{color:var(--sea)} b{font-weight:600}
+.eyebrow{font-size:.78rem;letter-spacing:.09em;text-transform:uppercase;color:var(--sea);font-weight:600}
+.sub{color:var(--muted);max-width:62ch}
+.filtros{display:flex;flex-wrap:wrap;gap:8px}
+.filtros button{font:500 .95rem var(--body);padding:8px 16px;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer}
+.filtros button[aria-pressed="true"]{background:var(--sea);border-color:var(--sea);color:var(--surface)}
+:focus-visible{outline:3px solid var(--sun);outline-offset:2px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:14px}
+.t{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:16px;display:flex;flex-direction:column;gap:8px;min-width:0;animation:entra .5s ease both}
+@keyframes entra{from{opacity:.2;transform:translateY(14px)}to{opacity:1;transform:none}}
+.t .tags{display:flex;gap:6px;flex-wrap:wrap}
+.tag{font-size:.72rem;font-weight:600;letter-spacing:.05em;text-transform:uppercase;padding:2px 9px;border-radius:999px;background:var(--sea-soft);color:var(--sea)}
+.tag.o{background:color-mix(in srgb,var(--sun) 28%,transparent);color:var(--ink)}
+.t p{font-size:.93rem;color:var(--muted)}
+.t p b{color:var(--ink)}
+.t button{margin-top:auto;align-self:flex-start;font:600 .85rem var(--body);background:var(--sun);color:var(--sun-ink);border:0;border-radius:8px;padding:7px 14px;cursor:pointer}
+.aviso{border-left:4px solid var(--sea);background:var(--surface);border-radius:0 12px 12px 0;padding:12px 16px}
+@media(prefers-reduced-motion:reduce){.t{animation:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <p><a href="../index.html#bonos">← Volver a la guía</a></p>
+  <header>
+    <p class="eyebrow">Bono · Los tipos de anuncio</p>
+    <h1>Que no se te acaben las ideas</h1>
+    <p class="sub">Cuando todos tus anuncios se parecen, dejan de funcionar. Acá tenés 14 formas distintas de mostrar el mismo producto, con cuándo usar cada una y el pedido listo para pegarle a Claude.</p>
+  </header>
+
+  <div class="filtros" role="group" aria-label="Filtrar">
+    <button type="button" data-f="todos" aria-pressed="true">Todos</button>
+    <button type="button" data-f="imagen" aria-pressed="false">Con imagen</button>
+    <button type="button" data-f="video" aria-pressed="false">Con video</button>
+    <button type="button" data-f="facil" aria-pressed="false">Para empezar</button>
+  </div>
+
+  <div class="grid" id="grid"></div>
+
+  <p class="aviso"><b>Tres reglas que valen para todos.</b> La imagen muestra tu producto real. Los testimonios, solo si son verdaderos. Y si usás una persona hecha con IA, marcalo como contenido con IA cuando lo subas.</p>
+</div>
+<script>
+const T=[
+ ["Imagen con pregunta grande","imagen facil","Una foto de tu producto y una pregunta que le duele a tu clienta.","Para probar ángulos rápido y barato. Es por donde se empieza.","una imagen cuadrada con la tapa real del producto y una pregunta grande arriba"],
+ ["La lista","imagen facil","«Todo lo que incluye», ítem por ítem.","Cuando tu producto trae muchas cosas o varios regalos.","una imagen con la lista de todo lo que incluye, con la tapa real al costado"],
+ ["Venta directa","imagen facil","La oferta arriba de todo: qué es, para quién y el botón.","Para gente que ya te vio, o en fechas con un descuento real.","una imagen de venta directa: qué es, para quién, y el llamado a la acción"],
+ ["Prueba real","imagen","Una frase verdadera de alguien que lo usó.","Solo cuando tenés testimonios reales. Si no, este no se usa.","una imagen con este testimonio real, sin nombre: [PEGAR TESTIMONIO]"],
+ ["Recorrido por dentro","video facil","Se van pasando las páginas reales del producto.","Cuando la duda es «¿y qué trae adentro?».","un guion de 15 segundos que recorre las páginas del producto, con qué texto va en cada toma"],
+ ["Imagen fija animada","video facil","Fotos con zoom lento, texto grande y música.","Es el video más barato cuando no tenés tomas.","un video de 15 segundos con 4 imágenes del producto, zoom lento y una frase por imagen"],
+ ["Tomas con voz en off","video","Manos, el producto y escenas, con una voz que cuenta.","El caballito para vender sin mostrar la cara.","un guion con voz en off de 20 segundos y la lista de tomas que necesito"],
+ ["Persona a cámara","video","Alguien le habla al teléfono y muestra el producto.","Cuando necesitás confianza. Sin tu cara, se hace con un avatar.","un guion de 20 segundos para una persona hablando a cámara, natural, sin sonar a anuncio"],
+ ["Historia","video","Un personaje con un problema, un intento que falla y un descubrimiento.","Para dolores emocionales.","una historia de 25 segundos: el problema, lo que probó y no funcionó, y lo que encontró"],
+ ["El porqué","video","Una pregunta intrigante y la explicación simple de por qué pasa.","Cuando tu producto tiene un método detrás.","un guion que arranca con una pregunta intrigante y explica el porqué en simple"],
+ ["Dato curioso","video","Un dato que sorprende; el producto aparece recién al final.","Para gente que todavía no te conoce.","un anuncio que arranca con un dato curioso del tema y menciona el producto al final"],
+ ["Pantalla dividida","video","Arriba algo llamativo, abajo la explicación.","Para frenar el dedo cuando los demás formatos ya cansaron.","un guion de pantalla dividida: qué va arriba, qué va abajo y el texto"],
+ ["Objetos animados","video","Una mini historia hecha con objetos, sin personas.","Sin cara y distinto a todo lo demás.","una idea de animación con objetos, en 5 tomas, que explique el problema"],
+ ["Charla de dos","video","Dos personas conversando sobre el tema, estilo podcast.","Da autoridad sin parecer un anuncio.","un diálogo corto de 20 segundos entre dos personas sobre el problema"]
+];
+const g=document.getElementById("grid");
+g.innerHTML=T.map((t,i)=>`<article class="t" data-k="${t[1]}" style="animation-delay:${i*40}ms"><div class="tags">${t[1].includes("imagen")?'<span class="tag">Imagen</span>':'<span class="tag">Video</span>'}${t[1].includes("facil")?'<span class="tag o">Para empezar</span>':''}</div>
+<h2>${t[0]}</h2><p><b>Qué es.</b> ${t[2]}</p><p><b>Cuándo.</b> ${t[3]}</p><button type="button" data-p="${i}">Copiar pedido</button></article>`).join("");
+g.addEventListener("click",async e=>{const b=e.target.closest("button[data-p]");if(!b)return;const t=T[+b.dataset.p],o=b.textContent;
+ const txt=`Haceme un anuncio tipo «${t[0]}» para [MI PRODUCTO]. Quiero ${t[4]}. Sin promesas de resultado y con el producto real. Dame el texto del anuncio, el titular y el pedido de imagen o la lista de tomas.`;
+ try{await navigator.clipboard.writeText(txt);b.textContent="Copiado";}catch(x){b.textContent="No se pudo copiar";}
+ setTimeout(()=>b.textContent=o,1800);});
+document.querySelectorAll(".filtros button").forEach(b=>b.addEventListener("click",()=>{
+ document.querySelectorAll(".filtros button").forEach(x=>x.setAttribute("aria-pressed",x===b));
+ const f=b.dataset.f;g.querySelectorAll(".t").forEach(c=>c.hidden=!(f==="todos"||c.dataset.k.includes(f)));}));
+</script>
+</body>
+</html>

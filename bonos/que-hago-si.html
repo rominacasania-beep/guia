@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Qué hago si</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Poppins:wght@300;400;500;600&display=swap">
+<style>
+:root{--bg:oklch(97.6% .007 65);--surface:oklch(99.5% .004 65);--ink:oklch(29% 0 0);--muted:oklch(46% 0 0);--line:oklch(87% .02 67);
+ --sea:oklch(55% .176 3);--sea-soft:oklch(93.8% .028 354);--sun:oklch(72.8% .112 85);--sun-ink:oklch(25% .03 85);
+ --display:"Cormorant Garamond",Georgia,serif;--body:"Poppins","Segoe UI",system-ui,sans-serif}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:oklch(20% .01 350);--surface:oklch(25% .012 350);--ink:oklch(94% .005 65);--muted:oklch(76% .01 350);--line:oklch(34% .015 350);--sea:oklch(78% .12 3);--sea-soft:oklch(32% .05 354);--sun:oklch(78% .11 85);color-scheme:dark}}
+:root[data-theme="dark"]{--bg:oklch(20% .01 350);--surface:oklch(25% .012 350);--ink:oklch(94% .005 65);--muted:oklch(76% .01 350);--line:oklch(34% .015 350);--sea:oklch(78% .12 3);--sea-soft:oklch(32% .05 354);--sun:oklch(78% .11 85);color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-weight:300;font-size:16.5px;line-height:1.55}
+.wrap{max-width:780px;margin:0 auto;padding-block:28px 64px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:flex;flex-direction:column;gap:20px}
+h1,h2{font-family:var(--display);margin:0;line-height:1.05;text-wrap:balance}
+h1{font-size:clamp(2.4rem,8vw,3.6rem)} h2{font-size:1.6rem;margin-top:10px}
+p{margin:0} a{color:var(--sea)} b{font-weight:600}
+.eyebrow{font-size:.78rem;letter-spacing:.09em;text-transform:uppercase;color:var(--sea);font-weight:600}
+.sub{color:var(--muted);max-width:60ch}
+input{font:inherit;font-weight:400;padding:12px 16px;border:1px solid var(--line);border-radius:12px;background:var(--surface);color:var(--ink);width:100%}
+:focus-visible{outline:3px solid var(--sun);outline-offset:2px}
+details{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 16px}
+summary{font-weight:500;cursor:pointer}
+details p{margin-top:8px;color:var(--muted)}
+details .pide{margin-top:8px;background:var(--sea-soft);border-radius:8px;padding:8px 12px;color:var(--ink);font-size:.93rem}
+.grupo{display:flex;flex-direction:column;gap:8px}
+#nada{color:var(--muted)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <p><a href="../index.html#bonos">← Volver a la guía</a></p>
+  <header>
+    <p class="eyebrow">Bono · Qué hago si…</p>
+    <h1>Cuando algo se traba</h1>
+    <p class="sub">Los problemas que más aparecen en el camino, cada uno con su salida y con lo que le decís a Claude. Buscá por una palabra.</p>
+  </header>
+  <label for="busca" class="eyebrow">Buscar</label>
+  <input id="busca" type="search" placeholder="Por ejemplo: pago, imagen, campaña…" autocomplete="off">
+  <p id="nada" hidden>No encontré nada con esa palabra. Probá con otra, o copiá tu problema y pegáselo a Claude.</p>
+  <div id="lista"></div>
+</div>
+<script>
+const Q={
+"Instalación y Claude":[
+ ["Se trabó la instalación","Copiá el mensaje de error completo y pegáselo a Claude. Casi siempre lo resuelve solo.","Me salió este error. ¿Qué pasó y cómo lo arreglo? Explicámelo simple."],
+ ["Me quedé sin uso del plan","Un tema por chat y pedidos claros en un solo mensaje. Cuando un chat se hace largo, cerralo y seguí en uno nuevo.","Pasá la posta."],
+ ["Claude dice «listo» y no funciona","Si no puede mostrarte la prueba, no está listo.","Mostrame la prueba de que funciona."],
+ ["Claude no se acuerda de lo que hicimos","Lo que no se guardó en el cerebro se pierde al cerrar el chat. Guardá al terminar cada sesión.","Guardá esto en el cerebro."],
+ ["No entiendo una palabra que usa","Para eso está. Pedile que lo explique como si no supieras nada.","Explicame eso de nuevo, sin palabras técnicas."]],
+"Producto y tienda":[
+ ["No sé qué producto elegir","Volvé al escalón 1 y pedí 5 ofertas más en otro nicho. Elegí por lo que ya se vende, no por lo que te gusta.","Buscame 5 ofertas más, en otro nicho."],
+ ["Hice una compra de prueba y no me llegó el producto","No sigas hasta arreglarlo. Suele ser el enlace de entrega cerrado o el producto sin entregable.","Revisá por qué no llegó la entrega de mi compra de prueba."],
+ ["El checkout se ve en otro idioma","Hay partes que no se traducen solas: botones, rótulos, título de la pestaña.","Mirá el checkout como lo ve una compradora de ese país y decime qué quedó sin traducir."],
+ ["Aparece un precio distinto al que puse","Verificá en el checkout real, no en el panel.","Abrí el checkout y decime qué precio y qué moneda muestra."],
+ ["Una clienta dice que no recibió el producto","Mirá si escribió mal su mail. Se corrige y se reenvía.","Buscá la venta de este mail y reenviale la entrega."]],
+"Anuncios":[
+ ["La imagen salió con letras raras","Pasa seguido. No se arregla: se genera de nuevo dándole el texto exacto.","Dame de nuevo el pedido de imagen, con el texto exacto que tiene que decir."],
+ ["Meta rechazó mi anuncio","Suele ser por prometer un resultado o por hablarle a la persona de su problema de forma directa.","Meta rechazó este anuncio. Decime qué puede haber sido y reescribilo."],
+ ["Meta me pide verificar la cuenta o me la restringe","Hacé la verificación con tus datos reales. No abras cuentas nuevas para saltearla: empeora el problema.",""],
+ ["Todos mis anuncios se parecen","Cambiá el formato, no solo el texto. Mirá el bono de tipos de anuncio.","Haceme la próxima tanda con tres formatos distintos."]],
+"Campaña y números":[
+ ["Gasté y no vendí nada","Es normal en las primeras tandas. Aplicá la regla de corte y sacá una tanda nueva antes de cambiar de producto.","Decime qué anuncios apagar según la regla de corte."],
+ ["La campaña empezó a gastar a mitad del día","Se creó sin hora de inicio. No se puede corregir: se borra y se hace de nuevo para las 00:00.","Rehacé la campaña con inicio mañana a las 00:00, en pausa."],
+ ["Cambié un presupuesto y el conjunto quedó en pausa","Pasa al editar. Hay que reactivarlo y volver a mirar.","Revisá si algún conjunto quedó en pausa y avisame."],
+ ["El panel dice que vendí y en la tienda no hay nada","Vale la tienda. El panel a veces cuenta ventas que no se cobraron.","Compará las ventas del panel con las cobradas en la tienda."],
+ ["Vendí en la tienda y el panel muestra cero","Falta el token del píxel o está mal pegado.","Comprobá si el píxel y el token están registrando compras."],
+ ["Tuve un día buenísimo y quiero subir todo","Subí poco y solo donde hubo venta hoy. Un día no es una tendencia.","Armá mi plan de escala de hoy."]],
+"Cobros":[
+ ["Tengo pagos rechazados","El botón de reintentar no suele servir. Funciona mandar el enlace de pago por mail.","Listá los pagos rechazados y redactame un mail corto para recuperarlos."],
+ ["La plata no me llega","En cuentas nuevas la plataforma de pagos puede retenerla varias semanas. No reinviertas plata que todavía no llegó.",""]],
+"Países nuevos":[
+ ["Abrí un país y no vende","Si a los 4 días gastó y no vendió, se apaga y se abre el siguiente. Anotá por qué.","Apagamos este país. Anotalo en mis decisiones con el motivo."],
+ ["No sé si la traducción suena natural","Pedí una revisión en limpio, y si podés, que la lea alguien del país.","Revisá este texto como si fueras de ese país y marcá lo que suena a traducción."]]
+};
+const L=document.getElementById("lista");
+L.innerHTML=Object.entries(Q).map(([g,xs])=>`<section><h2>${g}</h2><div class="grupo">${xs.map(x=>`<details><summary>${x[0]}</summary><p>${x[1]}</p>${x[2]?`<p class="pide"><b>Decile a Claude:</b> «${x[2]}»</p>`:""}</details>`).join("")}</div></section>`).join("");
+document.getElementById("busca").addEventListener("input",e=>{const q=e.target.value.trim().toLowerCase();let n=0;
+ L.querySelectorAll("section").forEach(s=>{let v=0;s.querySelectorAll("details").forEach(d=>{const ok=!q||d.textContent.toLowerCase().includes(q);d.hidden=!ok;d.open=!!q&&ok;if(ok)v++;});s.hidden=!v;n+=v;});
+ document.getElementById("nada").hidden=n>0;});
+</script>
+</body>
+</html>

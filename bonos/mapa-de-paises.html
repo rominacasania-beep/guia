@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Mapa de países</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Poppins:wght@300;400;500;600&display=swap">
+<style>
+:root{--bg:oklch(97.6% .007 65);--surface:oklch(99.5% .004 65);--ink:oklch(29% 0 0);--muted:oklch(46% 0 0);--line:oklch(87% .02 67);
+ --sea:oklch(55% .176 3);--sea-soft:oklch(93.8% .028 354);--sun:oklch(72.8% .112 85);--ok:#1f8a4c;--warn:#b97a00;--bad:#c23b2e;
+ --display:"Cormorant Garamond",Georgia,serif;--body:"Poppins","Segoe UI",system-ui,sans-serif}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:oklch(20% .01 350);--surface:oklch(25% .012 350);--ink:oklch(94% .005 65);--muted:oklch(76% .01 350);--line:oklch(34% .015 350);--sea:oklch(78% .12 3);--sea-soft:oklch(32% .05 354);--sun:oklch(78% .11 85);--ok:#5ccb8a;--warn:#e9b548;--bad:#f08375;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:oklch(20% .01 350);--surface:oklch(25% .012 350);--ink:oklch(94% .005 65);--muted:oklch(76% .01 350);--line:oklch(34% .015 350);--sea:oklch(78% .12 3);--sea-soft:oklch(32% .05 354);--sun:oklch(78% .11 85);--ok:#5ccb8a;--warn:#e9b548;--bad:#f08375;color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-weight:300;font-size:16.5px;line-height:1.55}
+.wrap{max-width:780px;margin:0 auto;padding-block:28px 64px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:flex;flex-direction:column;gap:22px}
+h1,h2{font-family:var(--display);margin:0;line-height:1.05;text-wrap:balance}
+h1{font-size:clamp(2.4rem,8vw,3.6rem)} h2{font-size:1.8rem}
+p{margin:0} a{color:var(--sea)} b{font-weight:600}
+.eyebrow{font-size:.78rem;letter-spacing:.09em;text-transform:uppercase;color:var(--sea);font-weight:600}
+.sub{color:var(--muted);max-width:60ch}
+fieldset{border:1px solid var(--line);border-radius:14px;background:var(--surface);padding:14px 16px;margin:0;display:flex;flex-direction:column;gap:8px;min-width:0}
+legend{font-weight:500;padding:0 6px}
+label{display:flex;gap:10px;align-items:flex-start;cursor:pointer}
+input[type=radio]{width:19px;height:19px;margin:3px 0 0;flex:none;accent-color:var(--sea)}
+:focus-visible{outline:3px solid var(--sun);outline-offset:2px}
+.preg{display:flex;flex-direction:column;gap:12px}
+.res{border-radius:16px;padding:18px;background:var(--surface);border:1px solid var(--line);border-left:8px solid var(--line)}
+.res.v{border-left-color:var(--ok)}.res.a{border-left-color:var(--warn)}.res.r{border-left-color:var(--bad)}
+.res b.t{display:block;font-family:var(--display);font-size:2rem;line-height:1.1}
+.res ul{margin:8px 0 0;padding-left:20px;color:var(--muted)}
+.tw{overflow-x:auto;background:var(--surface);border:1px solid var(--line);border-radius:12px}
+table{border-collapse:collapse;width:100%;min-width:460px;font-size:.95rem}
+th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+tr:last-child td{border-bottom:0}
+th{font-size:.74rem;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.pide{background:var(--sea-soft);border-radius:10px;padding:10px 14px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <p><a href="../index.html#bonos">← Volver a la guía</a></p>
+  <header>
+    <p class="eyebrow">Bono · Mapa de países</p>
+    <h1>¿Abro este país o no?</h1>
+    <p class="sub">Seis preguntas antes de traducir una sola palabra. Respondelas con lo que te muestre Claude en la Biblioteca de Anuncios y te sale un semáforo.</p>
+  </header>
+
+  <p class="pide"><b>Antes, pedile esto a Claude:</b> «Mirá en la Biblioteca de Anuncios si mi producto, o algo parecido, se está vendiendo en [PAÍS] y en otros idiomas. Decime cuántos anunciantes hay, hace cuánto corren y si mi plataforma de cobro funciona ahí.»</p>
+
+  <div class="preg" id="preg"></div>
+
+  <div class="res" id="res" aria-live="polite"><b class="t">Respondé las 6 preguntas</b><p class="sub">El semáforo aparece acá.</p></div>
+
+  <section>
+    <h2>Cómo elijo yo el próximo país</h2>
+    <div class="tw"><table>
+      <thead><tr><th>Miro</th><th>Por qué</th></tr></thead>
+      <tbody>
+        <tr><td>Que el producto ya se venda en otros idiomas</td><td>Si solo se vende en uno, todavía no sé si viaja</td></tr>
+        <tr><td>Cuánta competencia hay en ese país</td><td>Poca competencia y público suficiente es lo ideal</td></tr>
+        <tr><td>El tamaño del público</td><td>Un público diminuto ve el mismo anuncio diez veces y no compra</td></tr>
+        <tr><td>Que se pueda cobrar ahí</td><td>Vender sin poder cobrar no sirve</td></tr>
+        <tr><td>Mi lista de países apagados</td><td>Para no repetir uno que ya probé</td></tr>
+        <tr><td>El alfabeto y el sentido de lectura</td><td>No frenan, pero suman días de trabajo</td></tr>
+      </tbody>
+    </table></div>
+    <p class="sub" style="margin-top:10px">Y una regla que me costó aprender: que a otra persona le vaya bien en un país no me garantiza nada a mí.</p>
+  </section>
+</div>
+<script>
+const P=[
+ ["¿El producto, o algo parecido, se vende en otros idiomas?",[["Sí, en 2 o más",2],["En uno solo",0,"corta"],["No lo sé",0]]],
+ ["¿Hace cuánto corren esos anuncios?",[["30 días o más",2],["Entre 14 y 30 días",1],["Menos de 14 días",0,"corta"]]],
+ ["¿Cuántos anunciantes distintos lo venden?",[["3 o más",2],["1 o 2",1],["Ninguno",0]]],
+ ["¿Hay competencia directa en el país al que querés ir?",[["No, o muy poca",2],["Sí, algunos",1],["Está lleno",0]]],
+ ["¿Tu plataforma de cobro funciona en ese país?",[["Sí, comprobado",2],["No lo sé",0],["No",0,"corta"]]],
+ ["¿Ya probaste ese país antes y lo apagaste?",[["No",2],["Sí",0,"corta"]]]
+];
+const C=document.getElementById("preg");
+C.innerHTML=P.map((p,i)=>`<fieldset><legend>${i+1}. ${p[0]}</legend>${p[1].map((o,j)=>`<label><input type="radio" name="p${i}" id="p${i}o${j}" value="${j}"><span>${o[0]}</span></label>`).join("")}</fieldset>`).join("");
+function calc(){const r=P.map((p,i)=>{const s=document.querySelector(`input[name=p${i}]:checked`);return s?p[1][+s.value]:null});const R=document.getElementById("res");
+ if(r.some(x=>!x)){const f=r.filter(x=>!x).length;R.className="res";R.innerHTML=`<b class="t">Faltan ${f} ${f===1?"respuesta":"respuestas"}</b><p class="sub">El semáforo aparece cuando respondas todo.</p>`;return;}
+ const pts=r.reduce((a,x)=>a+x[1],0),corta=r.map((x,i)=>x[2]?P[i][0]:null).filter(Boolean),flojas=r.map((x,i)=>!x[2]&&x[1]<2?P[i][0]:null).filter(Boolean);
+ if(corta.length){R.className="res r";R.innerHTML=`<b class="t">Rojo: no lo abras todavía</b><p>Hay algo que frena:</p><ul>${corta.map(c=>`<li>${c}</li>`).join("")}</ul>`;}
+ else if(pts>=10){R.className="res v";R.innerHTML=`<b class="t">Verde: se puede lanzar</b><p>Seguí con las 13 etapas de la Parte 3 de la guía.</p>`;}
+ else{R.className="res a";R.innerHTML=`<b class="t">Amarillo: se puede, mirando de cerca</b><p>Entrá con presupuesto chico y volvé a mirar cada semana. Lo que está flojo:</p><ul>${flojas.map(c=>`<li>${c}</li>`).join("")}</ul>`;}}
+C.addEventListener("change",calc);
+</script>
+</body>
+</html>

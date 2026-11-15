@@ -1,0 +1,917 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<title>De 0 a 100 por día</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Poppins:wght@300;400;500;600&display=swap">
+<style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+</head>
+<body>
+<style>
+/* Layout: una ruta de arriba abajo. Mapa de 5 partes, barra de avance fija, y cada paso como tarjeta con casilla, "tú / Claude" y pedido para copiar. */
+:root{
+  --bg:oklch(97.6% .007 65); --surface:oklch(99.5% .004 65); --ink:oklch(29% 0 0); --muted:oklch(46% 0 0); --line:oklch(87% .02 67);
+  --sea:oklch(55% .176 3); --sea-soft:oklch(93.8% .028 354); --sun:oklch(72.8% .112 85); --sun-ink:oklch(25% .03 85);
+  --ok:#1f8a4c; --bad:#c23b2e; --night:oklch(27% .03 350); --night-ink:oklch(97% .005 65);
+  --display:"Cormorant Garamond",Georgia,serif;
+  --body:"Poppins","Segoe UI",system-ui,sans-serif;
+  --mono:ui-monospace,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:oklch(20% .01 350); --surface:oklch(25% .012 350); --ink:oklch(94% .005 65); --muted:oklch(76% .01 350); --line:oklch(34% .015 350);
+  --sea:oklch(78% .12 3); --sea-soft:oklch(32% .05 354); --sun:oklch(78% .11 85); --sun-ink:oklch(25% .03 85);
+  --ok:#5ccb8a; --bad:#f08375; --night:oklch(14% .01 350); --night-ink:oklch(94% .005 65); color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:oklch(20% .01 350); --surface:oklch(25% .012 350); --ink:oklch(94% .005 65); --muted:oklch(76% .01 350); --line:oklch(34% .015 350);
+  --sea:oklch(78% .12 3); --sea-soft:oklch(32% .05 354); --sun:oklch(78% .11 85); --sun-ink:oklch(25% .03 85);
+  --ok:#5ccb8a; --bad:#f08375; --night:oklch(14% .01 350); --night-ink:oklch(94% .005 65); color-scheme:dark}
+
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16.5px;line-height:1.55}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+.wrap{max-width:820px;margin:0 auto;padding-block:32px 72px;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1,h2,h3,h4{font-family:var(--display);text-wrap:balance;margin:0;line-height:1.1}
+h1{font-size:clamp(2.6rem,9vw,4.2rem);font-weight:700;letter-spacing:-.01em;line-height:1}
+h1 mark{background:none;color:var(--sea);font-style:italic}
+h2{font-size:clamp(1.9rem,5.4vw,2.6rem);font-weight:700}
+h3{font-size:1.45rem;font-weight:700}
+h4{font-size:1.25rem;font-weight:700}
+body{font-weight:300}
+b,strong,th,summary{font-weight:600}
+p{margin:0}
+a{color:var(--sea)}
+:focus-visible{outline:3px solid var(--sun);outline-offset:2px}
+.eyebrow{font-size:.78rem;letter-spacing:.09em;text-transform:uppercase;color:var(--sea);font-weight:700}
+.lead{font-size:1.1rem;max-width:60ch}
+.sub{color:var(--muted);max-width:64ch}
+.stack{display:flex;flex-direction:column;gap:14px}
+.top{display:flex;flex-direction:column;gap:14px;min-width:0}
+.made{display:inline-flex;align-items:center;gap:8px;align-self:flex-start;background:var(--sea-soft);padding:6px 12px;border-radius:999px;font-size:.88rem}
+.made i{width:8px;height:8px;border-radius:50%;background:var(--sun)}
+
+.mapa{list-style:none;margin:24px 0 0;padding:0;display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
+.mapa a{display:flex;flex-direction:column;gap:2px;height:100%;text-decoration:none;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:10px 12px}
+.mapa a:hover{border-color:var(--sea)}
+.mapa b{font-family:var(--display);font-size:1.3rem;color:var(--sea)}
+.mapa span{font-size:.88rem;line-height:1.25}
+@media(max-width:720px){.mapa{grid-template-columns:repeat(2,1fr)}}
+
+.avance{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);padding:10px 0;margin-top:20px;border-bottom:1px solid var(--line);display:flex;gap:12px;align-items:center}
+.barra{flex:1;height:10px;background:var(--sea-soft);border-radius:99px;overflow:hidden}
+.barra i{display:block;height:100%;width:0;background:var(--ok);transition:width .3s}
+#pct{font-size:.82rem;white-space:nowrap;font-variant-numeric:tabular-nums;font-weight:600}
+
+section.parte{padding-top:52px;scroll-margin-top:56px;display:flex;flex-direction:column;gap:16px}
+.pnum{font-family:var(--display);font-weight:800;color:var(--sea);font-size:.95rem;letter-spacing:.06em;text-transform:uppercase}
+
+.hero{display:grid;grid-template-columns:1.3fr .7fr;gap:32px;align-items:center}
+@media(max-width:720px){.hero{grid-template-columns:1fr}}
+.phonewrap{margin:0;display:flex;flex-direction:column;align-items:center;gap:10px;min-width:0}
+.phone{width:100%;max-width:270px;aspect-ratio:9/15;border-radius:30px;overflow:hidden;border:7px solid var(--night);background:var(--night);box-shadow:0 22px 44px -20px color-mix(in srgb,var(--night) 70%,transparent);animation:flota 6s ease-in-out infinite}
+.phone img{display:block;width:100%;height:100%;object-fit:cover;object-position:50% 0%;animation:recorre 22s ease-in-out infinite alternate}
+.phonewrap figcaption{font-size:.82rem;color:var(--muted);text-align:center;max-width:26ch}
+@keyframes flota{0%,100%{transform:translateY(0) rotate(-1.5deg)}50%{transform:translateY(-8px) rotate(-.5deg)}}
+@keyframes recorre{from{object-position:50% 0%}to{object-position:50% 100%}}
+h1 mark{background-image:linear-gradient(100deg,var(--sea),var(--sun),var(--sea));background-size:200% 100%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:brillo 7s linear infinite}
+@keyframes brillo{to{background-position:200% 0}}
+.langs.mq{flex-wrap:nowrap;overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
+.langs.mq .pista{display:flex;gap:8px;flex:none;padding-right:8px;animation:corre 34s linear infinite}
+.langs.mq span{white-space:nowrap}
+@keyframes corre{to{transform:translateX(-100%)}}
+.rv{opacity:.25;transform:translateY(18px);transition:opacity .6s ease,transform .6s ease}
+.rv.on{opacity:1;transform:none}
+.paso{transition:transform .25s ease,box-shadow .25s ease}
+.paso:hover{transform:translateY(-2px);box-shadow:0 12px 26px -18px color-mix(in srgb,var(--night) 60%,transparent)}
+@media(prefers-reduced-motion:reduce){.phone,.phone img,h1 mark,.langs.mq .pista{animation:none}.rv{opacity:1;transform:none;transition:none}.paso{transition:none}}
+body::after{content:"";position:fixed;inset:-25%;z-index:-1;pointer-events:none;
+  background:radial-gradient(38% 30% at 82% 18%,var(--sea-soft) 0,transparent 70%),radial-gradient(34% 28% at 12% 78%,color-mix(in srgb,var(--sun) 26%,transparent) 0,transparent 70%),radial-gradient(30% 26% at 60% 60%,color-mix(in srgb,var(--sea) 10%,transparent) 0,transparent 70%);
+  animation:nube 24s ease-in-out infinite alternate}
+@keyframes nube{from{transform:translate(0,0) rotate(0deg) scale(1)}to{transform:translate(-6%,5%) rotate(8deg) scale(1.12)}}
+.lector{position:fixed;left:0;top:env(safe-area-inset-top,0px);height:4px;width:0;z-index:20;background:linear-gradient(90deg,var(--sea),var(--sun))}
+.phonewrap{position:relative}
+.toasts{position:absolute;left:50%;top:38%;width:0;height:0}
+.toast{position:absolute;left:-150px;top:0;white-space:nowrap;background:var(--surface);color:var(--ink);border:1px solid var(--line);border-radius:14px;padding:9px 16px;font-size:.88rem;font-weight:500;box-shadow:0 14px 30px -14px color-mix(in srgb,var(--night) 70%,transparent);opacity:0}
+.toast::before{content:"";display:inline-block;width:9px;height:9px;border-radius:50%;background:var(--ok);margin-right:8px}
+.toast.ya{animation:toast 2.6s ease both}
+@keyframes toast{0%{opacity:0;transform:translate(-30px,14px) scale(.9)}12%{opacity:1;transform:none}78%{opacity:1;transform:translateY(-6px)}100%{opacity:0;transform:translateY(-26px)}}
+.cifras{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:26px}
+@media(max-width:560px){.cifras{grid-template-columns:repeat(2,1fr)}}
+.cifras div{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:12px 14px;min-width:0;animation:sube1 .7s cubic-bezier(.2,1.2,.4,1) both}
+.cifras div:nth-child(2){animation-delay:.1s}.cifras div:nth-child(3){animation-delay:.2s}.cifras div:nth-child(4){animation-delay:.3s}
+.cifras b{display:block;font-family:var(--display);font-size:2.6rem;line-height:1;color:var(--sea);font-variant-numeric:tabular-nums}
+.cifras span{font-size:.86rem;color:var(--muted)}
+@keyframes sube1{from{opacity:.2;transform:translateY(22px)}to{opacity:1;transform:none}}
+.mapa li{animation:sube1 .7s cubic-bezier(.2,1.2,.4,1) both}
+.mapa li:nth-child(2){animation-delay:.08s}.mapa li:nth-child(3){animation-delay:.16s}.mapa li:nth-child(4){animation-delay:.24s}.mapa li:nth-child(5){animation-delay:.32s}
+.mapa a{transition:transform .25s ease,box-shadow .25s ease}
+.mapa a:hover{transform:translateY(-4px);box-shadow:0 14px 26px -18px color-mix(in srgb,var(--night) 70%,transparent)}
+.mapa b{display:inline-block;animation:late 3.2s ease-in-out infinite}
+.mapa li:nth-child(2) b{animation-delay:.4s}.mapa li:nth-child(3) b{animation-delay:.8s}.mapa li:nth-child(4) b{animation-delay:1.2s}.mapa li:nth-child(5) b{animation-delay:1.6s}
+@keyframes late{0%,100%{transform:scale(1)}50%{transform:scale(1.16)}}
+button.btn{background-image:linear-gradient(110deg,transparent 30%,rgba(255,255,255,.55) 50%,transparent 70%);background-size:220% 100%;background-position:120% 0;animation:destello 3.6s ease-in-out infinite}
+@keyframes destello{0%,60%{background-position:120% 0}100%{background-position:-120% 0}}
+.rv .k{display:inline-block;transform:scale(.4)}
+.rv.on .k{transform:none;transition:transform .5s cubic-bezier(.2,1.6,.4,1) .15s}
+.made i{animation:late 2s ease-in-out infinite}
+@media(prefers-reduced-motion:reduce){body::after,.cifras div,.mapa li,.mapa b,button.btn,.made i,.toast.ya{animation:none}.toast{display:none}.rv .k{transform:none}}
+.grande{align-self:flex-start;font:600 1.05rem var(--body);background:var(--sea);color:var(--surface);border:0;border-radius:12px;padding:14px 24px;cursor:pointer;box-shadow:0 14px 28px -16px var(--sea);animation:late 2.6s ease-in-out infinite}
+.grande:hover{filter:brightness(1.08)}
+@media(prefers-reduced-motion:reduce){.grande{animation:none}}
+.bonos{perspective:900px}
+.bono{position:relative;overflow:hidden;animation:bflota 5s ease-in-out infinite;transition:transform .25s ease,box-shadow .25s ease}
+.bono:nth-child(2){animation-delay:.6s}.bono:nth-child(3){animation-delay:1.2s}.bono:nth-child(4){animation-delay:1.8s}
+@keyframes bflota{0%,100%{transform:translateY(0) rotate(-.4deg)}50%{transform:translateY(-9px) rotate(.4deg)}}
+.bono::before{content:"";position:absolute;inset:0 auto 0 -60%;width:45%;background:linear-gradient(100deg,transparent,color-mix(in srgb,var(--sun) 38%,transparent),transparent);transform:skewX(-18deg);animation:bbrillo 4.2s ease-in-out infinite}
+.bono:nth-child(2)::before{animation-delay:1s}.bono:nth-child(3)::before{animation-delay:2s}.bono:nth-child(4)::before{animation-delay:3s}
+@keyframes bbrillo{0%,55%{left:-60%}100%{left:130%}}
+.bono::after{content:"🎁";position:absolute;right:12px;top:10px;font-size:1.5rem;animation:bregalo 2.4s ease-in-out infinite}
+@keyframes bregalo{0%,100%{transform:rotate(-10deg) scale(1)}50%{transform:rotate(12deg) scale(1.2)}}
+.bono small,.bono h4,.bono p{position:relative}
+a.bono:hover{animation-play-state:paused;transform:translateY(-12px) scale(1.03);box-shadow:0 22px 40px -22px var(--sea)}
+@media(prefers-reduced-motion:reduce){.bono,.bono::before,.bono::after{animation:none}}
+.cerebro{margin:0;display:flex;flex-direction:column;gap:8px;min-width:0}
+.lienzo{position:relative;border-radius:16px;overflow:hidden;background:var(--night);aspect-ratio:16/9;max-width:100%}
+.lienzo canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+.cdatos{position:absolute;left:14px;bottom:14px;display:flex;gap:10px;flex-wrap:wrap}
+.cdatos div{background:color-mix(in srgb,var(--night) 70%,transparent);border:1px solid color-mix(in srgb,var(--night-ink) 30%,transparent);color:var(--night-ink);border-radius:12px;padding:8px 14px;backdrop-filter:blur(4px)}
+.cdatos b{display:block;font-family:var(--display);font-size:2rem;line-height:1;color:var(--sun);font-variant-numeric:tabular-nums}
+.cdatos span{font-size:.8rem}
+.cerebro figcaption{font-size:.9rem;color:var(--muted)}
+.shot{margin:0;display:flex;flex-direction:column;gap:6px;min-width:0}
+.shot img{width:100%;border-radius:12px;border:1px solid var(--line);display:block}
+.shot figcaption{font-size:.9rem;color:var(--muted)}
+a.bono{display:block;text-decoration:none;color:inherit;border-color:var(--sea)}
+.vid{margin:0;display:flex;flex-direction:column;gap:6px;min-width:0}
+.vid video{width:100%;max-width:100%;aspect-ratio:16/9;border-radius:12px;background:var(--night);display:block}
+.vid figcaption{font-size:.9rem;color:var(--muted)}
+.vid figcaption b{color:var(--ink)}
+.vids{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+@media(max-width:640px){.vids{grid-template-columns:1fr}}
+/* reproductor */
+.player{background:var(--night);color:var(--night-ink);border-radius:14px;overflow:hidden}
+.stage{aspect-ratio:16/9;max-width:100%;display:flex;flex-direction:column;justify-content:center;gap:10px;padding:8%;position:relative}
+.stage .n{font-family:var(--display);font-size:.85rem;letter-spacing:.1em;text-transform:uppercase;color:var(--sun)}
+.stage .t{font-family:var(--display);font-weight:800;font-size:clamp(1.3rem,5.2vw,2.4rem);line-height:1.08;text-wrap:balance}
+.stage .d{font-size:clamp(.9rem,2.6vw,1.05rem);opacity:.85;max-width:46ch}
+.stage.in > *{animation:rise .6s both}.stage.in .t{animation-delay:.08s}.stage.in .d{animation-delay:.18s}
+@keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.pbar{height:4px;background:color-mix(in srgb,var(--night-ink) 20%,transparent)}
+.pbar b{display:block;height:100%;width:0;background:var(--sun)}
+.ctrl{display:flex;align-items:center;gap:8px;padding:10px 12px}
+.ctrl button{font:inherit;font-weight:600;background:transparent;color:inherit;border:1px solid color-mix(in srgb,var(--night-ink) 35%,transparent);border-radius:8px;padding:6px 12px;cursor:pointer}
+.ctrl .count{margin-left:auto;font-variant-numeric:tabular-nums;font-size:.9rem;opacity:.8}
+.video{border:2px dashed var(--line);border-radius:12px;padding:14px 16px;display:flex;gap:12px;align-items:center;color:var(--muted);font-size:.93rem}
+.video b{color:var(--ink)}
+.video::before{content:"▶";flex:none;width:38px;height:38px;border-radius:50%;background:var(--sea-soft);color:var(--sea);display:grid;place-items:center;font-size:.9rem}
+
+/* idiomas */
+.langs{display:flex;flex-wrap:wrap;gap:8px}
+.langs span{background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:6px 14px;font-weight:600;font-size:.95rem}
+.beats{list-style:none;margin:0;padding:0;counter-reset:b}
+.beats li{counter-increment:b;display:grid;grid-template-columns:auto 1fr;gap:2px 14px;padding:14px 0;border-top:1px solid var(--line)}
+.beats li::before{content:counter(b);font-family:var(--display);font-weight:800;font-size:1.8rem;line-height:1;color:var(--sea);grid-row:span 2;width:1.1em}
+.beats p{color:var(--muted);min-width:0}
+
+/* tablas */
+.tw{overflow-x:auto;background:var(--surface);border:1px solid var(--line);border-radius:12px}
+table{border-collapse:collapse;width:100%;min-width:520px;font-size:.95rem}
+th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+tr:last-child td{border-bottom:0}
+th{font-size:.74rem;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);font-weight:700}
+td:first-child{font-weight:700}
+.chip{display:inline-block;font-size:.76rem;font-weight:700;padding:2px 9px;border-radius:999px;background:var(--sea-soft);color:var(--sea);white-space:nowrap}
+.chip.tu{background:color-mix(in srgb,var(--sun) 30%,transparent);color:var(--ink)}
+
+/* pasos */
+.paso{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px;display:flex;flex-direction:column;gap:12px;min-width:0}
+.paso > header{display:flex;gap:12px;align-items:baseline}
+.paso .k{flex:none;font-family:var(--display);font-weight:800;color:var(--sea);font-size:1.3rem;font-variant-numeric:tabular-nums;min-width:1.6em}
+.duo{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media(max-width:600px){.duo{grid-template-columns:1fr}}
+.duo div{background:var(--bg);border-radius:10px;padding:10px 12px;font-size:.95rem;min-width:0}
+.duo b{display:block;font-size:.74rem;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);margin-bottom:2px}
+.pasa{font-size:.93rem;color:var(--muted)}
+.pasa b{color:var(--ok)}
+.prompt{background:var(--night);border-radius:12px;overflow:hidden}
+.prompt .ph{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:8px 10px 8px 14px;color:var(--night-ink);font-size:.8rem;font-weight:600;opacity:.95}
+.prompt pre{margin:0;padding:2px 14px 14px;color:var(--night-ink);font:.86rem/1.55 var(--mono);white-space:pre-wrap;overflow-wrap:anywhere}
+.btn{font:700 .85rem var(--body);background:var(--sun);color:var(--sun-ink);border:0;border-radius:8px;padding:7px 14px;cursor:pointer;white-space:nowrap}
+.check{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:8px}
+.check label{display:flex;gap:10px;align-items:flex-start;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:10px 14px;cursor:pointer}
+.paso .check label{background:var(--bg);border:0}
+.check input{width:20px;height:20px;margin:2px 0 0;flex:none;accent-color:var(--ok)}
+.check input:checked + span{color:var(--muted);text-decoration:line-through;text-decoration-color:var(--ok)}
+.ojo{border-left:4px solid var(--bad);background:var(--surface);border-radius:0 10px 10px 0;padding:10px 14px;font-size:.95rem}
+.tip{border-left:4px solid var(--sun);background:var(--surface);border-radius:0 10px 10px 0;padding:10px 14px;font-size:.95rem}
+details{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:10px 14px}
+summary{font-weight:700;cursor:pointer}
+details p{margin-top:8px;color:var(--muted)}
+.motors{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:18px}
+.motor{border-top:4px solid var(--sea);padding-top:12px;display:flex;flex-direction:column;gap:6px;min-width:0}
+.motor small{font-size:.76rem;letter-spacing:.07em;text-transform:uppercase;color:var(--sea);font-weight:700}
+.motor p{color:var(--muted);font-size:.95rem}
+.bonos{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+.bono{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px;min-width:0}
+.bono small{font-weight:700;color:var(--sea);font-size:.76rem;letter-spacing:.07em;text-transform:uppercase}
+.bono p{color:var(--muted);font-size:.93rem;margin-top:4px}
+.glos{display:grid;grid-template-columns:repeat(2,1fr);gap:4px 22px}
+@media(max-width:640px){.glos{grid-template-columns:1fr}}
+.glos div{border-bottom:1px solid var(--line);padding:6px 0;font-size:.95rem}
+footer{margin-top:52px;padding-top:16px;border-top:1px solid var(--line);color:var(--muted);font-size:.9rem}
+@media(prefers-reduced-motion:reduce){.stage.in > *{animation:none}.barra i{transition:none}}
+</style>
+
+<div class="wrap">
+<header class="hero">
+ <div class="top">
+  <p class="eyebrow">El negocio completo, paso a paso</p>
+  <h1>De cero a <mark>100 por día</mark> con tu Claude trabajando con vos</h1>
+  <p class="lead">Vendo productos digitales hace 4 años. Esto no es teoría: es cómo lo estoy haciendo yo hoy, paso por paso, para que lo hagas con tu propio Claude.</p>
+  <p class="made"><i></i>Esta guía la armó mi Claude a partir de mi operativa real</p>
+ </div>
+ <figure class="phonewrap">
+  <div class="phone"><img src="img/ventas-paises.jpg" alt="Avisos de pedidos de un mismo día, con banderas de Italia, España, Suiza, Hungría, Alemania y Portugal"></div>
+  <div class="toasts" aria-hidden="true"><div class="toast" id="toast"></div></div>
+ </figure>
+</header>
+
+<div class="cifras">
+  <div><b data-n="13">13</b><span>idiomas</span></div>
+  <div><b data-n="12">12</b><span>escalones</span></div>
+  <div><b data-n="19">19</b><span>skills listas</span></div>
+  <div><b data-n="9">9</b><span>videos</span></div>
+</div>
+
+<div class="paso" style="margin-top:24px">
+  <h3>Empezá por acá: pasale esta guía a tu Claude</h3>
+  <p>No tenés que leer ni entender todo esto vos sola, ni copiar y pegar nada. Bajás un archivo, le decís una frase a Claude y él hace el resto.</p>
+  <div class="tw"><table>
+    <tbody>
+      <tr><td>1</td><td>Instalá Claude en tu computadora (paso 0.1, con todos los clics)</td></tr>
+      <tr><td>2</td><td>Descargá el kit con el botón de abajo. Queda en tu carpeta Descargas</td></tr>
+      <tr><td>3</td><td>Escribile a Claude una sola frase: <b>«Instalá el kit que está en mi carpeta Descargas y guiame paso a paso»</b></td></tr>
+      <tr><td>4</td><td>Claude instala todo, te hace preguntas para saber de dónde arrancás y te lleva de la mano</td></tr>
+    </tbody>
+  </table></div>
+  <button class="grande bajaKit" type="button">Descargar el kit</button>
+  <div class="tw"><table>
+    <thead><tr><th>Qué hay adentro del kit</th><th>Para qué</th></tr></thead>
+    <tbody>
+      <tr><td>Esta guía completa</td><td>Para que tu Claude la tenga entera y no tengas que copiarle nada</td></tr>
+      <tr><td>Tu cerebro inicial</td><td>El manual, tu tablero, las reglas del método, los números y los errores típicos</td></tr>
+      <tr><td>19 skills</td><td>Un manual por tarea: los 12 escalones, el plan de escala, abrir un país y el día a día</td></tr>
+      <tr><td>El instalador</td><td>Las instrucciones que sigue Claude para dejar todo andando</td></tr>
+    </tbody>
+  </table></div>
+  <details><summary>Si el botón no descarga: plan B</summary>
+  <p>Copiá la guía con este botón y pegala en Claude. Sirve igual, solo que sin las skills instaladas.</p>
+  <button class="btn" id="copiaGuia" type="button" style="margin-top:8px">Copiar la guía para Claude</button>
+  <pre id="pMaestroVer" hidden></pre></details>
+  <details hidden><summary>Ver el pedido que se copia</summary><pre id="pMaestro" style="white-space:pre-wrap;font:.86rem/1.55 var(--mono);margin-top:8px">Te paso la guía «De 0 a 100 por día». Este es su enlace: https://guia.romimanfiesta.com
+Abajo va también el texto completo, por si no podés abrir el enlace. Quiero que seas mi guía para hacerla.
+
+1. Leela entera antes de responder.
+2. Primero haceme preguntas, de a una, para entender de dónde arranco: si ya tengo algo o empiezo de cero, cuánto tiempo y cuánta plata tengo, en qué país vivo, dónde quiero vender y qué temas me interesan.
+3. Después desglosame la guía en un paso a paso para mí: qué hago hoy, qué hacés vos y qué sigue.
+4. La Biblioteca de Anuncios no se saltea. Antes de armar cualquier producto vamos a mirar ahí qué se está vendiendo. Si te propongo inventar algo desde cero, frename.
+5. Un paso por vez. Esperá mi «listo» antes de seguir. Explicame todo simple: no sé programar.
+6. No gastes, publiques ni prendas nada sin mi OK.</pre></details>
+  <p class="ojo"><b>Hay un paso que no se saltea nunca: la Biblioteca de Anuncios.</b> Arranques de donde arranques, antes de crear nada vas a ir ahí a ver qué se está vendiendo.</p>
+</div>
+
+<ol class="mapa">
+  <li><a href="#historia"><b>A</b><span>Mi historia y por qué funciona</span></a></li>
+  <li><a href="#instalar"><b>0</b><span>Instalar tu oficina</span></a></li>
+  <li><a href="#escalera"><b>1</b><span>Los 12 escalones</span></a></li>
+  <li><a href="#escala"><b>2</b><span>El plan de escala</span></a></li>
+  <li><a href="#paises"><b>3</b><span>Abrir otros idiomas</span></a></li>
+</ol>
+
+<div class="avance" aria-live="polite"><div class="barra"><i id="barra"></i></div><span id="pct">0 de 0 hechos</span></div>
+
+<!-- A -->
+<section class="parte" id="historia">
+  <p class="pnum">Parte A</p>
+  <h2>Me copiaron el producto. Lo llevé a otros idiomas.</h2>
+  <figure class="vid"><video controls preload="metadata" src="videos/video-1.mp4"></video><figcaption><b>Video 1 · Por qué existe esta guía.</b> Voz generada con IA.</figcaption></figure>
+  <h3>Los idiomas a los que lo fui llevando</h3>
+  <div class="langs"><span>Italiano</span><span>Francés</span><span>Danés</span><span>Polaco</span><span>Húngaro</span><span>Hebreo</span><span>Chino</span><span>Alemán</span><span>Griego</span><span>Holandés</span><span>Coreano</span><span>Ruso</span><span>Portugués</span></div>
+  <p class="sub">No hablo ninguno de esos idiomas. Lo que tengo es un sistema, y ese sistema es lo que vas a instalar acá.</p>
+  <h3>Cómo trabajo hoy</h3>
+  <div class="tw"><table>
+    <tbody>
+      <tr><td>Sin mostrar la cara</td><td>Estos productos no los vendo con mi marca personal ni con mi imagen</td></tr>
+      <tr><td>Solo con Facebook</td><td>Ni siquiera uso Instagram: son anuncios en Facebook y nada más</td></tr>
+      <tr><td>Todo vive en Claude</td><td>Hoy todo mi negocio está ahí adentro: lo que vendo, lo que aprendo y lo que decido</td></tr>
+      <tr><td>Desde octubre de 2026</td><td>Vendo productos digitales hace 4 años, pero trabajo de esta forma desde hace muy poco</td></tr>
+      <tr><td>Esto lo armó Claude</td><td>La guía, el kit y los videos. Yo le dije qué quería y él hizo el resto</td></tr>
+      <tr><td>Es mi proceso</td><td>Lo que estoy aprendiendo en el camino. Seguro hay un millón de formas más; esta es la que uso yo ahora</td></tr>
+    </tbody>
+  </table></div>
+  <figure class="cerebro">
+    <div class="lienzo">
+      <canvas id="grafo" role="img" aria-label="Animación de un cerebro de notas: puntos de colores conectados que se mueven despacio"></canvas>
+      <div class="cdatos"><div><b id="cdias">25</b><span>días tiene mi cerebro</span></div><div><b>20/10</b><span>el día que nació</span></div></div>
+    </div>
+    <figcaption>Así se ve un cerebro en Obsidian: cada punto es una nota y cada línea, una conexión. El mío nació el 20 de octubre y crece todos los días.</figcaption>
+  </figure>
+  <h3>Lo que necesitás para empezar</h3>
+  <div class="tw"><table>
+    <thead><tr><th>Qué</th><th>Cuánto</th><th>Cuándo</th></tr></thead>
+    <tbody>
+      <tr><td>Claude, plan Pro como mínimo</td><td>Unos 20 dólares por mes. La versión gratis no alcanza</td><td>Desde el día 1</td></tr>
+      <tr><td>Tienda</td><td>Yo uso Impultienda. Tiene 45 días gratis</td><td>Cuando tengas el producto</td></tr>
+      <tr><td>Anuncios</td><td>35 dólares por día mientras probás</td><td>Cuando salgan tus primeros anuncios</td></tr>
+      <tr><td>Una computadora</td><td>Windows o Mac. Con el celular solo no alcanza</td><td>Desde el día 1</td></tr>
+    </tbody>
+  </table></div>
+  <h3>¿Cuánta plata necesito para saber si funciona?</h3>
+  <div class="tw"><table>
+    <thead><tr><th>Qué</th><th>Cuánto</th></tr></thead>
+    <tbody>
+      <tr><td>Claude, el primer mes</td><td>Unos 20 dólares</td></tr>
+      <tr><td>La tienda</td><td>0 los primeros 45 días. Después tiene un costo mensual: miralo en su página y anotate la fecha en que termina la prueba</td></tr>
+      <tr><td>La primera prueba de anuncios</td><td>5 anuncios a 7 dólares por día son 35 por día. Cuatro días de prueba: unos 140 dólares</td></tr>
+      <tr><td><b>Para tu primer intento</b></td><td><b>Reservá entre 150 y 200 dólares</b>, que puedas perder mientras aprendés</td></tr>
+    </tbody>
+  </table></div>
+  <h3>Dudas antes de empezar</h3>
+  <div class="stack">
+    <details><summary>¿Sirve para vender mi ropa o mis productos físicos?</summary><p>No. Esta guía es para productos digitales: cosas que se descargan, como un PDF. No hay stock ni envíos.</p></details>
+    <details><summary>¿Cuánto tiempo lleva?</summary><p>La instalación de hoy, menos de una hora. Después, una o dos horas por día. Los primeros escalones los podés hacer en una semana.</p></details>
+    <details><summary>¿En cuánto tiempo voy a vender?</summary><p>No te lo puedo prometer. Hay productos que venden en la primera tanda y otros que no venden nunca: por eso existe la regla de cortar rápido y probar otro.</p></details>
+    <details><summary>¿Es seguro que Claude toque mi computadora?</summary><p>Claude trabaja dentro de la carpeta que le elegiste y te pide permiso antes de cada cosa. Nunca ve tus contraseñas ni tus tarjetas: eso lo escribís siempre vos.</p></details>
+    <details><summary>¿Cómo cobro la plata?</summary><p>La tienda cobra por vos, con tarjeta y otros medios, y después te lo pasa. En el escalón 4 Claude te guía para conectarlo según tu país.</p></details>
+    <details><summary>¿Tengo que facturar o pagar impuestos?</summary><p>Depende de tu país. Antes de escalar, consultalo con un contador de donde vivís.</p></details>
+    <details><summary>¿Y si alguien pide que le devuelva la plata?</summary><p>Se devuelve desde la tienda. Pasa poco, y es parte del negocio.</p></details>
+    <details><summary>Uso Instagram, ¿necesito Facebook?</summary><p>Sí. Los anuncios salen desde una página de Facebook, aunque nunca publiques ahí. Conviene que tu perfil de Facebook sea el tuyo de siempre, no uno recién creado.</p></details>
+    <details><summary>¿Cómo cancelo Claude si no me sirve?</summary><p>Desde Configuración, en la parte de tu plan. Se corta al terminar el mes pago.</p></details>
+  </div>
+  <p class="ojo"><b>100 por día es una meta, no una garantía.</b> Vas a invertir en Claude y en anuncios, y algunos intentos no van a vender. Acá te muestro el camino y cómo cortar rápido lo que no funciona.</p>
+</section>
+
+<!-- 0 -->
+<section class="parte" id="instalar">
+  <p class="pnum">Parte 0</p>
+  <h2>Instalar tu oficina</h2>
+  <p class="sub">Marcá cada casilla al terminar: tu avance queda guardado en este navegador.</p>
+  <div class="paso" style="border-color:var(--sea)">
+    <h3>Hoy, solo estas 3 cosas</h3>
+    <div class="tw"><table><tbody>
+      <tr><td>1</td><td>Instalar Claude y abrirlo en la pestaña Code</td><td>unos 20 minutos</td></tr>
+      <tr><td>2</td><td>Descargar el kit</td><td>1 minuto</td></tr>
+      <tr><td>3</td><td>Escribirle una frase a Claude</td><td>10 a 15 minutos, mientras instala</td></tr>
+    </tbody></table></div>
+    <p class="tip"><b>Todo lo demás no es para hoy.</b> Más abajo vas a ver cosas con nombres raros. Las vas a hacer otro día y con Claude guiándote. Si hoy llegás hasta la frase, ya está.</p>
+  </div>
+  <figure class="vid"><video controls preload="metadata" src="videos/video-2.mp4"></video><figcaption><b>Video 2 · Instalar tu oficina.</b> Miralo antes de empezar los pasos.</figcaption></figure>
+
+  <h3>Antes de tocar nada: qué es cada cosa</h3>
+  <div class="tw"><table>
+    <thead><tr><th>Palabra</th><th>Qué es, en simple</th></tr></thead>
+    <tbody>
+      <tr><td>Claude</td><td>Una inteligencia artificial a la que le escribís como a una persona. Acá va a ser tu empleada: investiga, escribe, arma y te muestra</td></tr>
+      <tr><td>Pestaña Code</td><td>La parte de Claude que puede trabajar dentro de tu computadora: crear archivos, instalar cosas, abrir páginas. El chat común no puede</td></tr>
+      <tr><td>Cerebro</td><td>Una carpeta de notas en tu computadora. Ahí Claude guarda lo que aprende de tu negocio para no olvidarlo de un día para el otro</td></tr>
+      <tr><td>Skill</td><td>Un manual que Claude sigue para hacer bien una tarea, por ejemplo armar tu tienda</td></tr>
+      <tr><td>Kit (el zip)</td><td>Un solo archivo que trae el cerebro inicial y las 19 skills. Claude lo abre y lo instala solo</td></tr>
+      <tr><td>Conector</td><td>Un permiso para que Claude vea una cuenta tuya (anuncios, ventas, mail) sin que le pases la contraseña</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="paso"><header><span class="k">0.1</span><h3>Instalá Claude</h3></header>
+    <p>Claude es un programa que se instala en tu computadora, como cualquier otro. Necesitás el plan pago más chico (se llama Pro, unos 20 dólares por mes): la versión gratis no trae la parte que vamos a usar.</p>
+    <figure class="shot"><img src="img/claude-descarga.jpg" alt="Página de descarga de Claude con el botón «Descargar para Windows»" loading="lazy"><figcaption>La página de Claude. El botón negro es el que tocás.</figcaption></figure>
+    <div class="tw"><table>
+      <thead><tr><th>#</th><th>Qué hacés</th><th>Qué vas a ver</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td>Entrá a <a href="https://claude.ai/download">claude.ai/download</a> y tocá <b>Descargar para Windows</b> (o para Mac)</td><td>Abajo o arriba del navegador aparece un archivo bajando</td></tr>
+        <tr><td>2</td><td>Cuando termine, tocá ese archivo para abrirlo. Si no lo ves, está en tu carpeta <b>Descargas</b></td><td>Windows puede preguntar «¿Querés permitir que esta aplicación haga cambios?». Tocá <b>Sí</b>: es normal</td></tr>
+        <tr><td>3</td><td>Se abre Claude y te pide entrar. Si nunca lo usaste, tocá <b>Crear cuenta</b> y usá el mail que usás siempre</td><td>Te manda un código a ese mail para confirmar</td></tr>
+        <tr><td>4</td><td>Te ofrece elegir un plan: elegí <b>Pro</b>, pago <b>mensual</b>, y poné tu tarjeta. Si te dejó entrar sin pagar, tocá tu nombre (abajo a la izquierda) y buscá <b>Mejorar plan</b>; en inglés dice <b>Upgrade</b></td><td>Se cobra en el momento. Se puede cancelar cuando quieras desde Configuración</td></tr>
+        <tr><td>5</td><td>Arriba vas a ver tres pestañas. Tocá la que dice <b>Code</b></td><td>Es la parte de Claude que puede crear archivos e instalar cosas. La de Chat no puede</td></tr>
+        <tr><td>6</td><td>Te pide elegir una carpeta. En la ventana que se abre, tocá <b>Documentos</b> (está a la izquierda) y después el botón <b>Seleccionar carpeta</b></td><td>Ahí va a trabajar Claude. Si pregunta si confiás en esa carpeta, decí que sí: es tuya</td></tr>
+        <tr><td>7</td><td>Abajo hay una caja para escribir. Escribí <b>hola, ¿me ves?</b> y apretá Enter</td><td>Si te contesta, ya está andando</td></tr>
+      </tbody>
+    </table></div>
+    <figure class="shot"><img src="img/paso-code.jpg" alt="Ventana de Claude con las pestañas Chat, Cowork y Code; Code está marcada" loading="lazy"><figcaption>Así se ve por dentro: arriba están las pestañas. La que usás es <b>Code</b>. (Ilustración)</figcaption></figure>
+    <p class="tip">Si Claude te habla en inglés, escribile: «hablame siempre en español y explicame todo simple».</p>
+    <ul class="check">
+      <li><label><input type="checkbox" id="c01a"><span>Claude está abierto en la pestaña Code y me contestó</span></label></li>
+    </ul>
+  </div>
+
+  <div class="paso"><header><span class="k">0.2</span><h3>Descargá el kit</h3></header>
+    <p>Es un solo archivo. Trae esta guía completa, tu cerebro y las 19 skills. No lo abras: lo abre Claude.</p>
+    <button class="grande bajaKit" type="button">Descargar el kit</button>
+    <p class="sub">Te pregunta si querés guardarlo: decí que sí. Si el navegador avisa que «este tipo de archivo puede dañar tu equipo», tocá <b>Conservar</b>: es un archivo comprimido con textos adentro. Queda en tu carpeta Descargas con el nombre <b>kit-de-0-a-100</b>.</p>
+    <ul class="check">
+      <li><label><input type="checkbox" id="c02k"><span>El kit está en mi carpeta Descargas</span></label></li>
+    </ul>
+  </div>
+
+  <div class="paso"><header><span class="k">0.3</span><h3>Escribile una frase a Claude</h3></header>
+    <p>Volvé a Claude, al mismo chat donde le dijiste hola, y escribile esto tal cual:</p>
+    <div class="prompt"><div class="ph"><span>La frase</span><button class="btn" data-copy="p04">Copiar</button></div>
+<pre id="p04">Instalá el kit que está en mi carpeta Descargas y guiame paso a paso.</pre></div>
+    <figure class="shot"><img src="img/paso-kit.jpg" alt="Chat de Claude: la persona pide instalar el kit, Claude tilda cuatro pasos y aparece un cartel con el botón Permitir" loading="lazy"><figcaption>Le escribís la frase, Claude va tildando cada paso y, cuando aparece el cartel, tocás <b>Permitir</b>. (Ilustración)</figcaption></figure>
+    <details><summary>Clic por clic: qué vas a ver mientras instala</summary>
+      <p>1. Escribí la frase (o tocá «Copiar» y pegala con Ctrl + V) y apretá Enter.</p>
+      <p>2. Claude empieza a trabajar y te pide permiso muchas veces, a veces en inglés (dice «Allow»). Mientras esté instalando el kit, decile siempre que sí.</p>
+      <p>3. Te va a hacer unas preguntas: tu nombre, dónde vivís, si ya tenés algo armado. Contestá con tus palabras.</p>
+      <p>4. Tarda entre 10 y 15 minutos. No cierres la ventana.</p>
+      <p>5. Al final te muestra una tabla con lo instalado. Si alguna fila dice que falta algo, escribile «arreglá lo que falta».</p>
+      <p>6. Para probar que quedó bien, escribile: <b>«¿cuándo un anuncio es ganador?»</b>. Si te contesta con una regla con números, funcionó.</p>
+    </details>
+    <ul class="check">
+      <li><label><input type="checkbox" id="c04a"><span>Claude terminó la instalación y mostró la tabla</span></label></li>
+      <li><label><input type="checkbox" id="c04b"><span>Le pregunté «¿cuándo un anuncio es ganador?» y me contestó con una regla</span></label></li>
+    </ul>
+  </div>
+
+  <div class="paso" style="border-color:var(--ok);text-align:center">
+    <h3>Listo por hoy</h3>
+    <p>Si Claude te mostró la tabla de lo instalado, terminaste. Cerrá la computadora. <b>Todo lo que sigue más abajo es para otro día.</b></p>
+  </div>
+
+  <div class="paso"><header><span class="k">0.4</span><h3>Mañana: tu primer «buen día»</h3></header>
+    <p>Mañana, y cada día: abrís Claude, pestaña Code, la misma carpeta, y escribís «buen día». Así empieza cada día de trabajo. La primera vez, Claude te hace una entrevista corta y arma tu oficina.</p>
+    <div class="prompt"><div class="ph"><span>Pedido · todos los días</span><button class="btn" data-copy="p06">Copiar</button></div>
+<pre id="p06">Buen día</pre></div>
+    <div class="tw"><table>
+      <thead><tr><th>Escribís</th><th>Pasa</th></tr></thead>
+      <tbody>
+        <tr><td>«Guardá esto»</td><td>Guarda lo nuevo del chat en el cerebro y lo respalda. Al cerrar cada sesión</td></tr>
+        <tr><td>«Regla nueva»</td><td>Cuando Claude se equivoca: lo convierte en regla para que no se repita</td></tr>
+        <tr><td>«Ordená el cerebro»</td><td>Ordena el cerebro. Una vez por semana</td></tr>
+        <tr><td>«Pasá la posta»</td><td>Cierra un chat largo y deja todo listo para seguir en uno nuevo</td></tr>
+      </tbody>
+    </table></div>
+    <figure class="shot"><img src="img/paso-buen-dia.jpg" alt="Chat de Claude: la persona escribe Buen día y Claude responde con una tabla de dónde está y qué toca hoy" loading="lazy"><figcaption>Escribís «buen día» y te responde con dónde estás y qué toca hoy. (Ilustración)</figcaption></figure>
+    <ul class="check"><li><label><input type="checkbox" id="c06a"><span>Hice mi primer «buen día» y tengo mi meta escrita</span></label></li></ul>
+  </div>
+
+  <h2 style="margin-top:18px">Lo que vas a ir sumando</h2>
+  <p class="sub">Nada de esto es para hoy. Claude te avisa cuándo toca cada cosa y te guía clic por clic. Si te perdés, sacale una foto a tu pantalla y preguntale.</p>
+  <div class="tw"><table>
+    <thead><tr><th>Qué</th><th>Cuándo</th><th>Para qué</th></tr></thead>
+    <tbody>
+      <tr><td>Obsidian</td><td>Cuando quieras ver tu cerebro</td><td>Es la ventana para leer las notas que escribe Claude. Gratis</td></tr>
+      <tr><td>Chrome con Claude adentro</td><td>Antes del escalón 1</td><td>Para que Claude pueda mirar páginas con vos. Pedile: «ayudame a poner Claude en Chrome»</td></tr>
+      <tr><td>ChatGPT</td><td>Escalón 3</td><td>Para generar las imágenes. Empezá con la versión gratis y fijate si te alcanza</td></tr>
+      <tr><td>La tienda</td><td>Escalón 4</td><td>Donde se cobra y se entrega</td></tr>
+      <tr><td>Página de Facebook, llave de Meta Ads y píxel</td><td>Escalón 6</td><td>Para poder anunciar. Ahí aparece el token</td></tr>
+      <tr><td>Cuenta de anuncios y tarjeta</td><td>Escalón 8</td><td>Recién ahí empezás a gastar en anuncios</td></tr>
+      <tr><td>Respaldo en GitHub</td><td>Opcional</td><td>Una copia de seguridad de tu cerebro</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="paso"><header><span class="k">0.5</span><h3>Mirá tu cerebro en Obsidian</h3></header>
+    <p>Claude escribe en el cerebro; Obsidian es la ventana para leerlo. Los dos miran la misma carpeta. Se baja gratis de <a href="https://obsidian.md/download">obsidian.md/download</a>.</p>
+    <figure class="shot"><img src="img/obsidian-descarga.jpg" alt="Página de descarga de Obsidian con el botón «Download for Windows»" loading="lazy"><figcaption>La página de Obsidian. El botón violeta es el que tocás.</figcaption></figure>
+    <p class="tip">¿No sabés dónde quedó tu cerebro? Preguntale a Claude: <b>«¿en qué carpeta quedó mi cerebro?»</b>. Te dice la ruta exacta, y esa es la que elegís en Obsidian.</p>
+    <h4>¿Qué cerebro recibís y dónde queda?</h4>
+    <div class="tw"><table>
+      <thead><tr><th></th><th>Qué es</th><th>Dónde queda</th></tr></thead>
+      <tbody>
+        <tr><td>Tu cerebro</td><td>Viene con el kit. Trae el método y las reglas, pero todavía no sabe nada de tu negocio: lo vas llenando vos con cada día de trabajo</td><td>En tu computadora, en una carpeta que se llama <b>cerebro</b>, dentro de tu carpeta de usuario</td></tr>
+        <tr><td>Mi cerebro</td><td>Es el mío, con mi negocio adentro. No se entrega: tiene mis productos y mis números</td><td>En mi computadora</td></tr>
+      </tbody>
+    </table></div>
+    <p class="tip">Tu cerebro es tuyo y queda en tu computadora. Nadie más lo ve, ni yo.</p>
+    <figure class="shot"><img src="img/obsidian-boveda.jpg" alt="Ventana de Obsidian con las opciones Crear una bóveda nueva, Abrir una carpeta como bóveda y Conectar con Obsidian Sync" loading="lazy"><figcaption>Captura real de Obsidian. Tocás <b>Abrir</b>, en «Abrir una carpeta como bóveda», y elegís tu carpeta cerebro.</figcaption></figure>
+    <ul class="check">
+      <li><label><input type="checkbox" id="c05a"><span>Abrí Obsidian y elegí «Abrir carpeta como bóveda»</span></label></li>
+      <li><label><input type="checkbox" id="c05b"><span>Elegí la carpeta «cerebro» de mi usuario</span></label></li>
+      <li><label><input type="checkbox" id="c05c"><span>Abrí HOT.md: es mi tablero, la primera línea es mi meta</span></label></li>
+    </ul>
+    <p class="tip">No edites a mano mientras Claude trabaja. Para sumar algo, decile <b>«guardá esto en el cerebro: …»</b> y lo ordena.</p>
+  </div>
+
+  <div class="paso"><header><span class="k">0.6</span><h3>Las cuentas, cuando toque</h3></header>
+    <p class="sub">Esto lo hacés vos. Claude nunca crea cuentas ni escribe contraseñas.</p>
+    <div class="tw"><table>
+      <thead><tr><th>Cuenta</th><th>Para qué</th><th>Cuándo</th></tr></thead>
+      <tbody>
+        <tr><td>Gmail del negocio</td><td>Opcional: una casilla separada de la personal. Si preferís, seguí con tu mail de siempre</td><td>Cuando quieras</td></tr>
+        <tr><td>GitHub</td><td>Respaldo automático de tu cerebro. Gratis, en <a href="https://github.com/signup">github.com/signup</a></td><td>Opcional</td></tr>
+        <tr><td>Facebook y Business Manager</td><td>Página, píxel y cuenta publicitaria. En <a href="https://business.facebook.com">business.facebook.com</a>, con un perfil real y con antigüedad</td><td>Escalón 6</td></tr>
+        <tr><td>Tienda (Impultienda)</td><td>Donde se cobra y se entrega el producto. Mirá el recuadro de abajo</td><td>Escalón 4</td></tr>
+        <tr><td>Google Drive</td><td>Para guardar los PDF que recibe quien compra. Viene con el Gmail</td><td>Escalón 4</td></tr>
+        <tr><td>Tarjeta para anuncios</td><td>La cargás vos en la cuenta publicitaria. Nunca se la pases a Claude</td><td>Escalón 8</td></tr>
+      </tbody>
+    </table></div>
+    <h4>La tienda que uso yo: Impultienda</h4>
+    <figure class="shot"><img src="img/impultienda.jpg" alt="Página de inicio de Impultienda con el botón «Crear tienda gratis»" loading="lazy"><figcaption>La página de Impultienda. El botón de arriba a la derecha crea tu cuenta.</figcaption></figure>
+    <div class="tw"><table>
+      <tbody>
+        <tr><td>Por qué</td><td>Es la que tiene llave para Claude: él arma la tienda, los productos y el checkout por vos</td></tr>
+        <tr><td>Qué plan</td><td>Yo uso el plan <b>Max</b> y es el que te recomiendo, porque es el que trae esa llave</td></tr>
+        <tr><td>Cuánto sale al empezar</td><td><b>45 días gratis.</b> Te pide la tarjeta al suscribirte, pero cobra recién cuando termina la prueba, y podés cancelar antes sin cargo</td></tr>
+        <tr><td>Mi consejo</td><td>Aprovechá esos 45 días: alcanzan para hacer los 12 escalones y saber si esto es para vos antes de pagar el plan</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+
+  <div class="paso"><header><span class="k">0.7</span><h3>Las llaves de Claude</h3></header>
+    <p class="sub">La de la tienda se conecta en el escalón 4, y la de Meta Ads junto con el token en el 6. Leelo ahora si querés entender la idea; hacerlo, más adelante.</p>
+    <p><b>Pensalo así:</b> Claude es tu empleada nueva. Sabe hacer el trabajo, pero todavía no tiene las llaves de la oficina. Cada conector es una llave: una para ver tus anuncios, otra para entrar a tu tienda, otra para leer tu mail. Vos elegís qué llaves le das, y se las podés sacar cuando quieras.</p>
+    <p>Una llave no es tu contraseña. Claude nunca ve ni guarda tus claves: cuando conectás algo, se abre la página de ese servicio, entrás vos como siempre y tocás «Permitir».</p>
+    <figure class="vid"><video controls preload="metadata" src="videos/video-3.mp4"></video><figcaption><b>Video 3 · Las llaves de Claude y el token.</b></figcaption></figure>
+    <h4>Tus llaves, una por una</h4>
+    <div class="tw"><table>
+      <thead><tr><th>Llave</th><th>Lo que Claude hace solo</th><th>Lo que hacés vos</th></tr></thead>
+      <tbody>
+        <tr><td>Meta Ads<br><span class="chip">la más importante</span></td><td>Mira tus campañas, cuánto gastó y qué vendió cada anuncio. Busca en la Biblioteca de Anuncios. Sube las imágenes. Arma la campaña, los conjuntos y los anuncios, con país, idioma, presupuesto y fecha de salida. Cambia presupuestos. Revisa que el píxel esté recibiendo las visitas y las compras</td><td>Cargar la tarjeta, dar el OK y prender</td></tr>
+        <tr><td>Tu tienda</td><td>Crea la tienda y los productos. Pone los precios y la moneda de cada país. Arma el checkout, los extras, la oferta después de la compra y la página de venta. Carga lo que recibe quien compra. Configura el dominio. Te muestra ventas, carritos abandonados y pagos rechazados</td><td>Crear la cuenta, conectar el cobro y aprobar los cambios. El token se pega en el escalón 6</td></tr>
+        <tr><td>Gmail</td><td>Lee los mails de tus clientes y te deja la respuesta escrita en borrador</td><td>Leerla y enviarla</td></tr>
+        <tr><td>Calendario</td><td>Agenda recordatorios y revisiones (por ejemplo, «volver a mirar este país el lunes»)</td><td>Nada</td></tr>
+        <tr><td>Claude en Chrome</td><td>Maneja tu navegador donde no hay llave: genera las imágenes en ChatGPT, sube los PDF a Drive, prepara la página de Facebook, mira páginas de otros</td><td>Tener la sesión iniciada en cada sitio</td></tr>
+        <tr><td>Hotmart<br><span class="chip tu">opcional</span></td><td>Si vendés por ahí: te muestra ventas y crea cupones</td><td>Nada</td></tr>
+      </tbody>
+    </table></div>
+
+    <p class="tip"><b>Cuando abro una tienda nueva, lo único técnico que hago yo a mano es pegar el token.</b> Lo demás lo arma Claude y yo voy aprobando.</p>
+    <details><summary>Qué es el token y cómo se pega, clic por clic</summary>
+      <p>El token es una clave larga que te da Meta. Sirve para que tu tienda le avise a Meta cada vez que alguien compra, así tus anuncios aprenden a quién mostrarse. Como es una clave, Claude no la puede escribir por vos: te dice dónde copiarla y dónde pegarla.</p>
+      <p>1. Pedile a Claude: «creá el píxel de mi tienda y decime dónde saco el token».</p>
+      <p>2. Entrá a Meta, al <b>Administrador de eventos</b>, y tocá tu píxel.</p>
+      <p>3. Abrí la pestaña <b>Configuración</b> y bajá hasta <b>API de conversiones</b>.</p>
+      <p>4. Tocá <b>Generar token de acceso</b>. Aparece un texto larguísimo que empieza con «EA». Copialo entero.</p>
+      <p>5. Volvé a tu tienda: <b>Configuraciones → Meta / Tracking</b>. Pegalo en el campo del token, al lado de tu píxel, y guardá.</p>
+      <p>6. Decile a Claude «ya pegué el token, comprobá que funciona». Te responde si Meta lo aceptó.</p>
+      <p>Los nombres de los botones de Meta cambian cada tanto. Si no encontrás alguno, mandale a Claude una captura de tu pantalla y preguntale dónde está.</p>
+    </details>
+    <details><summary>Clic por clic: darle a Claude la llave de Meta Ads</summary>
+      <p>1. En Claude, tocá tu nombre (abajo a la izquierda) y entrá a <b>Configuración</b>.</p>
+      <p>2. Tocá <b>Conectores</b>. Vas a ver una lista.</p>
+      <p>3. Buscá el de Meta Ads y tocá <b>Conectar</b>.</p>
+      <p>4. Se abre Facebook. Entrá con tu cuenta, elegí tu cuenta publicitaria y tocá <b>Permitir</b>.</p>
+      <p>5. Volvé a Claude. Al lado del conector ahora dice «Desconectar»: esa es la señal de que quedó.</p>
+    </details>
+    <details><summary>Clic por clic: darle a Claude la llave de tu tienda (Impultienda)</summary>
+      <p>1. En Claude: tu nombre → <b>Configuración → Conectores → Agregar → Agregar conector personalizado</b>.</p>
+      <p>2. En nombre escribí <b>Impultienda</b>. En dirección pegá <b>https://mcp.impultienda.ar/mcp</b>. Tocá <b>Agregar</b>.</p>
+      <p>3. Tocá <b>Conectar</b>. Se abre el inicio de sesión de Impultienda: entrá con tu cuenta y autorizá.</p>
+      <p>4. Cuando el botón diga «Desconectar», ya está.</p>
+      <p>5. Probalo en un chat nuevo con esta pregunta: «¿qué tiendas tiene mi cuenta?».</p>
+    </details>
+    <div class="prompt"><div class="ph"><span>Pedido · comprobar los conectores</span><button class="btn" data-copy="p03">Copiar</button></div>
+<pre id="p03">Revisá qué conectores tengo activos. Para cada uno, hacé una lectura simple y decime en una tabla: conectado o no, y qué podés ver. No cambies nada.</pre></div>
+  </div>
+
+  <div class="paso"><header><span class="k">0.8</span><h3>Qué hago si…</h3></header>
+    <div class="stack" id="quehago"></div>
+  </div>
+</section>
+
+<!-- 1 -->
+<section class="parte" id="escalera">
+  <p class="pnum">Parte 1</p>
+  <h2>Los 12 escalones</h2>
+  <p class="sub">Un solo producto, un solo camino. No pases al siguiente hasta cumplir el «pasás cuando».</p>
+
+  <h3>Antes del escalón 1: vendé algo que ya se vende</h3>
+  <p>Casi todas queremos inventar un producto desde cero. A veces funciona. La gran mayoría de las veces, no, y te enterás después de haber gastado.</p>
+  <p>Yo lo hago al revés: primero busco un producto que ya se esté vendiendo, y recién ahí creo el mío, desde cero, basándome en ese. Eso es <b>modelar</b>.</p>
+  <div class="tw"><table>
+    <thead><tr><th>Camino</th><th>Qué es</th><th>Qué suele pasar</th></tr></thead>
+    <tbody>
+      <tr><td>Inventar</td><td>Crear algo que nadie vende todavía</td><td>No sabés si alguien lo quiere hasta que gastaste</td></tr>
+      <tr><td>Copiar</td><td>Usar los textos, imágenes o el nombre de otro</td><td>Está mal, te pueden bajar la cuenta y no aprendés nada</td></tr>
+      <tr><td>Modelar <span class="chip">así lo hago yo</span></td><td>Mirar qué problema resuelve, a quién, a qué precio y cómo está armada la página. Y crear el tuyo, con tu contenido, tu nombre y tus imágenes</td><td>Arrancás sabiendo que hay gente que ya compra eso</td></tr>
+    </tbody>
+  </table></div>
+
+  <figure class="shot"><img src="img/biblioteca.jpg" alt="Biblioteca de Anuncios de Meta, con el buscador por país y palabra" loading="lazy"><figcaption>La Biblioteca de Anuncios de Meta: es pública y gratis. Ahí se ve todo lo que se está anunciando hoy.</figcaption></figure>
+
+  <h3>Nichos donde más ofertas vas a encontrar</h3>
+  <p class="sub">Son ejemplos para arrancar la búsqueda del escalón 1. Lo que manda es lo que veas vendiéndose hoy en la Biblioteca de Anuncios.</p>
+  <div class="tw"><table>
+    <thead><tr><th>Nicho</th><th>Qué se vende</th></tr></thead>
+    <tbody>
+      <tr><td>Bienestar emocional</td><td>Diarios guiados, cuadernos de escritura, planes de 21 o 30 días para ansiedad, hábitos o descanso</td></tr>
+      <tr><td>Crianza y niños</td><td>Kits de actividades para imprimir, juegos de emociones, experimentos caseros, rutinas</td></tr>
+      <tr><td>Espiritualidad</td><td>Agendas y rituales por fecha, manifestación, cartas, calendarios lunares</td></tr>
+      <tr><td>Oficios y manualidades</td><td>Planos, moldes y patrones para carpintería, herrería, costura, crochet</td></tr>
+      <tr><td>Cocina y alimentación</td><td>Recetarios por objetivo o por aparato, menús semanales, viandas</td></tr>
+      <tr><td>Estudio</td><td>Láminas, resúmenes y fichas por materia o carrera</td></tr>
+      <tr><td>Plata y negocio</td><td>Planillas de presupuesto, plantillas para vender, guías para emprender</td></tr>
+      <tr><td>Mascotas</td><td>Guías de adiestramiento, recetas caseras, cuidados por raza</td></tr>
+    </tbody>
+  </table></div>
+  <p class="tip"><b>Cómo elegir:</b> un nicho sirve cuando ves el mismo tipo de producto anunciado por varias personas distintas, desde hace semanas. Si lo vende una sola, todavía no está probado.</p>
+  <h3>Los escalones en video</h3>
+  <div class="vids">
+    <figure class="vid"><video controls preload="metadata" src="videos/video-4.mp4"></video><figcaption><b>Video 4 · Escalones 1 a 3.</b> Elegir y armar tu producto.</figcaption></figure>
+    <figure class="vid"><video controls preload="metadata" src="videos/video-5.mp4"></video><figcaption><b>Video 5 · Escalones 4 a 6.</b> Tienda, página y píxel.</figcaption></figure>
+    <figure class="vid"><video controls preload="metadata" src="videos/video-6.mp4"></video><figcaption><b>Video 6 · Escalones 7 a 9.</b> Anuncios, campaña y primeros días.</figcaption></figure>
+    <figure class="vid"><video controls preload="metadata" src="videos/video-7.mp4"></video><figcaption><b>Video 7 · Escalones 10 a 12.</b> Crecer con tu ganador.</figcaption></figure>
+  </div>
+  <div class="stack" id="escalones"></div>
+</section>
+
+<!-- 2 -->
+<section class="parte" id="escala">
+  <p class="pnum">Parte 2</p>
+  <h2>Escalar, explicado desde cero</h2>
+  <p><b>Escalar es poner más plata en lo que ya demostró que vende.</b> Nada más. No se escala una idea ni una corazonada: se escala un anuncio que ya trajo ventas cobradas.</p>
+  <p class="sub">Hay muchas formas de escalar. Acá te cuento la que uso yo hoy; no es la única ni la mejor para todo el mundo.</p>
+
+  <h3>Primero, dos palabras: ABO y CBO</h3>
+  <p class="sub">Es solo quién reparte la plata.</p>
+  <div class="tw"><table>
+    <thead><tr><th></th><th>Quién reparte</th><th>Pensalo así</th><th>Para qué lo uso</th></tr></thead>
+    <tbody>
+      <tr><td>ABO</td><td>Vos. Le ponés un monto a cada conjunto</td><td>Le das la misma plata a cada una de tus vendedoras, para ver cuál vende</td><td>Para probar: todos los anuncios reciben lo mismo y la comparación es justa</td></tr>
+      <tr><td>CBO</td><td>Meta. Le ponés un monto a la campaña y él lo reparte</td><td>Le das toda la plata a un encargado y él decide a quién mandarla</td><td>Cuando ya sé qué funciona y quiero que Meta empuje lo mejor</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Segundo, los tres números</h3>
+  <p>Vas a escuchar «uno-cinco-uno» o «uno-uno-uno». Son siempre lo mismo, en este orden: <b>campañas · conjuntos · anuncios por conjunto</b>.</p>
+  <div class="tw"><table>
+    <thead><tr><th>Estructura</th><th>Qué es</th><th>Cuándo la uso</th></tr></thead>
+    <tbody>
+      <tr><td>1 · 5 · 1</td><td>1 campaña madre, 5 conjuntos, 1 anuncio en cada uno. En ABO, a 7 dólares por día cada conjunto</td><td><b>Para probar.</b> Es mi campaña de siempre: cinco anuncios compitiendo en igualdad</td></tr>
+      <tr><td>1 · 1 · 1</td><td>1 campaña, 1 conjunto, 1 anuncio: el ganador solo, con su propia plata</td><td><b>Para escalar.</b> Es la que más uso: saco al ganador de la prueba y le subo de a poco</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Las formas de escalar que existen</h3>
+  <div class="tw"><table>
+    <thead><tr><th>Forma</th><th>En simple</th><th>Cuidado</th></tr></thead>
+    <tbody>
+      <tr><td>Subirle al ganador</td><td>Más presupuesto al anuncio que vende, de a 20 o 30 % por vez</td><td>Si subís de golpe, se desordena</td></tr>
+      <tr><td>Darle campaña propia</td><td>Sacás al ganador a una 1 · 1 · 1</td><td>Solo con un ganador de verdad</td></tr>
+      <tr><td>Renovarlo</td><td>Versiones nuevas del ganador, con un solo cambio</td><td>Sin tocar el original</td></tr>
+      <tr><td>Por horario</td><td>Subir en la hora en que tu país compra</td><td>Solo si hoy hubo venta</td></tr>
+      <tr><td>Abrir otro país</td><td>El mismo producto en otro idioma</td><td>Es la que más crece y la que más trabajo lleva</td></tr>
+    </tbody>
+  </table></div>
+  <p class="tip"><b>No lo hacés a mano.</b> Le pedís el plan a Claude con el pedido de más abajo, lo mirás y aprobás. Él no cambia ningún presupuesto sin tu OK.</p>
+
+  <h2 style="margin-top:14px">Mi plan: tres motores</h2>
+  <p class="sub">Los tres corren a la vez. Si uno se frena, el negocio deja de crecer aunque los otros dos funcionen.</p>
+  <figure class="vid"><video controls preload="metadata" src="videos/video-8.mp4"></video><figcaption><b>Video 8 · El plan de escala.</b></figcaption></figure>
+  <div class="motors">
+    <div class="motor"><small>Cada 48 horas al empezar, después todos los días</small><h3>Renovar lo que ya vende</h3><p>De cada anuncio ganador sale una versión nueva: el mismo anuncio con un solo cambio (gancho, titular o primera imagen).</p></div>
+    <div class="motor"><small>Todos los días</small><h3>Escalar con un plan escrito</h3><p>El presupuesto sube solo donde hubo venta hoy, y en la hora en que ese país compra. Nunca a ojo.</p></div>
+    <div class="motor"><small>Cada 2 o 3 días</small><h3>Abrir un mercado nuevo</h3><p>Un país más con el mismo producto. Si en pocos días no vende, se apaga y se pasa al siguiente.</p></div>
+  </div>
+  <div class="tw"><table>
+    <thead><tr><th>Situación</th><th>Qué hacés</th></tr></thead>
+    <tbody>
+      <tr><td>4 o más ventas cobradas y vuelve más del doble de lo gastado</td><td>Es ganador: se renueva todos los días</td></tr>
+      <tr><td>El país vendió hoy y viene vendiendo los últimos 4 días</td><td>Se le sube presupuesto en su hora pico</td></tr>
+      <tr><td>El país no vendió hoy</td><td>No se escala, aunque ayer haya ido bien</td></tr>
+      <tr><td>País nuevo que gasta y no vende en pocos días</td><td>Se apaga y se abre el siguiente</td></tr>
+    </tbody>
+  </table></div>
+  <div class="prompt"><div class="ph"><span>Pedido · plan de escala del día</span><button class="btn" data-copy="pEsc">Copiar</button></div>
+<pre id="pEsc">Armá mi plan de escala de hoy en una tabla, por país: ventas cobradas hoy y en los 4 días anteriores, gasto, y qué propones (subir, mantener, bajar o apagar) con el motivo. Usá lo cobrado en la tienda, no lo que dice el panel de anuncios. No cambies ningún presupuesto sin mi OK.</pre></div>
+</section>
+
+<!-- 3 -->
+<section class="parte" id="paises">
+  <p class="pnum">Parte 3</p>
+  <h2>Abrir otros idiomas: las 13 etapas</h2>
+  <p class="sub">Cuando tu producto ya vende, este es el recorrido para llevarlo a un país nuevo. Es el mismo para cualquier idioma.</p>
+  <figure class="vid"><video controls preload="metadata" src="videos/video-9.mp4"></video><figcaption><b>Video 9 · Abrir un país nuevo.</b></figcaption></figure>
+  <div class="tw"><table>
+    <thead><tr><th>#</th><th>Etapa</th><th>Qué queda hecho</th><th>Quién</th></tr></thead>
+    <tbody>
+      <tr><td>0</td><td>Arranque</td><td>Producto que ya vende, país, idioma, precio y nombre</td><td><span class="chip tu">Vos decidís</span></td></tr>
+      <tr><td>1</td><td>Biblioteca de Anuncios</td><td>Comprobar que el producto ya se vende en otros idiomas. Si no, no se lanza</td><td><span class="chip">Claude</span></td></tr>
+      <tr><td>2</td><td>Cómo hablan allá</td><td>Guía de estilo con frases reales del país</td><td><span class="chip">Claude</span></td></tr>
+      <tr><td>3</td><td>Clienta ideal</td><td>10 dolores dichos con sus palabras</td><td><span class="chip">Claude</span></td></tr>
+      <tr><td>4</td><td>Traducción nativa</td><td>Producto y bonos con el mismo diseño, con dos revisiones</td><td><span class="chip">Claude</span></td></tr>
+      <tr><td>5</td><td>Entrega</td><td>Una carpeta por producto con su enlace comprobado</td><td><span class="chip">Claude</span></td></tr>
+      <tr><td>6</td><td>Tienda</td><td>Idioma, dominio, moneda local, pagos y checkout limpio</td><td><span class="chip">Claude</span></td></tr>
+      <tr><td>7</td><td>Ofertas extra</td><td>Extras en el checkout y oferta después de la compra, con un juego del país</td><td><span class="chip">Claude</span></td></tr>
+      <tr><td>8</td><td>Landing</td><td>Los dolores arriba, sin testimonios inventados, revisada en el celular</td><td><span class="chip">Claude</span></td></tr>
+      <tr><td>9</td><td>Página de Facebook</td><td>Nombre en el idioma, perfil, portada y 4 publicaciones</td><td><span class="chip">Claude</span> <span class="chip tu">Vos das los clics</span></td></tr>
+      <tr><td>10</td><td>Píxel</td><td>Conectado a la tienda y probado en vivo</td><td><span class="chip">Claude</span> <span class="chip tu">Vos pegás la clave</span></td></tr>
+      <tr><td>11</td><td>Anuncios</td><td>Un ángulo por dolor, campaña armada y en pausa</td><td><span class="chip">Claude</span></td></tr>
+      <tr><td>12</td><td>Antes de prender</td><td>Lista de control completa</td><td><span class="chip tu">Vos das el OK</span></td></tr>
+    </tbody>
+  </table></div>
+  <div class="prompt"><div class="ph"><span>Pedido · abrir un país</span><button class="btn" data-copy="pPais">Copiar</button></div>
+<pre id="pPais">Abramos [PAÍS] en [IDIOMA] con [MI PRODUCTO].
+Empezá por la Biblioteca de Anuncios: decime si este producto ya se vende en otros idiomas y mostrame el semáforo.
+Si da verde, seguí con las 13 etapas en orden y preguntame solo lo que tengo que decidir yo: nombre, precio y el OK final.
+No prendas ninguna campaña ni gastes nada sin que yo lo apruebe.</pre></div>
+</section>
+
+<section class="parte" id="bonos">
+  <p class="pnum">Incluido</p>
+  <h2>Bonos adicionales</h2>
+  <div class="bonos">
+    <a class="bono" href="bonos/mapa-de-paises.html"><small>Bono 1 · abrir</small><h4>Mapa de países</h4><p>Seis preguntas y un semáforo para decidir si abrís un país o no, antes de traducir nada.</p></a>
+    <a class="bono" href="bonos/tipos-de-anuncio.html"><small>Bono 2 · abrir</small><h4>Los tipos de anuncio</h4><p>14 formas de mostrar tu producto: pregunta grande, la lista, recorrido por dentro, voz en off, historia y más. Con cuándo usar cada una y el pedido para Claude.</p></a>
+    <a class="bono" href="bonos/calculadora.html"><small>Bono 3 · abrir</small><h4>Calculadora de números</h4><p>Costo por venta, punto de empate y cuándo cortar.</p></a>
+    <a class="bono" href="bonos/que-hago-si.html"><small>Bono 4 · abrir</small><h4>«Qué hago si…» ampliado</h4><p>24 problemas del camino, con su salida y lo que le decís a Claude. Con buscador.</p></a>
+  </div>
+</section>
+
+<section class="parte" id="reglas">
+  <h2>Palabras que vas a escuchar</h2>
+  <div class="glos" id="glos"></div>
+</section>
+
+<footer>Así es como lo estoy haciendo yo. No es la única forma ni una garantía de resultado: lo único que manda es lo que cobre tu propia caja.</footer>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script>
+const $=id=>document.getElementById(id);
+const esc=s=>s.replace(/&/g,"&amp;").replace(/</g,"&lt;");
+
+/* escalones */
+const E=[
+ ["Elegir qué vender","Mirás las 5 ofertas y elegís una","Busca en la Biblioteca de Anuncios qué se está vendiendo y lo ordena en una tabla",
+  "Busco un producto digital para vender con anuncios de Meta en [NICHO o «sorpréndeme»] para [PAÍS]. Mirá la Biblioteca de Anuncios y dame 5 ofertas en una tabla: cuántos anuncios activos, días del más viejo, cuántos anunciantes distintos, precio y promesa. Solo lectura. Lo que no puedas comprobar, decímelo.",
+  "tenés una oferta con 20 o más anuncios activos y al menos 3 anunciantes distintos"],
+ ["Desarmar la oferta elegida","Le pasás el enlace","Confirma que es la página real y te dice su estructura, precio y extras",
+  "Analizá esta página: [ENLACE]. Primero confirmá que es la página real a la que llevan los anuncios. Después decime su estructura, precio, extras y qué promete. Quiero modelar la estructura mejorada, sin copiar textos, imágenes ni marcas.",
+  "sabés qué vende, a cuánto y con qué extras"],
+ ["Armar tu producto","Elegís nombre y precio, y leés el PDF entero","Escribe el contenido, arma el PDF y te da el pedido de imagen para la portada",
+  "Armá conmigo el producto: un [ebook o kit] en PDF sobre [TEMA] para [CLIENTA]. Proponeme 3 nombres, el índice y el precio de entrada. Después escribilo completo y generá el PDF. Para la portada, escribime el pedido de imagen para pegar en ChatGPT.",
+  "abriste el PDF y lo leíste de punta a punta"],
+ ["La tienda","Creás la cuenta, cargás el cobro y aprobás cada cambio","Crea el producto, el checkout, y la entrega por mail",
+  "Creá mi tienda en [PLATAFORMA] con este producto: nombre, precio [X] en [MONEDA] y entrega automática por mail con el enlace al PDF. Por ahora sin ofertas extra: esas se suman en el escalón 11. Mostrame cada cambio antes de aplicarlo.",
+  "hiciste una compra de prueba y te llegó el producto"],
+ ["La landing","La leés en tu celular","Escribe una página corta con los dolores arriba y la revisa a ancho de celular",
+  "Escribí una landing corta (300 a 800 palabras) para [PRODUCTO]. Los dolores de la clienta van arriba. Sin testimonios inventados ni promesas de resultado. Después revisala a ancho de celular y decime qué se ve mal.",
+  "la landing se lee bien en el celular y el botón lleva al checkout"],
+ ["Página de Facebook y píxel","Das los clics en Facebook y pegás la clave del píxel","Prepara nombre, textos, fotos y publicaciones, y comprueba que el píxel registra",
+  "Preparame la página de Facebook de [MARCA]: nombre, descripción, foto de perfil y portada distintas y 4 publicaciones. Yo doy los clics. Después guiame para crear el píxel y conectarlo a la tienda, y comprobá que registra la visita.",
+  "el píxel registra la visita en la landing y en el checkout"],
+ ["Primera tanda de anuncios","Generás las imágenes y elegís","Escribe 5 anuncios, uno por ángulo, con su pedido de imagen",
+  "Haceme 5 anuncios para [PRODUCTO], cada uno con un ángulo distinto: precio, negocio, deseo, capacidad e identidad. Para cada uno dame el texto, el titular y el pedido de imagen para ChatGPT usando la tapa real del producto. Antes de darlos por buenos, revisá la ortografía y que no prometan resultados.",
+  "tenés 5 anuncios revisados, con la tapa real del producto"],
+ ["Campaña de prueba","La revisás y la prendés vos","Arma la campaña en pausa con todo configurado",
+  "Creá una campaña de ventas en pausa: 5 conjuntos de 7 USD por día cada uno (presupuesto por conjunto, no por campaña), un anuncio por conjunto, país [PAÍS], idioma [IDIOMA], sin filtro de edad ni género, con inicio mañana a las 00:00. Ponele la fecha al nombre de cada conjunto. No la actives: la prendo yo.",
+  "la campaña está creada, la revisaste y la prendiste"],
+ ["Leer y cortar","Decidís qué se apaga","Te muestra cada mañana qué gastó y qué vendió cada anuncio",
+  "Mostrame en una tabla, por anuncio: gastado, ventas cobradas en la tienda y costo por venta. Decime cuáles apagar con esta regla: si gastó la mitad del precio del producto sin vender, se apaga. No decidas nada con una sola venta.",
+  "apagaste tu primer anuncio con criterio, a los 3 días"],
+ ["Renovar cada 48 horas","Generás las imágenes y aprobás","Saca versiones nuevas del anuncio que mejor va",
+  "Del anuncio que mejor va, haceme 2 versiones nuevas cambiando una sola cosa en cada una (gancho, titular o primera imagen). Sumale 1 anuncio con un ángulo nuevo. Dejalos en pausa para mañana a las 00:00.",
+  "ya salieron tu segunda y tercera tanda"],
+ ["Primer ganador: subir lo que deja cada venta","Aprobás la oferta","Arma la oferta que aparece después de la compra",
+  "Tengo un ganador (4 o más ventas cobradas y vuelve más del doble de lo gastado). Proponeme una oferta después de la compra que sea «más de lo mismo» a 1,4 veces el precio, y su versión a mitad de precio si la rechazan. Armala en la tienda y mostramela antes de activarla.",
+  "la oferta está activa y la viste aparecer en una compra de prueba"],
+ ["Escalar y recuperar ventas","Aprobás subidas y mails","Detecta la hora en que compra tu país y redacta los mails de recuperación",
+  "Mirá a qué hora compra mi país en los últimos 7 días. Si hoy hubo ventas, proponé subir el presupuesto del ganador en esa franja. Aparte, listá los pagos rechazados de esta semana y redactá un mail corto para recuperarlos. No cambies presupuestos ni envíes nada sin mi OK.",
+  "llevás 7 días seguidos sobre tu meta: seguís con la Parte 2, el plan para crecer"]
+];
+const D=[
+ {s:["Abrí un chat nuevo en Claude (pestaña Code) y pegá el pedido. Cambiá lo que está entre corchetes por tu nicho y tu país.","Claude abre la Biblioteca de Anuncios en Chrome y busca. Tarda unos minutos: dejalo trabajar.","Te devuelve una tabla con 5 ofertas. Mirá dos columnas: cuántos anunciantes distintos hay y cuántos días lleva el anuncio más viejo.","Si querés verlas con tus ojos: entrá a facebook.com/ads/library, elegí el país, «Todos los anuncios», y escribí la palabra.","Elegí una y decile: «me quedo con la número 3»."],
+  e:"elegir lo que te gusta a vos en vez de lo que ya se está vendiendo."},
+ {s:["En la tabla del escalón anterior, cada oferta tiene su enlace. Copialo.","Pegá el pedido con ese enlace en el lugar de los corchetes.","Claude abre la página, la recorre hasta el botón de compra y mira qué ofrece al pagar.","Te devuelve qué vende, a cuánto, qué extras ofrece y en qué orden está armada la página.","Para que no se pierda, decile: «guardá esto en el cerebro»."],
+  e:"copiar textos o imágenes. Se toma el orden de la página, nunca el contenido."},
+ {s:["Pegá el pedido con tu tema y a quién va dirigido.","Elegí uno de los 3 nombres y confirmá el precio.","Claude escribe todo y te deja un PDF en tu carpeta. Te dice dónde quedó.","Abrilo y leelo entero. Lo que no te guste, decíselo en simple: «el capítulo 2 hacelo más corto».","Para la portada: copiá el pedido de imagen que te da, pegalo en ChatGPT, bajá la imagen y decile a Claude dónde la guardaste."],
+  e:"dar por bueno un PDF sin haberlo leído."},
+ {s:["Creá tu cuenta en la plataforma de venta. Esto lo hacés vos.","Conectá el cobro desde el panel de la tienda. Claude te pasa el enlace y los pasos; las claves las escribís vos.","Pegá el pedido. Claude te muestra cada cambio antes de hacerlo: leé y aprobá.","Pedile que suba el PDF a Drive y cargue el enlace como entrega del producto.","Hacé una compra de prueba con tu propio mail y fijate que te llegue el producto."],
+  e:"salir a vender sin haber comprado vos primero."},
+ {s:["Pegá el pedido con el nombre de tu producto.","Claude escribe la página y te la muestra. Pedile cambios con tus palabras.","Pedile el enlace y abrila en tu celular. Leela entera, de arriba abajo.","Tocá el botón de compra: tiene que llevarte al checkout."],
+  e:"revisar solo en la computadora. Casi todas las compras se hacen desde el celular."},
+ {s:["Pegá el pedido. Claude te prepara el nombre, los textos y dos imágenes distintas.","Creá la página en Facebook siguiendo sus indicaciones, un paso por vez.","Pedile que cree el píxel y te diga dónde sacar el token (está explicado en el paso 0.7).","Pegá el token en tu tienda y avisale: «ya lo pegué».","Claude entra a tu página de venta y comprueba que el píxel registra la visita."],
+  e:"saltearse el token. Sin él, Meta se pierde parte de las compras y el anuncio aprende peor."},
+ {s:["Pegá el pedido con el nombre de tu producto.","Recibís 5 anuncios. Cada uno trae texto, titular y un pedido de imagen.","Abrí ChatGPT, adjuntá la tapa de tu producto y pegá el primer pedido de imagen. Repetí con los otros 4.","Mirá cada imagen en grande: buscá letras raras o palabras mal escritas. Si hay, pedila de nuevo.","Guardá las 5 en una carpeta y decile a Claude cuál es."],
+  e:"usar una imagen donde se ve un producto que no es el tuyo."},
+ {s:["Antes de nada: esta campaña gasta 35 dólares por día en total. Tené apartado lo de 4 días.","Cargá tu tarjeta en la cuenta publicitaria de Meta. Esto lo hacés vos.","Pegá el pedido con tu país y tu idioma.","Claude sube las imágenes y arma todo en pausa. Te muestra un resumen de lo que creó.","Entrá al Administrador de anuncios y mirá que estén los 5 conjuntos, cada uno con su anuncio.","Cuando estés conforme, prendé el interruptor de la campaña. Ese clic es tuyo. Como tiene fecha de inicio, empieza a gastar recién a las 00:00."],
+  e:"prender a mitad del día. Dejala para que arranque sola a las 00:00."},
+ {s:["Cada mañana, pegá el pedido.","Mirá la tabla: gastado, ventas cobradas y costo por venta de cada anuncio.","Aplicá la regla: si gastó la mitad del precio de tu producto y no vendió, se apaga.","Decile «apagá el anuncio 4» y confirmá.","Los primeros 3 días no toques nada más que eso."],
+  e:"apagar todo el primer día por nervios, o agrandarse con una sola venta."},
+ {s:["Cada 2 días, pegá el pedido.","Generá las imágenes nuevas en ChatGPT, igual que en el escalón 7.","Claude las sube en conjuntos nuevos, en pausa, para las 00:00.","Revisá y prendé."],
+  e:"cambiar todo a la vez. Si cambiás una sola cosa, sabés qué fue lo que funcionó."},
+ {s:["Confirmá que tenés un ganador: 4 o más ventas cobradas y vuelve más del doble de lo gastado.","Pegá el pedido.","Claude te propone la oferta. El precio final lo elegís vos.","La arma en la tienda y te la muestra antes de activarla.","Hacé una compra de prueba para verla aparecer después de pagar."],
+  e:"armar ofertas extra antes de tener un ganador."},
+ {s:["Pegá el pedido.","Claude te muestra a qué hora compra tu país.","Si hoy hubo venta, te propone cuánto subir. Aprobás o no.","Mirá la lista de pagos rechazados y el mail que redactó. Si te gusta, pedile que lo deje en borrador y lo enviás vos.","Repetilo todos los días."],
+  e:"subir el presupuesto un día sin ventas."}
+];
+$("escalones").innerHTML=E.map((e,i)=>{const n=i+1;return`<div class="paso"><header><span class="k">${n}</span><h3>${e[0]}</h3></header>
+<div class="duo"><div><b>Vos</b>${e[1]}</div><div><b>Tu Claude</b>${e[2]}</div></div>
+<div class="prompt"><div class="ph"><span>Pedido para pegar</span><button class="btn" data-copy="pe${n}">Copiar</button></div><pre id="pe${n}">${esc(e[3])}</pre></div>
+<details><summary>Clic por clic</summary>${D[i].s.map((x,j)=>`<p>${j+1}. ${x}</p>`).join("")}</details>
+<p class="ojo"><b>Error típico:</b> ${D[i].e}</p>
+<ul class="check"><li><label><input type="checkbox" id="e${n}"><span>Pasás cuando ${e[4]}</span></label></li></ul></div>`}).join("");
+
+/* qué hago si */
+const Q=[
+ ["Se trabó la instalación","Copiá el mensaje de error completo y pegáselo a Claude con esta frase: «¿qué pasó y cómo lo arreglo? Explicámelo simple». Casi siempre lo resuelve solo."],
+ ["Claude dice que llegué al límite","No se rompió nada: el plan tiene un tope de uso que se recarga solo en unas horas. Esperá y seguí. Para que rinda más: un tema por chat, y cuando un chat se hace largo escribile «pasá la posta» y seguí en uno nuevo."],
+ ["Claude dice «listo» y no funciona","Pedile: «mostrame la prueba de que funciona». Si no puede mostrarla, no está listo."],
+ ["Meta me pide verificar la cuenta o me la restringe","Hacé la verificación con tus datos reales. No abras cuentas nuevas para saltearla: empeora el problema."],
+ ["No sé qué producto elegir","Volvé al escalón 1 y pedí 5 ofertas más en otro nicho. Elegí por lo que ya se vende, no por lo que te gusta."],
+ ["Gasté y no vendí nada","Es normal en las primeras tandas. Aplicá la regla del escalón 9, apagá, y sacá una tanda nueva con otros ángulos antes de cambiar de producto."]
+];
+$("quehago").innerHTML=Q.map(q=>`<details><summary>${q[0]}</summary><p>${q[1]}</p></details>`).join("");
+
+/* glosario */
+const G=[["Landing","la página que ve la gente al tocar el anuncio"],["Checkout","la página donde paga"],["Extra del checkout","un producto barato que se suma con un clic antes de pagar"],["Oferta post-compra","la que aparece después de pagar; ahí está buena parte de la ganancia"],["Píxel","el código de Meta que avisa quién compró, para que el anuncio aprenda"],["Retorno","cuánto vuelve por cada dólar en anuncios; 2 significa que por cada 1 vuelven 2"],["Conjunto","el grupo de anuncios que comparte un presupuesto"],["Ángulo","la razón por la que alguien compraría"],["Biblioteca de Anuncios","el buscador público de Meta donde ves qué anuncia cada uno"],["Punto de empate","lo máximo que podés pagar por venta sin perder plata"]];
+$("glos").innerHTML=G.map(g=>`<div><b>${g[0]}:</b> ${g[1]}.</div>`).join("");
+
+/* casillas */
+(function(){const KEY="de-0-a-100-checks";let saved={};try{saved=JSON.parse(localStorage.getItem(KEY)||"{}")}catch(e){}
+ const boxes=[...document.querySelectorAll('.check input[type=checkbox]')];
+ function pintar(){const n=boxes.filter(b=>b.checked).length;$("barra").style.width=(boxes.length?n/boxes.length*100:0)+"%";$("pct").textContent=n+" de "+boxes.length+" hechos";}
+ boxes.forEach(b=>{b.checked=!!saved[b.id];b.addEventListener("change",()=>{saved[b.id]=b.checked;try{localStorage.setItem(KEY,JSON.stringify(saved))}catch(e){}pintar();});});
+ pintar();})();
+
+/* copiar */
+document.querySelectorAll("[data-copy]").forEach(btn=>btn.addEventListener("click",async()=>{
+ const el=$(btn.dataset.copy),o=btn.textContent;
+ try{await navigator.clipboard.writeText(el.textContent);btn.textContent="Copiado";}
+ catch(e){const r=document.createRange();r.selectNodeContents(el);const s=getSelection();s.removeAllRanges();s.addRange(r);btn.textContent="Copia con Ctrl+C";}
+ setTimeout(()=>btn.textContent=o,1800);}));
+
+/* reproductor (solo si la página lo trae) */
+if($("stage")){const S=[
+ ["El punto de partida","Tenía un producto que se vendía todos los días","Vendo productos digitales hace 4 años. Este se vendía con anuncios, en español."],
+ ["El golpe","Me lo copiaron muchas veces, tal cual","Mismo ángulo, mismo formato, más barato."],
+ ["La consecuencia","Mis ventas en español bajaron","Demasiadas copias peleando por la misma clienta."],
+ ["El giro","Lo llevé a otros idiomas con la IA","Italiano, francés, danés, polaco, húngaro, hebreo, chino, alemán, griego y más."],
+ ["Lo que vas a instalar","El mismo sistema, en tu computadora","Tu Claude con un cerebro, skills y un plan de 12 escalones."]
+];
+const DUR=6000;let i=0,playing=false,t0=0,raf=0;
+function show(k){i=(k+S.length)%S.length;$("sn").textContent=S[i][0];$("st").textContent=S[i][1];$("sd").textContent=S[i][2];
+ $("count").textContent=(i+1)+" / "+S.length;const st=$("stage");st.classList.remove("in");void st.offsetWidth;st.classList.add("in");$("prog").style.width="0%";t0=performance.now();}
+function tick(now){if(!playing)return;const p=Math.min(1,(now-t0)/DUR);$("prog").style.width=(p*100)+"%";if(p>=1){if(i===S.length-1){stop();return;}show(i+1);}raf=requestAnimationFrame(tick);}
+function stop(){playing=false;cancelAnimationFrame(raf);$("play").textContent="Reproducir";}
+function start(){if(i===S.length-1)show(0);playing=true;t0=performance.now();$("play").textContent="Pausar";raf=requestAnimationFrame(tick);}
+$("play").onclick=()=>playing?stop():start();$("prev").onclick=()=>show(i-1);$("next").onclick=()=>show(i+1);show(0);}
+
+/* cerebro animado: nodos en grupos que giran despacio, con sus conexiones */
+(function(){const cv=$("grafo");if(!cv)return;const cx=cv.getContext("2d");
+ $("cdias").textContent=Math.max(25,Math.floor((Date.now()-new Date(2026,9,20).getTime())/864e5));
+ const COL=["#f7f3ee","#e0528c","#c9a24a","#a78bfa","#4fd1c5","#f59e7a","#7dd3fc"];
+ let W=0,H=0,dpr=1,vis=true,t=0;
+ let s=7;const rnd=()=>(s=(s*16807)%2147483647)/2147483647;            // azar fijo: siempre el mismo dibujo
+ const G=[[.5,.52,.30,60],[.72,.3,.13,18],[.24,.34,.12,16],[.3,.76,.11,14],[.78,.72,.12,16],[.5,.5,.47,34]];
+ const N=[];G.forEach((g,gi)=>{for(let i=0;i<g[3];i++){const r=g[2]*(gi===5?(.82+rnd()*.18):Math.sqrt(rnd()));
+   N.push({g:gi,a:rnd()*6.283,r,v:(.02+rnd()*.05)*(rnd()<.5?-1:1)*(gi===5?.35:1),w:rnd()*6.283,c:gi===5?0:1+((gi+Math.floor(rnd()*2))%6),z:gi===0&&i<3?7:(1.6+rnd()*2.6)});}});
+ const L=[];N.forEach((n,i)=>{if(n.g===5)return;for(let k=0;k<2;k++){let j=Math.floor(rnd()*N.length),x=0;while((N[j].g!==n.g||j===i)&&x++<40)j=Math.floor(rnd()*N.length);L.push([i,j]);}
+   if(n.g>0&&rnd()<.22)L.push([i,Math.floor(rnd()*3)]);});
+ function tam(){const b=cv.getBoundingClientRect();dpr=Math.min(2,devicePixelRatio||1);W=b.width;H=b.height;cv.width=W*dpr;cv.height=H*dpr;}
+ function pos(n){const g=G[n.g],k=Math.min(W,H*1.6),a=n.a+t*n.v;return [g[0]*W+Math.cos(a)*n.r*k*.62+Math.sin(t*.4+n.w)*4,g[1]*H+Math.sin(a)*n.r*k*.62+Math.cos(t*.33+n.w)*4];}
+ function pinta(){cx.setTransform(dpr,0,0,dpr,0,0);cx.clearRect(0,0,W,H);const P=N.map(pos);
+  cx.lineWidth=1;cx.strokeStyle="rgba(255,255,255,.13)";cx.beginPath();L.forEach(([a,b])=>{cx.moveTo(P[a][0],P[a][1]);cx.lineTo(P[b][0],P[b][1]);});cx.stroke();
+  N.forEach((n,i)=>{cx.beginPath();cx.fillStyle=COL[n.c];cx.globalAlpha=n.g===5?.55:.95;cx.arc(P[i][0],P[i][1],n.z*(1+.12*Math.sin(t*1.3+n.w)),0,6.283);cx.fill();});cx.globalAlpha=1;}
+ const quieto=matchMedia("(prefers-reduced-motion:reduce)").matches;
+ function ciclo(){if(vis){t+=.016;pinta();}requestAnimationFrame(ciclo);}
+ tam();pinta();addEventListener("resize",()=>{tam();pinta();});
+ if(!quieto){if("IntersectionObserver" in window)new IntersectionObserver(e=>vis=e[0].isIntersecting).observe(cv);requestAnimationFrame(ciclo);}})();
+
+/* descargar el kit */
+document.querySelectorAll(".bajaKit").forEach(b=>{
+ const pd=(window.claude&&claude.use)?claude.use("downloads").catch(()=>null):Promise.resolve(null);
+ b.addEventListener("click",async()=>{const o="Descargar el kit";b.textContent="Preparando…";
+  try{const r=await fetch("kit.json");if(!r.ok)throw new Error("sin archivo");const archivos=await r.json(),z=new JSZip();Object.entries(archivos).forEach(([ruta,texto])=>z.file(ruta,texto));const blob=await z.generateAsync({type:"blob",compression:"DEFLATE"}),d=await pd;
+   if(d){await d.save({filename:"kit-de-0-a-100.zip",data:blob});b.textContent="Listo: buscalo en tu carpeta Descargas";}
+   else{const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="kit-de-0-a-100.zip";document.body.appendChild(a);a.click();a.remove();b.textContent="Descargando…";}
+  }catch(e){b.textContent=(e&&e.code==="declined")?"Cancelaste la descarga":"No se pudo descargar acá: usá el plan B";}
+  setTimeout(()=>b.textContent=o,4500);});});
+
+/* copiar la guía entera, con el pedido adelante, para pegarla en Claude */
+$("copiaGuia").addEventListener("click",async()=>{const b=$("copiaGuia"),o=b.textContent;
+ const cerrados=[...document.querySelectorAll("details:not([open])")];cerrados.forEach(d=>d.open=true);
+ const partes=["historia","instalar","escalera","escala","paises","bonos"].map(id=>$(id).innerText.trim()).join("\n\n────────\n\n");
+ cerrados.forEach(d=>d.open=false);
+ const texto=$("pMaestro").textContent+"\n\n════════ GUÍA ════════\n\n"+partes.replace(/\n{3,}/g,"\n\n").replace(/^Copiar$/gm,"");
+ try{await navigator.clipboard.writeText(texto);b.textContent="Copiada. Pegala en Claude";}
+ catch(e){b.textContent="No se pudo copiar: abrí «Ver el pedido» y copialo a mano";}
+ setTimeout(()=>b.textContent=o,3500);});
+
+/* avisos de pedido, cifras que cuentan y barra de lectura */
+(function(){if(matchMedia("(prefers-reduced-motion:reduce)").matches)return;
+ const t=$("toast"),P=["Italia","Alemania","España","Dinamarca","Hungría","Portugal","Suiza"];let k=0;
+ if(t){const sig=()=>{t.textContent="Pedido nuevo · "+P[k++%P.length];t.classList.remove("ya");void t.offsetWidth;t.classList.add("ya");};sig();setInterval(sig,3000);}
+ document.querySelectorAll(".cifras b").forEach(b=>{const n=+b.dataset.n,t0=performance.now();
+  (function paso(now){const p=Math.min(1,(now-t0)/1100);b.textContent=Math.round(n*(1-Math.pow(1-p,3)));if(p<1)requestAnimationFrame(paso);})(t0);});
+ const l=document.createElement("div");l.className="lector";document.body.appendChild(l);
+ addEventListener("scroll",()=>{const h=document.documentElement;l.style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100)+"%";},{passive:true});})();
+
+/* portadas de los videos */
+document.querySelectorAll("video").forEach(v=>{v.poster=v.getAttribute("src").replace("video-","poster-").replace(".mp4",".jpg");});
+
+/* idiomas en movimiento */
+(function(){const l=document.querySelector(".langs");if(!l||matchMedia("(prefers-reduced-motion:reduce)").matches)return;
+ const chips=l.innerHTML;l.classList.add("mq");l.innerHTML='<div class="pista">'+chips+'</div><div class="pista" aria-hidden="true">'+chips+'</div>';})();
+
+/* aparición al bajar */
+(function(){if(!("IntersectionObserver" in window)||matchMedia("(prefers-reduced-motion:reduce)").matches)return;
+ const els=[...document.querySelectorAll("section.parte > *, #escalones > .paso")].filter(e=>e.getBoundingClientRect().top>innerHeight);
+ els.forEach(e=>e.classList.add("rv"));
+ const io=new IntersectionObserver(es=>es.forEach(x=>{if(x.isIntersecting){x.target.classList.add("on");io.unobserve(x.target);}}),{rootMargin:"0px 0px -8% 0px"});
+ els.forEach(e=>io.observe(e));
+ setTimeout(()=>els.forEach(e=>{if(e.getBoundingClientRect().top<innerHeight)e.classList.add("on");}),1500);})();
+</script>
+
+</body>
+</html>

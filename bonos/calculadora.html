@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Calculadora de números</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Poppins:wght@300;400;500;600&display=swap">
+<style>
+:root{--bg:oklch(97.6% .007 65);--surface:oklch(99.5% .004 65);--ink:oklch(29% 0 0);--muted:oklch(46% 0 0);--line:oklch(87% .02 67);
+ --sea:oklch(55% .176 3);--sea-soft:oklch(93.8% .028 354);--sun:oklch(72.8% .112 85);--ok:#1f8a4c;--bad:#c23b2e;
+ --display:"Cormorant Garamond",Georgia,serif;--body:"Poppins","Segoe UI",system-ui,sans-serif}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:oklch(20% .01 350);--surface:oklch(25% .012 350);--ink:oklch(94% .005 65);--muted:oklch(76% .01 350);--line:oklch(34% .015 350);--sea:oklch(78% .12 3);--sea-soft:oklch(32% .05 354);--sun:oklch(78% .11 85);--ok:#5ccb8a;--bad:#f08375;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:oklch(20% .01 350);--surface:oklch(25% .012 350);--ink:oklch(94% .005 65);--muted:oklch(76% .01 350);--line:oklch(34% .015 350);--sea:oklch(78% .12 3);--sea-soft:oklch(32% .05 354);--sun:oklch(78% .11 85);--ok:#5ccb8a;--bad:#f08375;color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-weight:300;font-size:16.5px;line-height:1.55}
+.wrap{max-width:760px;margin:0 auto;padding-block:28px 64px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:flex;flex-direction:column;gap:24px}
+h1,h2{font-family:var(--display);margin:0;line-height:1.05;text-wrap:balance}
+h1{font-size:clamp(2.4rem,8vw,3.6rem)} h2{font-size:1.8rem}
+p{margin:0} a{color:var(--sea)} b{font-weight:600}
+.eyebrow{font-size:.78rem;letter-spacing:.09em;text-transform:uppercase;color:var(--sea);font-weight:600}
+.sub{color:var(--muted);max-width:60ch}
+.campos{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px}
+label{display:flex;flex-direction:column;gap:4px;font-size:.92rem;font-weight:500;min-width:0}
+label small{font-weight:300;color:var(--muted)}
+input{font:inherit;font-weight:500;font-variant-numeric:tabular-nums;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:var(--surface);color:var(--ink);width:100%}
+input:focus-visible{outline:3px solid var(--sun);outline-offset:2px}
+.res{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px}
+.r{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px 16px;min-width:0}
+.r small{display:block;font-size:.76rem;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.r b{display:block;font-family:var(--display);font-size:2.3rem;line-height:1.1;font-variant-numeric:tabular-nums;color:var(--sea)}
+.r p{font-size:.9rem;color:var(--muted)}
+.veredicto{border-radius:14px;padding:16px;font-weight:500;background:var(--sea-soft)}
+.veredicto.bien{border-left:5px solid var(--ok)} .veredicto.mal{border-left:5px solid var(--bad)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <p><a href="../index.html#bonos">← Volver a la guía</a></p>
+  <header>
+    <p class="eyebrow">Bono · Calculadora</p>
+    <h1>¿Estoy ganando o perdiendo?</h1>
+    <p class="sub">Cambiá los números por los tuyos. Usá siempre lo cobrado en tu tienda, no lo que dice el panel de anuncios. Todo en dólares.</p>
+  </header>
+
+  <section class="campos" aria-label="Tus números">
+    <label>Precio del producto<small>Lo que paga quien compra</small><input id="precio" type="number" min="0" step="0.5" value="20" inputmode="decimal"></label>
+    <label>Comisiones por venta, en %<small>Tienda y medio de pago juntos</small><input id="comision" type="number" min="0" max="100" step="0.5" value="10" inputmode="decimal"></label>
+    <label>Ventas cobradas hoy<small>Las de la tienda</small><input id="ventas" type="number" min="0" step="1" value="7" inputmode="numeric"></label>
+    <label>Gastado en anuncios hoy<small>En total</small><input id="gasto" type="number" min="0" step="1" value="35" inputmode="decimal"></label>
+    <label>Mi meta de ganancia por día<small>La de tu tablero</small><input id="meta" type="number" min="0" step="5" value="100" inputmode="decimal"></label>
+  </section>
+
+  <div class="veredicto" id="veredicto" aria-live="polite"></div>
+
+  <section class="res" aria-label="Resultados">
+    <div class="r"><small>Ganancia de hoy</small><b id="oGan"></b><p>Cobrado, menos comisiones, menos anuncios</p></div>
+    <div class="r"><small>Retorno</small><b id="oRet"></b><p>Cuánto volvió por cada dólar de anuncios</p></div>
+    <div class="r"><small>Costo por venta</small><b id="oCpv"></b><p>Lo que pagaste en anuncios por cada venta</p></div>
+    <div class="r"><small>Punto de empate</small><b id="oEmp"></b><p>Lo máximo que podés pagar por venta sin perder</p></div>
+    <div class="r"><small>Regla de corte</small><b id="oCorte"></b><p>Un anuncio que gastó esto sin vender, se apaga</p></div>
+    <div class="r"><small>Ventas para llegar a tu meta</small><b id="oNec"></b><p>Por día, con tu costo por venta de hoy</p></div>
+  </section>
+
+  <section>
+    <h2>Cómo leerlo</h2>
+    <p class="sub">Si tu costo por venta es más alto que tu punto de empate, cada venta te hace perder plata: se corta y se prueba otra tanda. Si es más bajo, lo que sobra de cada venta es tu ganancia, y ahí tiene sentido escalar.</p>
+  </section>
+</div>
+<script>
+const $=id=>document.getElementById(id), n=id=>Math.max(0,parseFloat($(id).value)||0);
+const usd=x=>isFinite(x)?(x<0?"−":"")+"$"+Math.abs(x).toLocaleString("es",{maximumFractionDigits:1}):"—";
+function calc(){
+  const precio=n("precio"),com=Math.min(100,n("comision"))/100,ventas=n("ventas"),gasto=n("gasto"),meta=n("meta");
+  const neto=precio*(1-com), cobrado=precio*ventas, ganancia=neto*ventas-gasto;
+  const cpv=ventas>0?gasto/ventas:NaN, ret=gasto>0?cobrado/gasto:NaN, margen=neto-cpv;
+  $("oGan").textContent=usd(ganancia);
+  $("oRet").textContent=isFinite(ret)?ret.toLocaleString("es",{maximumFractionDigits:1}):"—";
+  $("oCpv").textContent=usd(cpv);
+  $("oEmp").textContent=usd(neto);
+  $("oCorte").textContent=usd(precio/2);
+  $("oNec").textContent=(isFinite(margen)&&margen>0)?Math.ceil(meta/margen).toLocaleString("es"):"—";
+  const v=$("veredicto");
+  if(ventas===0){v.className="veredicto";v.textContent=gasto>=precio/2?"Sin ventas y ya gastaste la mitad del precio: tocá la regla de corte.":"Todavía sin ventas. Esperá a llegar a la regla de corte antes de decidir.";}
+  else if(cpv>neto){v.className="veredicto mal";v.textContent="Hoy cada venta te cuesta más de lo que te deja. No escales: cortá lo que no vende y sacá una tanda nueva.";}
+  else if(ganancia>=meta){v.className="veredicto bien";v.textContent="Hoy llegaste a tu meta. Si esto se repite varios días seguidos, es momento de escalar.";}
+  else{v.className="veredicto bien";v.textContent="Hoy ganaste plata, aunque todavía no llegás a tu meta. Vas bien: renová lo que vende.";}
+}
+document.querySelectorAll("input").forEach(i=>i.addEventListener("input",calc));calc();
+</script>
+</body>
+</html>
