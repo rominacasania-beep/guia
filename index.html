@@ -221,6 +221,9 @@ details p{margin-top:8px;color:var(--muted)}
 @media(max-width:640px){.glos{grid-template-columns:1fr}}
 .glos div{border-bottom:1px solid var(--line);padding:6px 0;font-size:.95rem}
 #glos h3{margin:22px 0 4px}
+.def{border-bottom:2px dotted var(--sea);cursor:help}
+#defbox{position:fixed;left:50%;bottom:calc(14px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);width:min(560px,calc(100vw - 24px));background:var(--ink);color:var(--bg);padding:12px 16px;border-radius:14px;font-size:.95rem;font-weight:400;line-height:1.4;z-index:50;box-shadow:0 8px 30px rgb(0 0 0 / .25)}
+#defbox b{font-weight:600}
 .gbus{width:100%;max-width:440px;font:inherit;padding:11px 14px;border:1px solid var(--line);border-radius:10px;background:var(--surface);color:var(--ink);margin-top:10px}
 .aviso{border:1px solid var(--line);border-left:4px solid var(--sea);background:var(--surface);border-radius:10px;padding:10px 14px;margin-top:10px}
 footer{margin-top:52px;padding-top:16px;border-top:1px solid var(--line);color:var(--muted);font-size:.9rem}
@@ -267,7 +270,7 @@ footer{margin-top:52px;padding-top:16px;border-top:1px solid var(--line);color:v
     <tbody>
       <tr><td>Esta guía completa</td><td>Para que tu Claude la tenga entera y no tengas que copiarle nada</td></tr>
       <tr><td>Tu cerebro inicial</td><td>El manual, tu tablero, las reglas del método, los números y los errores típicos</td></tr>
-      <tr><td>19 skills</td><td>Un manual por tarea: los 12 escalones, el plan de escala, abrir un país y el día a día</td></tr>
+      <tr><td>20 skills</td><td>Un manual por tarea: los 12 escalones, el plan de escala, abrir un país y el día a día</td></tr>
       <tr><td>El instalador</td><td>Las instrucciones que sigue Claude para dejar todo andando</td></tr>
     </tbody>
   </table></div>
@@ -291,7 +294,7 @@ Abajo va también el texto completo, por si no podés abrir el enlace. Quiero qu
   <li><a href="#historia"><b>A</b><span>Mi historia y por qué funciona</span></a></li>
   <li><a href="#instalar"><b>0</b><span>Instalar tu oficina</span></a></li>
   <li><a href="#escalera"><b>1</b><span>Los 12 escalones</span></a></li>
-  <li><a href="#escala"><b>2</b><span>El plan de escala</span></a></li>
+  <li><a href="#escala"><b>2</b><span>Campañas y plan de escala</span></a></li>
   <li><a href="#paises"><b>3</b><span>Abrir otros idiomas</span></a></li>
 </ol>
 
@@ -323,6 +326,21 @@ Abajo va también el texto completo, por si no podés abrir el enlace. Quiero qu
     </div>
     <figcaption>Así se ve un cerebro en Obsidian: cada punto es una nota y cada línea, una conexión. El mío nació el 20 de octubre y crece todos los días.</figcaption>
   </figure>
+  <h3>Lo que armé en estos <span class="ndias">26</span> días</h3>
+  <p class="sub">El número de arriba avanza solo: es la cantidad de días desde que empecé a trabajar así. Esto es lo que entró en ese tiempo, en orden.</p>
+  <div class="tw"><table>
+    <thead><tr><th>Cuándo</th><th>Qué armé</th><th>Qué cambió</th></tr></thead>
+    <tbody>
+      <tr><td>Semana 1</td><td>El cerebro: pasé a notas todo lo que sabía del negocio</td><td>Claude dejó de arrancar de cero cada día</td></tr>
+      <tr><td>Semana 1 y 2</td><td>Las llaves: la tienda, los anuncios y el mail conectados</td><td>Empezó a hacer el trabajo, no solo a explicarlo</td></tr>
+      <tr><td>Semana 2</td><td>El primer país armado entero con este sistema</td><td>Tienda, PDF traducidos, página y anuncios sin hablar el idioma</td></tr>
+      <tr><td>Semana 2 y 3</td><td>Un país nuevo cada pocos días: cuatro más</td><td>El paso a paso quedó escrito como skill y cada país salió más rápido</td></tr>
+      <tr><td>Semana 3</td><td>Claude vigila los anuncios y propone la escala por hora de cada país</td><td>Dejé de mirar el panel a cada rato</td></tr>
+      <tr><td>Semana 3</td><td>Un tablero diario con lo cobrado y lo gastado</td><td>Decido con lo que entró de verdad</td></tr>
+      <tr><td>Semana 4</td><td>Apagué los países que no vendieron y abrí otro</td><td>Cortar rápido libera plata para el siguiente</td></tr>
+      <tr><td>Semana 4</td><td>Esta guía y el kit</td><td>Todo lo anterior, ordenado para que lo instales vos</td></tr>
+    </tbody>
+  </table></div>
   <h3>Lo que necesitás para empezar</h3>
   <div class="tw"><table>
     <thead><tr><th>Qué</th><th>Cuánto</th><th>Cuándo</th></tr></thead>
@@ -382,7 +400,7 @@ Abajo va también el texto completo, por si no podés abrir el enlace. Quiero qu
       <tr><td>Pestaña Code</td><td>La parte de Claude que puede trabajar dentro de tu computadora: crear archivos, instalar cosas, abrir páginas. El chat común no puede</td></tr>
       <tr><td>Cerebro</td><td>Una carpeta de notas en tu computadora. Ahí Claude guarda lo que aprende de tu negocio para no olvidarlo de un día para el otro</td></tr>
       <tr><td>Skill</td><td>Un manual que Claude sigue para hacer bien una tarea, por ejemplo armar tu tienda</td></tr>
-      <tr><td>Kit (el zip)</td><td>Un solo archivo que trae el cerebro inicial y las 19 skills. Claude lo abre y lo instala solo</td></tr>
+      <tr><td>Kit (el zip)</td><td>Un solo archivo que trae el cerebro inicial y las 20 skills. Claude lo abre y lo instala solo</td></tr>
       <tr><td>Conector</td><td>Un permiso para que Claude vea una cuenta tuya (anuncios, ventas, mail) sin que le pases la contraseña</td></tr>
     </tbody>
   </table></div>
@@ -410,7 +428,7 @@ Abajo va también el texto completo, por si no podés abrir el enlace. Quiero qu
   </div>
 
   <div class="paso"><header><span class="k">0.2</span><h3>Descargá el kit</h3></header>
-    <p>Es un solo archivo. Trae esta guía completa, tu cerebro y las 19 skills. No lo abras: lo abre Claude.</p>
+    <p>Es un solo archivo. Trae esta guía completa, tu cerebro y las 20 skills. No lo abras: lo abre Claude.</p>
     <button class="grande bajaKit" type="button">Descargar el kit</button>
   <p class="aviso enCel" hidden><b>Estás en el celular.</b> El kit se usa en la computadora, porque ahí se instala Claude. Abrí esta misma dirección en tu compu y descargalo desde ahí.</p>
   <p class="sub"><b>¿Tocás el botón y no baja nada?</b> Casi siempre es porque la página se abrió adentro de Instagram o WhatsApp. Copiá la dirección, pegala en Chrome (o Safari, o Edge) y tocá el botón de nuevo.</p>
@@ -573,6 +591,24 @@ Abajo va también el texto completo, por si no podés abrir el enlace. Quiero qu
   <div class="paso"><header><span class="k">0.8</span><h3>Qué hago si…</h3></header>
     <div class="stack" id="quehago"></div>
   </div>
+
+  <div class="paso"><header><span class="k">0.9</span><h3>Hacé que tu plan de Claude rinda</h3></header>
+    <p>El plan Pro tiene un tope de uso que se recarga solo cada pocas horas. Todo lo que Claude lee y escribe gasta de ese tope. No hace falta entender cómo se mide: alcanza con estas costumbres, que ya vienen cargadas en tu kit.</p>
+  <div class="tw"><table>
+    <thead><tr><th>Costumbre</th><th>Por qué ahorra</th></tr></thead>
+    <tbody>
+      <tr><td>Un tema por chat</td><td>En cada mensaje Claude vuelve a leer toda la conversación. Un chat largo gasta más en cada respuesta</td></tr>
+      <tr><td>Cuando el chat se hace largo, «pasá la posta»</td><td>Te deja un resumen y seguís en un chat nuevo, liviano</td></tr>
+      <tr><td>Un pedido completo en un solo mensaje</td><td>Diez mensajes cortos gastan más que uno claro</td></tr>
+      <tr><td>Dejá que lea el cerebro, no le recontés todo</td><td>Para eso está el tablero: es corto a propósito</td></tr>
+      <tr><td>Pedí la respuesta en una tabla corta</td><td>Lo que escribe también gasta</td></tr>
+      <tr><td>Capturas, solo cuando hacen falta</td><td>Una imagen gasta mucho más que una frase</td></tr>
+      <tr><td>Lo pesado, a primera hora</td><td>Armar un producto o una tanda de anuncios consume mucho: empezalo con el tope recién recargado</td></tr>
+      <tr><td>«Guardá» antes de cerrar</td><td>Mañana no hay que rehacer nada de hoy</td></tr>
+    </tbody>
+  </table></div>
+    <p class="tip"><b>Si Claude dice que llegaste al límite, no se rompió nada.</b> Esperá a que se recargue y escribile «seguí desde la posta». Si te pasa seguido, escribile <b>«estoy gastando mucho»</b>: usa la skill <b>cuidar-el-plan</b> y te dice qué cambiar.</p>
+  </div>
 </section>
 
 <!-- 1 -->
@@ -624,7 +660,7 @@ Abajo va también el texto completo, por si no podés abrir el enlace. Quiero qu
 <!-- 2 -->
 <section class="parte" id="escala">
   <p class="pnum">Parte 2</p>
-  <h2>Escalar, explicado desde cero</h2>
+  <h2>Campañas: cómo las armo, cómo las leo y cómo escalo</h2>
   <p><b>Escalar es poner más plata en lo que ya demostró que vende.</b> Nada más. No se escala una idea ni una corazonada: se escala un anuncio que ya trajo ventas cobradas.</p>
   <p class="sub">Hay muchas formas de escalar. Acá te cuento la que uso yo hoy; no es la única ni la mejor para todo el mundo.</p>
 
@@ -647,6 +683,87 @@ Abajo va también el texto completo, por si no podés abrir el enlace. Quiero qu
       <tr><td>1 · 1 · 1</td><td>1 campaña, 1 conjunto, 1 anuncio: el ganador solo, con su propia plata</td><td><b>Para escalar.</b> Es la que más uso: saco al ganador de la prueba y le subo de a poco</td></tr>
     </tbody>
   </table></div>
+
+  <h2 style="margin-top:14px">Antes de anunciar: las 4 piezas de Meta</h2>
+  <p class="sub">Sin estas cuatro, no hay campaña. Se arman una sola vez por marca, en el escalón 6, con Claude guiándote clic por clic.</p>
+  <div class="tw"><table>
+    <thead><tr><th>Pieza</th><th>Qué es</th><th>Dónde se arma</th><th>Quién hace qué</th><th>Cómo sé que quedó bien</th></tr></thead>
+    <tbody>
+      <tr><td>Página de Facebook</td><td>La cara de tu marca. Los anuncios salen a su nombre</td><td><a href="https://www.facebook.com/pages/create" target="_blank" rel="noopener">facebook.com/pages/create</a></td><td>Claude prepara nombre, descripción, dos fotos distintas y 4 publicaciones. Vos das los clics</td><td>Tiene foto de perfil, portada y publicaciones. Una página vacía hace desconfiar</td></tr>
+      <tr><td>Cuenta publicitaria</td><td>La «billetera» desde donde se pagan los anuncios</td><td><a href="https://business.facebook.com" target="_blank" rel="noopener">business.facebook.com</a></td><td>Vos la creás y cargás la tarjeta. Eso Claude no lo toca nunca</td><td>Aparece activa y con un medio de pago</td></tr>
+      <tr><td>Píxel</td><td>El código que le avisa a Meta quién compró, para que aprenda a quién mostrarle el anuncio</td><td><a href="https://business.facebook.com/events_manager" target="_blank" rel="noopener">Administrador de eventos</a></td><td>Claude lo crea o te guía, y carga su número en la tienda</td><td>Abrís tu página y tu checkout, y en el Administrador de eventos aparece la visita</td></tr>
+      <tr><td>Token</td><td>La clave larga que conecta la tienda con el píxel por un segundo camino más seguro</td><td>Administrador de eventos → tu píxel → Configuración → API de conversiones → Generar token de acceso</td><td>Lo copiás vos y lo pegás vos en la tienda. No pasa por el chat</td><td>Hacés una compra de prueba y Meta la registra como compra</td></tr>
+    </tbody>
+  </table></div>
+  <p class="ojo"><b>El error que más plata cuesta:</b> prender los anuncios sin el token cargado. La tienda cobra, pero Meta no se entera de las ventas y aprende a ciegas. Primero la compra de prueba registrada, después los anuncios.</p>
+  <h2 style="margin-top:14px">Mi campaña de prueba, campo por campo</h2>
+  <p class="sub">Es la 1 · 5 · 1 de arriba. Así queda cargada cada casilla del Administrador de anuncios. Claude la arma en pausa con estos mismos valores y vos la revisás.</p>
+  <div class="tw"><table>
+    <thead><tr><th>Casilla</th><th>Qué pongo</th><th>Por qué</th></tr></thead>
+    <tbody>
+      <tr><td>Objetivo de la campaña</td><td>Ventas</td><td>Para que Meta busque compradoras, no curiosas</td></tr>
+      <tr><td>Presupuesto</td><td>En cada conjunto (ABO), no en la campaña</td><td>Así los cinco anuncios reciben lo mismo y la comparación es justa</td></tr>
+      <tr><td>Monto por conjunto</td><td>7 dólares por día</td><td>Alcanza para saber si un anuncio vende sin arriesgar de más</td></tr>
+      <tr><td>Evento de conversión</td><td>Compra, con tu píxel</td><td>Meta optimiza por lo que le pedís: si le pedís visitas, trae visitas</td></tr>
+      <tr><td>Público</td><td>Solo país e idioma. Sin edad, sin género, sin intereses</td><td>Público abierto: el anuncio encuentra solo a su gente</td></tr>
+      <tr><td>Ubicaciones</td><td>Automáticas</td><td>Meta reparte donde sale más barato</td></tr>
+      <tr><td>Anuncios por conjunto</td><td>Uno solo</td><td>Si hay dos, no sabés cuál vendió</td></tr>
+      <tr><td>Fecha de inicio</td><td>Mañana a las 00:00</td><td>Un anuncio que arranca a mitad del día gasta mal su primer día</td></tr>
+      <tr><td>Botón</td><td>Ver más</td><td>Es el que mejor me funciona para este tipo de producto</td></tr>
+      <tr><td>Enlace</td><td>A tu página, con las etiquetas de seguimiento en «Parámetros de URL»</td><td>Para saber de qué anuncio vino cada venta</td></tr>
+      <tr><td>Estado</td><td>Todo en pausa hasta que lo revises</td><td>El clic de prender es tuyo</td></tr>
+    </tbody>
+  </table></div>
+  <div class="tw"><table>
+    <thead><tr><th>Cómo nombro</th><th>Ejemplo</th><th>Para qué</th></tr></thead>
+    <tbody>
+      <tr><td>La campaña</td><td>PRUEBA · país · producto</td><td>Hay una sola campaña de prueba por producto. Las tandas nuevas entran ahí</td></tr>
+      <tr><td>Cada conjunto y su anuncio</td><td>A1 15-11, A2 15-11…</td><td>Letra de la tanda, número del anuncio y fecha de salida. A simple vista sabés cuánto lleva corriendo</td></tr>
+      <tr><td>Las renovaciones</td><td>R1 A3 17-11</td><td>R de renovación, de qué anuncio sale y la fecha</td></tr>
+      <tr><td>Lo que nunca va en un nombre</td><td>Palabras de salud, plata, religión o política</td><td>Meta las lee y puede frenar la cuenta</td></tr>
+    </tbody>
+  </table></div>
+  <h2 style="margin-top:14px">Los números que miro siempre</h2>
+  <p class="sub">El panel de anuncios tiene decenas de columnas. Yo decido con estas, en este orden.</p>
+  <div class="tw"><table>
+    <thead><tr><th>Número</th><th>Qué es</th><th>Dónde lo miro</th><th>Qué me dice</th></tr></thead>
+    <tbody>
+      <tr><td>Ventas cobradas</td><td>Las compras que entraron de verdad</td><td>En la tienda, no en Meta</td><td>Es el único que decide. Meta a veces cuenta ventas que no se cobraron</td></tr>
+      <tr><td>Gasto</td><td>Lo que salió en anuncios</td><td>En Meta</td><td>Contra esto se compara todo</td></tr>
+      <tr><td>Costo por venta</td><td>Gasto dividido por ventas</td><td>Lo calcula Claude</td><td>Tiene que quedar por debajo de tu punto de empate</td></tr>
+      <tr><td>Retorno</td><td>Cobrado dividido por gastado</td><td>Lo calcula Claude</td><td>Más de 2 con 4 ventas o más: ganador</td></tr>
+      <tr><td>Cobrado por venta</td><td>Todo lo cobrado, con los extras, dividido por las ventas</td><td>En la tienda</td><td>Si sube, podés pagar más por cada venta. Ahí está la ganancia</td></tr>
+      <tr><td>Visitas a la página y al checkout</td><td>Cuánta gente llega y cuánta pasa a pagar</td><td>En la tienda</td><td>Mucha visita y poco checkout: falla la página. Mucho checkout y poca venta: falla el pago</td></tr>
+      <tr><td>Pagos fallados</td><td>Compras que no pasaron</td><td>En la tienda</td><td>Si son muchos, primero se arregla el cobro y después se escala</td></tr>
+      <tr><td>Clics y costo por clic</td><td>Cuánta gente toca el anuncio y cuánto cuesta</td><td>En Meta</td><td>Solo para saber qué arreglar del anuncio. Nunca para decidir si es ganador</td></tr>
+      <tr><td>Frecuencia</td><td>Cuántas veces vio el anuncio la misma persona</td><td>En Meta</td><td>Si pasa de 2 o 3 en pocos días, el público es chico o el anuncio se cansó</td></tr>
+    </tbody>
+  </table></div>
+  <h3>Cómo decido con cada anuncio</h3>
+  <div class="tw"><table>
+    <thead><tr><th>Lo que veo</th><th>Qué hago</th></tr></thead>
+    <tbody>
+      <tr><td>Gastó la mitad del precio del producto y no vendió</td><td>Se apaga</td></tr>
+      <tr><td>Tiene 1 venta</td><td>Se espera. No se decide con una sola venta</td></tr>
+      <tr><td>Tiene 2 o 3 ventas</td><td>Va bien, se deja correr</td></tr>
+      <tr><td>4 ventas o más, pero lo cobrado no llega al doble del gasto</td><td>Vende caro: se deja, no se escala</td></tr>
+      <tr><td>4 ventas o más y lo cobrado supera el doble del gasto</td><td>Ganador: se renueva y se escala</td></tr>
+      <tr><td>Mucho gasto y cero ventas en toda la campaña</td><td>Antes de culpar al anuncio, se revisa el píxel y el checkout</td></tr>
+      <tr><td>Venía vendiendo y tuvo un día flojo</td><td>No se toca: se mira hoy más los 4 días anteriores</td></tr>
+    </tbody>
+  </table></div>
+  <p class="tip"><b>Los primeros 3 días solo se aplica la regla de apagar.</b> Nada más se toca: ni presupuesto, ni texto, ni público. Cada cambio reinicia el aprendizaje del anuncio.</p>
+  <h3>Mi rutina de todos los días</h3>
+  <div class="tw"><table>
+    <thead><tr><th>Momento</th><th>Qué le pido a Claude</th><th>Cuánto me lleva</th></tr></thead>
+    <tbody>
+      <tr><td>A la mañana</td><td>«Buen día»: lee el tablero, cruza lo cobrado con lo gastado y propone qué apagar</td><td>10 minutos</td></tr>
+      <tr><td>A la mañana</td><td>La tanda nueva de anuncios, cuando toca renovar</td><td>20 minutos de revisar</td></tr>
+      <tr><td>En la hora en que compra cada país</td><td>El plan de escala: dónde subir y dónde no</td><td>5 minutos</td></tr>
+      <tr><td>A la noche</td><td>«Guardá»: anota en el cerebro lo que pasó y lo que se decidió</td><td>2 minutos</td></tr>
+    </tbody>
+  </table></div>
+  <p class="sub">La caja se mira dos veces por día, no cada hora. Mirarla más no vende más y te hace tocar cosas que había que dejar quietas.</p>
 
   <h3>Las formas de escalar que existen</h3>
   <div class="tw"><table>
@@ -726,10 +843,8 @@ No prendas ninguna campaña ni gastes nada sin que yo lo apruebe.</pre></div>
 
 <section class="parte" id="reglas">
   <h2>Glosario: todas las palabras, explicadas</h2>
-  <p class="sub">63 palabras que aparecen en esta guía, dichas en simple. Si una herramienta tiene página propia, al lado está el enlace.</p>
-  <input id="gbus" class="gbus" type="search" placeholder="Buscá una palabra: píxel, token, landing…" aria-label="Buscar en el glosario">
+  <p class="sub">Las 77 palabras de esta guía, dichas en simple y todas a la vista. En el resto de la página, las palabras con una línea de puntos se explican al tocarlas.</p>
   <div id="glos"></div>
-  <p class="sub" id="gnada" hidden>Esa palabra no está en la lista. Preguntale a Claude: «¿qué significa…?».</p>
 </section>
 
 <footer>Así es como lo estoy haciendo yo. No es la única forma ni una garantía de resultado: lo único que manda es lo que cobre tu propia caja.</footer>
@@ -824,9 +939,8 @@ const Q=[
 $("quehago").innerHTML=Q.map(q=>`<details><summary>${q[0]}</summary><p>${q[1]}</p></details>`).join("");
 
 /* glosario */
-const G=[["Lo primero: Claude y tu computadora", [["Claude", "la inteligencia artificial con la que vas a trabajar. Le escribís como a una persona y hace el trabajo: busca, escribe, arma archivos y te guía", "https://claude.ai", "claude.ai"], ["Aplicación de Claude", "el programa que instalás en tu computadora. No alcanza con usarlo desde el navegador ni desde el celular", "https://claude.ai/download", "descargarla"], ["Pestaña Code", "la parte de la aplicación donde Claude puede trabajar con las carpetas de tu computadora. Es la que usamos siempre"], ["Plan Pro", "la versión paga de Claude, unos 20 dólares por mes. La gratis no alcanza para esto"], ["Chat", "una conversación con Claude. Conviene un tema por chat"], ["Pedido", "lo que le escribís a Claude. En inglés le dicen «prompt». En esta guía ya vienen escritos: los copiás y cambiás lo que está entre corchetes"], ["Permitir («Allow»)", "el botón con el que Claude te pide permiso antes de tocar algo. Leés qué va a hacer y decís que sí o que no"], ["Límite de uso", "el tope del plan. Si Claude dice que llegaste al límite no se rompió nada: se recarga solo en unas horas"], ["Pasar la posta", "lo que le decís a Claude cuando un chat se hizo largo: te deja un resumen para seguir en un chat nuevo sin perder nada"], ["Carpeta Descargas", "la carpeta de tu computadora donde cae todo lo que bajás de internet"], ["Archivo zip", "varios archivos guardados en uno solo, como una valija. No hace falta que lo abras: lo abre Claude"]]], ["El kit y el cerebro", [["Kit", "el archivo que descargás de esta página. Trae la guía, tu cerebro inicial y las 19 skills"], ["Skill", "un manual que Claude sigue para hacer bien una tarea, por ejemplo armar tu tienda. Vos no la leés: le pedís la tarea y él la usa"], ["Cerebro", "la carpeta de notas donde Claude anota todo lo de tu negocio: qué probaste, qué funcionó, tus números y tus reglas. Así no arranca de cero cada día"], ["Tablero (HOT)", "la nota que Claude lee primero cada mañana: en qué escalón estás, qué falta y qué sigue"], ["Buen día", "lo que le escribís a Claude al empezar. Lee tu tablero y te dice qué hacer hoy"], ["Obsidian", "un programa gratis para ver tu cerebro como notas conectadas. Claude escribe; Obsidian es la ventana para leer", "https://obsidian.md", "obsidian.md"], ["Bóveda", "así llama Obsidian a la carpeta donde están tus notas"], ["Llave (conector)", "el permiso que le das a Claude para entrar a una herramienta tuya, como la tienda o los anuncios. También vas a escuchar «MCP»: es lo mismo"], ["Token", "una clave larga de letras y números que conecta dos herramientas. La copiás de un lado y la pegás en el otro. Es lo único técnico que hacés a mano"], ["Solo lectura", "cuando Claude mira pero no cambia nada. Es como arranca siempre"]]], ["Tu producto y tu tienda", [["Producto digital", "algo que se entrega por internet y no se envía por correo: un PDF, una guía, un cuaderno para imprimir"], ["PDF", "el formato del archivo que recibe tu compradora. Se abre en cualquier celular o computadora"], ["Nicho", "el tema y el tipo de persona a la que le vendés"], ["Oferta", "todo lo que recibe la compradora y a qué precio: el producto, los regalos y los extras"], ["Modelar", "mirar algo que ya se vende, entender por qué funciona y hacer tu propia versión mejorada. No es copiar: ni textos, ni imágenes, ni marcas"], ["Precio de entrada", "lo que cuesta tu producto principal. También le dicen «ticket»"], ["Tienda", "la plataforma que muestra tu producto, cobra y lo entrega sola. Yo uso Impultienda"], ["Landing", "la página que ve la gente al tocar el anuncio"], ["Checkout", "la página donde paga"], ["Extra del checkout", "un producto barato que se suma con un clic antes de pagar"], ["Oferta post-compra", "la que aparece después de pagar; ahí está buena parte de la ganancia"], ["Entrega automática", "el mail que le llega sola a la compradora con el enlace a su producto"], ["Compra de prueba", "comprarte a vos misma para comprobar que cobra y que llega el mail"], ["Google Drive", "la carpeta en la nube, gratis con tu Gmail, donde queda guardado el PDF que se entrega", "https://drive.google.com", "drive.google.com"], ["Dominio", "la dirección de tu página, por ejemplo tumarca.com"]]], ["Los anuncios", [["Meta", "la empresa dueña de Facebook e Instagram. Los anuncios se hacen ahí"], ["Meta Ads", "el sistema de anuncios de Meta. Pagás para que tu anuncio le aparezca a gente que no te conoce"], ["Administrador de anuncios", "la pantalla de Meta donde están tus campañas y lo que gastó cada una", "https://adsmanager.facebook.com", "abrirlo"], ["Biblioteca de Anuncios", "el buscador público y gratis de Meta donde ves qué anuncia cada uno. De ahí sale qué vender", "https://www.facebook.com/ads/library", "abrirla"], ["Página de Facebook", "la página de tu marca. Los anuncios salen a nombre de ella, no de tu perfil personal"], ["Píxel", "el código de Meta que avisa quién compró, para que el anuncio aprenda a quién mostrarse"], ["Campaña", "la caja grande que contiene tus conjuntos y anuncios"], ["Conjunto", "el grupo de anuncios que comparte un presupuesto, un país y un idioma"], ["Anuncio", "lo que ve la persona: la imagen o el video, el texto y el botón"], ["Creativo", "la imagen o el video del anuncio"], ["Ángulo", "la razón por la que alguien compraría"], ["Gancho", "lo primero que se ve o se lee del anuncio, lo que frena el dedo"], ["Presupuesto diario", "lo máximo que Meta puede gastar por día en ese conjunto o campaña"], ["ABO", "campaña donde vos decidís cuánto gasta cada conjunto. Sirve para probar"], ["CBO", "campaña donde ponés un solo presupuesto y Meta lo reparte. Sirve para crecer"], ["1·5·1", "mi forma de probar: 1 campaña, 5 conjuntos, 1 anuncio en cada uno"], ["1·1·1", "mi forma más usada de crecer: 1 campaña, 1 conjunto, 1 anuncio que ya ganó"]]], ["Los números", [["Venta cobrada", "la que de verdad entró en tu tienda. Es la única que cuenta; lo que dice Meta es orientativo"], ["Gasto", "lo que pagaste en anuncios"], ["Retorno", "cuánto vuelve por cada dólar en anuncios; 2 significa que por cada 1 vuelven 2. En inglés, «ROAS»"], ["Costo por venta", "lo que gastaste en anuncios dividido por las ventas que tuviste"], ["Punto de empate", "lo máximo que podés pagar por venta sin perder plata"], ["Ganador", "el anuncio que ya demostró que vende: 4 ventas cobradas o más, y cobró más del doble de lo que gastó"], ["Cortar", "apagar un anuncio que gastó la mitad del precio de tu producto y no vendió"], ["Renovar", "hacer versiones nuevas de un anuncio ganador antes de que se canse"], ["Escalar", "ponerle más presupuesto a lo que ya vende, de a poco"], ["Abrir un país", "llevar el mismo producto, traducido, a otro país u otro idioma"]]]];
+const G=[["Lo primero: Claude y tu computadora", [["Claude", "la inteligencia artificial con la que vas a trabajar. Le escribís como a una persona y hace el trabajo: busca, escribe, arma archivos y te guía", "https://claude.ai", "claude.ai"], ["Aplicación de Claude", "el programa que instalás en tu computadora. No alcanza con usarlo desde el navegador ni desde el celular", "https://claude.ai/download", "descargarla"], ["Pestaña Code", "la parte de la aplicación donde Claude puede trabajar con las carpetas de tu computadora. Es la que usamos siempre"], ["Plan Pro", "la versión paga de Claude, unos 20 dólares por mes. La gratis no alcanza para esto"], ["Chat", "una conversación con Claude. Conviene un tema por chat"], ["Pedido", "lo que le escribís a Claude. En inglés le dicen «prompt». En esta guía ya vienen escritos: los copiás y cambiás lo que está entre corchetes"], ["Permitir («Allow»)", "el botón con el que Claude te pide permiso antes de tocar algo. Leés qué va a hacer y decís que sí o que no"], ["Límite de uso", "el tope del plan. Si Claude dice que llegaste al límite no se rompió nada: se recarga solo en unas horas"], ["Pasar la posta", "lo que le decís a Claude cuando un chat se hizo largo: te deja un resumen para seguir en un chat nuevo sin perder nada"], ["Carpeta Descargas", "la carpeta de tu computadora donde cae todo lo que bajás de internet"], ["Archivo zip", "varios archivos guardados en uno solo, como una valija. No hace falta que lo abras: lo abre Claude"]]], ["El kit y el cerebro", [["Kit", "el archivo que descargás de esta página. Trae la guía, tu cerebro inicial y las 20 skills"], ["Skill", "un manual que Claude sigue para hacer bien una tarea, por ejemplo armar tu tienda. Vos no la leés: le pedís la tarea y él la usa"], ["Cerebro", "la carpeta de notas donde Claude anota todo lo de tu negocio: qué probaste, qué funcionó, tus números y tus reglas. Así no arranca de cero cada día"], ["Tablero (HOT)", "la nota que Claude lee primero cada mañana: en qué escalón estás, qué falta y qué sigue"], ["Buen día", "lo que le escribís a Claude al empezar. Lee tu tablero y te dice qué hacer hoy"], ["Obsidian", "un programa gratis para ver tu cerebro como notas conectadas. Claude escribe; Obsidian es la ventana para leer", "https://obsidian.md", "obsidian.md"], ["Bóveda", "así llama Obsidian a la carpeta donde están tus notas"], ["Llave (conector)", "el permiso que le das a Claude para entrar a una herramienta tuya, como la tienda o los anuncios. También vas a escuchar «MCP»: es lo mismo"], ["Token", "una clave larga de letras y números que conecta dos herramientas. La copiás de un lado y la pegás en el otro. Es lo único técnico que hacés a mano"], ["Solo lectura", "cuando Claude mira pero no cambia nada. Es como arranca siempre"]]], ["Tu producto y tu tienda", [["Producto digital", "algo que se entrega por internet y no se envía por correo: un PDF, una guía, un cuaderno para imprimir"], ["PDF", "el formato del archivo que recibe tu compradora. Se abre en cualquier celular o computadora"], ["Nicho", "el tema y el tipo de persona a la que le vendés"], ["Oferta", "todo lo que recibe la compradora y a qué precio: el producto, los regalos y los extras"], ["Modelar", "mirar algo que ya se vende, entender por qué funciona y hacer tu propia versión mejorada. No es copiar: ni textos, ni imágenes, ni marcas"], ["Precio de entrada", "lo que cuesta tu producto principal. También le dicen «ticket»"], ["Tienda", "la plataforma que muestra tu producto, cobra y lo entrega sola. Yo uso Impultienda"], ["Landing", "la página que ve la gente al tocar el anuncio"], ["Checkout", "la página donde paga"], ["Extra del checkout", "un producto barato que se suma con un clic antes de pagar"], ["Oferta post-compra", "la que aparece después de pagar; ahí está buena parte de la ganancia"], ["Entrega automática", "el mail que le llega sola a la compradora con el enlace a su producto"], ["Compra de prueba", "comprarte a vos misma para comprobar que cobra y que llega el mail"], ["Google Drive", "la carpeta en la nube, gratis con tu Gmail, donde queda guardado el PDF que se entrega", "https://drive.google.com", "drive.google.com"], ["Dominio", "la dirección de tu página, por ejemplo tumarca.com"]]], ["Los anuncios", [["Meta", "la empresa dueña de Facebook e Instagram. Los anuncios se hacen ahí"], ["Meta Ads", "el sistema de anuncios de Meta. Pagás para que tu anuncio le aparezca a gente que no te conoce"], ["Administrador de anuncios", "la pantalla de Meta donde están tus campañas y lo que gastó cada una", "https://adsmanager.facebook.com", "abrirlo"], ["Biblioteca de Anuncios", "el buscador público y gratis de Meta donde ves qué anuncia cada uno. De ahí sale qué vender", "https://www.facebook.com/ads/library", "abrirla"], ["Página de Facebook", "la página de tu marca. Los anuncios salen a nombre de ella, no de tu perfil personal"], ["Píxel", "el código de Meta que avisa quién compró, para que el anuncio aprenda a quién mostrarse"], ["Campaña", "la caja grande que contiene tus conjuntos y anuncios"], ["Conjunto", "el grupo de anuncios que comparte un presupuesto, un país y un idioma"], ["Anuncio", "lo que ve la persona: la imagen o el video, el texto y el botón"], ["Creativo", "la imagen o el video del anuncio"], ["Ángulo", "la razón por la que alguien compraría"], ["Gancho", "lo primero que se ve o se lee del anuncio, lo que frena el dedo"], ["Presupuesto diario", "lo máximo que Meta puede gastar por día en ese conjunto o campaña"], ["ABO", "campaña donde vos decidís cuánto gasta cada conjunto. Sirve para probar"], ["CBO", "campaña donde ponés un solo presupuesto y Meta lo reparte. Sirve para crecer"], ["1·5·1", "mi forma de probar: 1 campaña, 5 conjuntos, 1 anuncio en cada uno"], ["1·1·1", "mi forma más usada de crecer: 1 campaña, 1 conjunto, 1 anuncio que ya ganó"], ["Cuenta publicitaria", "la «billetera» de Meta desde donde se pagan tus anuncios. La tarjeta la cargás vos"], ["Administrador de eventos", "la pantalla de Meta donde se crea el píxel y se ve si está registrando visitas y compras"], ["API de conversiones", "el segundo camino por el que la tienda le avisa a Meta de cada venta. Se activa pegando el token"], ["Evento de compra", "el aviso «alguien compró» que el píxel le manda a Meta. La campaña se configura para buscar eso"], ["Público abierto", "anunciar solo por país e idioma, sin elegir edad, género ni intereses. Meta encuentra sola a quién mostrarle"], ["Ubicaciones", "los lugares donde aparece el anuncio: inicio de Facebook, historias, reels. Yo las dejo en automático"], ["Etiquetas de seguimiento", "un texto que se agrega al enlace del anuncio para saber de cuál vino cada venta. También les dicen «UTM»"], ["Tanda", "el grupo de anuncios nuevos que sale junto, casi siempre 5"], ["Aprendizaje", "los primeros días de un anuncio, cuando Meta está probando a quién mostrarlo. Cada cambio lo reinicia"]]], ["Los números", [["Venta cobrada", "la que de verdad entró en tu tienda. Es la única que cuenta; lo que dice Meta es orientativo"], ["Gasto", "lo que pagaste en anuncios"], ["Retorno", "cuánto vuelve por cada dólar en anuncios; 2 significa que por cada 1 vuelven 2. En inglés, «ROAS»"], ["Costo por venta", "lo que gastaste en anuncios dividido por las ventas que tuviste"], ["Punto de empate", "lo máximo que podés pagar por venta sin perder plata"], ["Ganador", "el anuncio que ya demostró que vende: 4 ventas cobradas o más, y cobró más del doble de lo que gastó"], ["Cortar", "apagar un anuncio que gastó la mitad del precio de tu producto y no vendió"], ["Renovar", "hacer versiones nuevas de un anuncio ganador antes de que se canse"], ["Escalar", "ponerle más presupuesto a lo que ya vende, de a poco"], ["Abrir un país", "llevar el mismo producto, traducido, a otro país u otro idioma"], ["Cobrado por venta", "todo lo que entró, con los extras, dividido por la cantidad de ventas"], ["Costo por clic", "lo que pagás cada vez que alguien toca el anuncio. Sirve para mejorar el anuncio, no para decidir si gana"], ["Frecuencia", "cuántas veces vio tu anuncio la misma persona. Si sube mucho, el anuncio se cansó o el público es chico"], ["Pago fallado", "una compra que no pasó. Casi siempre es la tarjeta de la compradora"], ["Hora pico", "el momento del día en que más compra un país. Ahí es donde subo el presupuesto"]]]];
 $("glos").innerHTML=G.map(([t,l])=>`<h3>${t}</h3><div class="glos">`+l.map(g=>`<div><b>${g[0]}:</b> ${g[1]}.${g[2]?` <a href="${g[2]}" target="_blank" rel="noopener">${g[3]} ↗</a>`:""}</div>`).join("")+"</div>").join("");
-$("gbus").addEventListener("input",e=>{const q=e.target.value.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"");let n=0;$("glos").querySelectorAll(".glos").forEach(c=>{let v=0;c.querySelectorAll("div").forEach(d=>{const s=!q||d.textContent.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").includes(q);d.hidden=!s;if(s)v++;});c.hidden=!v;c.previousElementSibling.hidden=!v;n+=v;});$("gnada").hidden=n>0;});
 
 /* casillas */
 (function(){const KEY="de-0-a-100-checks";let saved={};try{saved=JSON.parse(localStorage.getItem(KEY)||"{}")}catch(e){}
@@ -925,6 +1039,22 @@ document.querySelectorAll("video").forEach(v=>{v.poster=v.getAttribute("src").re
  const io=new IntersectionObserver(es=>es.forEach(x=>{if(x.isIntersecting){x.target.classList.add("on");io.unobserve(x.target);}}),{rootMargin:"0px 0px -8% 0px"});
  els.forEach(e=>io.observe(e));
  setTimeout(()=>els.forEach(e=>{if(e.getBoundingClientRect().top<innerHeight)e.classList.add("on");}),1500);})();
+
+/* definiciones en el texto: la primera vez que aparece una palabra del glosario en cada parte, se explica al tocarla */
+(()=>{const NO=new Set(["claude","chat","pedido","kit","meta","tienda","anuncio","gasto","oferta","cerebro","buen día","cortar","renovar","escalar","dominio","campaña","tanda","pdf","nicho","permitir"]);
+ const T=G.flatMap(g=>g[1]).map(g=>[g[0].replace(/ \(.*\)$/,""),g[1]]).filter(g=>!NO.has(g[0].toLowerCase())).sort((a,b)=>b[0].length-a[0].length);
+ const M=new Map(T.map(t=>[t[0].toLowerCase(),t])),lim=s=>s.replace(/[.*+?^${}()|[\]\\]/g,"\\$&");
+ const re=new RegExp("(?<![\\p{L}\\d])("+T.map(t=>lim(t[0])).join("|")+")(?![\\p{L}\\d])","iu");
+ const caja=document.createElement("div");caja.id="defbox";caja.hidden=true;caja.setAttribute("role","status");document.body.appendChild(caja);
+ document.querySelectorAll("section.parte:not(#reglas)").forEach(sec=>{const visto=new Set(),ns=[];
+  const w=document.createTreeWalker(sec,NodeFilter.SHOW_TEXT,{acceptNode:n=>n.parentElement.closest("a,button,pre,h2,h3,h4,script,figure,summary,th,label,.def,.k,small")?NodeFilter.FILTER_REJECT:NodeFilter.FILTER_ACCEPT});
+  while(w.nextNode())ns.push(w.currentNode);
+  ns.forEach(n=>{const m=re.exec(n.nodeValue);if(!m)return;const k=m[1].toLowerCase();if(visto.has(k)||!M.has(k))return;visto.add(k);
+   const r=n.splitText(m.index);r.splitText(m[1].length);const s=document.createElement("span");s.className="def";s.tabIndex=0;s.dataset.k=k;s.textContent=r.nodeValue;r.replaceWith(s);});});
+ const ver=e=>{const s=e.target.closest&&e.target.closest(".def");if(!s){caja.hidden=true;return;}const t=M.get(s.dataset.k);caja.innerHTML="<b>"+esc(t[0])+":</b> "+esc(t[1])+".";caja.hidden=false;};
+ document.addEventListener("click",ver);document.addEventListener("focusin",ver);document.addEventListener("keydown",e=>{if(e.key==="Escape")caja.hidden=true;});
+ const d=Math.floor((Date.now()-new Date(2026,9,20))/864e5);document.querySelectorAll(".ndias").forEach(e=>e.textContent=d);
+})();
 </script>
 
 </body>
