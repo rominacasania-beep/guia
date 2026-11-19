@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>La búsqueda única</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600&family=Poppins:wght@300;400;500;600&display=swap">
+<style>
+:root{--bg:#faf6f1;--card:#fffdfa;--ink:#2a2526;--mut:#6d6466;--line:#e8dccf;--oro:#b8913f;--oro2:#f3e6c6;--rosa:#c2185b;--rosa2:#fbe7ee;--noche:#231d1f}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Poppins,system-ui,sans-serif;font-weight:300;font-size:16.5px;line-height:1.55}
+h1,h2,h3{font-family:"Cormorant Garamond",Georgia,serif;margin:0;line-height:1.02;text-wrap:balance}
+p{margin:0}b{font-weight:600}a{color:inherit}
+.w{max-width:860px;margin:0 auto;padding:0 max(16px,env(safe-area-inset-left,0px))}
+section{padding:52px 0}
+.eye{font-size:.76rem;letter-spacing:.16em;text-transform:uppercase;font-weight:600;color:var(--oro)}
+.sub{color:var(--mut);max-width:58ch}
+.volver{display:inline-block;margin:16px 0 0;font-size:.88rem;color:#e9dcc4;text-decoration:none}
+/* portada */
+.hero{background:radial-gradient(120% 90% at 85% 0%,#4a3a22 0%,var(--noche) 55%);color:#fff;padding:0 0 56px;position:relative;overflow:hidden}
+.hero h1{font-size:clamp(3rem,12vw,5.6rem);margin-top:34px}
+.hero h1 em{font-style:italic;color:#e8c77a}
+.hero .firma{font-family:"Cormorant Garamond",serif;font-size:1.25rem;color:#e8c77a;margin-top:6px}
+.hero p.sub{color:#d9cfc0;margin-top:16px;font-size:1.06rem}
+.hero .cta{display:inline-block;margin-top:24px;background:#e8c77a;color:var(--noche);font-weight:600;padding:15px 26px;border-radius:999px;text-decoration:none;box-shadow:0 12px 30px rgb(0 0 0 / .35)}
+.chis{position:absolute;color:#e8c77a;opacity:.7;animation:ti 3s ease-in-out infinite;pointer-events:none}
+@keyframes ti{50%{opacity:.15;transform:scale(.6)}}
+/* embudo */
+.capas{display:flex;flex-direction:column;align-items:center;gap:7px;margin-top:26px}
+.capa{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:11px 14px;text-align:center;font-weight:500;font-size:.95rem;transition:.6s}
+.capa small{display:block;font-weight:300;color:var(--mut);font-size:.8rem}
+.capa.v{background:var(--noche);color:#fff;border-color:var(--noche)}.capa.v small{color:#e8c77a}
+/* palancas */
+.pal{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:24px}
+.pc{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:18px;position:relative}
+.pc .nu{font-family:"Cormorant Garamond",serif;font-size:2.6rem;font-weight:700;color:var(--oro);line-height:1}
+.pc h3{font-family:Poppins;font-weight:600;font-size:1.02rem;margin:6px 0 4px}
+.pc p{color:var(--mut);font-size:.92rem}
+/* generador */
+.gen{background:var(--card);border:1px solid var(--line);border-radius:24px;padding:22px;margin-top:24px;box-shadow:0 20px 50px -30px rgb(0 0 0 / .35)}
+.fila{margin-top:16px}.fila>b{display:block;font-size:.86rem;margin-bottom:8px}.fila>b small{font-weight:400;color:var(--mut)}
+.ops{display:flex;flex-wrap:wrap;gap:7px}
+.op{border:1px solid var(--line);background:#fff;color:var(--ink);border-radius:999px;padding:7px 13px;font:inherit;font-size:.87rem;cursor:pointer;transition:.15s}
+.op:hover{border-color:var(--oro)}
+.op.on{background:var(--noche);border-color:var(--noche);color:#fff;transform:translateY(-1px)}
+.bts{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px}
+.bt{border:0;border-radius:999px;padding:13px 22px;font:inherit;font-weight:600;cursor:pointer}
+.bt.sor{background:var(--rosa);color:#fff;box-shadow:0 10px 24px -10px var(--rosa)}
+.bt.cero{background:transparent;border:1px solid var(--line);color:var(--ink)}
+.codigo{margin-top:20px;background:var(--oro2);border-radius:16px;padding:14px 16px}
+.codigo small{display:block;font-size:.74rem;letter-spacing:.12em;text-transform:uppercase;font-weight:600;color:#7d6122}
+.codigo div{font-family:"Cormorant Garamond",serif;font-size:1.5rem;font-weight:700;line-height:1.15;margin-top:4px}
+.pedido{margin-top:14px;border:1px solid var(--line);border-radius:16px;overflow:hidden}
+.pedido .ph{display:flex;justify-content:space-between;align-items:center;gap:10px;background:var(--noche);color:#fff;padding:10px 14px;font-size:.86rem}
+.pedido button{background:#e8c77a;color:var(--noche);border:0;border-radius:999px;padding:7px 15px;font:inherit;font-weight:600;cursor:pointer}
+.pedido pre{margin:0;padding:14px;white-space:pre-wrap;font-family:Poppins,sans-serif;font-size:.86rem;line-height:1.5;background:#fff;max-height:280px;overflow:auto}
+/* reglas */
+.reg{display:grid;gap:10px;margin-top:22px;counter-reset:r}
+.rg{display:grid;grid-template-columns:52px 1fr;gap:12px;align-items:start;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px 16px}
+.rg:before{counter-increment:r;content:counter(r);font-family:"Cormorant Garamond",serif;font-size:2.2rem;font-weight:700;color:var(--rosa);line-height:1;text-align:center}
+.rg h3{font-family:Poppins;font-weight:600;font-size:1rem}.rg p{color:var(--mut);font-size:.93rem;margin-top:2px}
+/* llevala */
+.lleva{background:var(--noche);color:#fff;border-radius:24px;padding:26px 22px}
+.lleva h2{color:#fff}.lleva .sub{color:#d9cfc0;margin-top:10px}
+.lleva ol{margin:16px 0 0;padding-left:20px}.lleva li{margin:6px 0}
+.lleva a.bt{display:inline-block;margin-top:18px;background:#e8c77a;color:var(--noche);text-decoration:none}
+footer{text-align:center;color:var(--mut);font-size:.84rem;padding:30px 16px 48px}
+.rv{opacity:0;transform:translateY(18px);transition:.6s}.rv.in{opacity:1;transform:none}
+@media(max-width:720px){.pal{grid-template-columns:1fr 1fr}section{padding:40px 0}}
+@media(max-width:420px){.pal{grid-template-columns:1fr}}
+@media(prefers-reduced-motion:reduce){.chis{animation:none}.rv{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <span class="chis" style="top:28px;right:12%;font-size:22px">✦</span><span class="chis" style="top:52%;right:6%;font-size:14px;animation-delay:1s">✦</span><span class="chis" style="bottom:24px;left:46%;font-size:16px;animation-delay:1.8s">✦</span>
+  <div class="w">
+    <a class="volver" href="../index.html#bonos">← Volver a la guía</a>
+    <p class="eye" style="margin-top:26px;color:#e8c77a">Bono 5 · De 0 a 100 por día</p>
+    <h1>La búsqueda <em>única</em></h1>
+    <p class="firma">por RomiManifiesta</p>
+    <p class="sub">Elegís cómo querés buscar y se arma un pedido listo para tu Claude. Cada combinación es distinta, así no terminás peleando por el mismo producto que todas.</p>
+    <a class="cta" href="#generador">Armar mi búsqueda ↓</a>
+  </div>
+</header>
+
+<section><div class="w">
+  <p class="eye">El problema</p>
+  <h2 style="font-size:clamp(2rem,6vw,2.9rem);margin-top:6px">Si todas buscan igual, todas encuentran lo mismo</h2>
+  <p class="sub" style="margin-top:12px">Miles de personas escriben «ebook» en la Biblioteca de Anuncios del mismo país. Les aparecen los mismos productos, los copian y en pocas semanas ese mercado se llena. El producto no era malo: la búsqueda era la de todas.</p>
+  <p class="sub" style="margin-top:10px">La salida no es buscar más horas. Es <b>entrar por otra puerta</b>. Mirá cómo se achica la cantidad de gente buscando lo mismo con cada capa:</p>
+  <div class="capas" id="capas">
+    <div class="capa" style="width:100%">«ebook» en tu país<small>todas están acá</small></div>
+    <div class="capa" style="width:84%">+ un nicho cruzado</div>
+    <div class="capa" style="width:68%">+ palabras de página de venta</div>
+    <div class="capa" style="width:54%">+ a quién le vendés</div>
+    <div class="capa" style="width:42%">+ otro idioma</div>
+    <div class="capa v" style="width:34%">vos<small>casi sola</small></div>
+  </div>
+</div></section>
+
+<section style="padding-top:0"><div class="w">
+  <p class="eye">Las palancas</p>
+  <h2 style="font-size:clamp(2rem,6vw,2.9rem);margin-top:6px">Seis perillas para buscar distinto</h2>
+  <div class="pal">
+    <div class="pc"><div class="nu">1</div><h3>La puerta</h3><p>Por dónde entrás: un dolor, un deseo, un oficio, algo que se vende en papel, una fecha.</p></div>
+    <div class="pc"><div class="nu">2</div><h3>El nicho</h3><p>El tema grande. Cruzar dos ya te separa de la mayoría.</p></div>
+    <div class="pc"><div class="nu">3</div><h3>Las palabras</h3><p>Lo que escribís en el buscador, como lo diría una página de venta.</p></div>
+    <div class="pc"><div class="nu">4</div><h3>A quién</h3><p>El mismo tema para abuelas o para maestras es otro mercado.</p></div>
+    <div class="pc"><div class="nu">5</div><h3>El formato</h3><p>Diario, plan de días, recetario, planos, plantillas.</p></div>
+    <div class="pc"><div class="nu">6</div><h3>El idioma</h3><p>Lo lleno en un idioma puede estar vacío en otro.</p></div>
+  </div>
+</div></section>
+
+<section id="generador" style="padding-top:0"><div class="w">
+  <p class="eye">El generador</p>
+  <h2 style="font-size:clamp(2rem,6vw,2.9rem);margin-top:6px">Armá tu búsqueda en un minuto</h2>
+  <div class="gen" id="gen">
+    <p class="sub">Tocá una opción por fila, o tocá «Sortear» y cambiá lo que no te guste.</p>
+    <div class="fila" data-g="puerta"><b>1 · Puerta</b><div class="ops"></div></div>
+    <div class="fila" data-g="nicho" data-max="2"><b>2 · Nicho <small>(hasta 2)</small></b><div class="ops"></div></div>
+    <div class="fila" data-g="palabras" data-max="3"><b>3 · Palabras <small>(hasta 3)</small></b><div class="ops"></div></div>
+    <div class="fila" data-g="quien"><b>4 · A quién</b><div class="ops"></div></div>
+    <div class="fila" data-g="formato"><b>5 · Formato</b><div class="ops"></div></div>
+    <div class="fila" data-g="idioma"><b>6 · Idioma</b><div class="ops"></div></div>
+    <div class="bts"><button class="bt sor" type="button" id="sor">🎲 Sortear una combinación</button><button class="bt cero" type="button" id="cero">Empezar de cero</button></div>
+    <div class="codigo"><small>Tu búsqueda</small><div id="cod">Elegí tus palancas</div></div>
+    <div class="pedido"><div class="ph"><span>Pedido para tu Claude</span><button type="button" id="cop">Copiar</button></div><pre id="ped"></pre></div>
+  </div>
+</div></section>
+
+<section style="padding-top:0"><div class="w">
+  <p class="eye">Antes de enamorarte de un producto</p>
+  <h2 style="font-size:clamp(2rem,6vw,2.9rem);margin-top:6px">Cinco reglas que no se negocian</h2>
+  <div class="reg">
+    <div class="rg"><div><h3>Dos números juntos</h3><p>Días del anuncio más viejo <b>y</b> cantidad de anuncios prendidos. Uno solo de los dos no prueba nada.</p></div></div>
+    <div class="rg"><div><h3>Tres anunciantes o más</h3><p>Si lo venden tres páginas distintas desde hace semanas, está probado. Si lo vende una sola, puede ser suerte.</p></div></div>
+    <div class="rg"><div><h3>Vacío no es oportunidad</h3><p>La Biblioteca no muestra lo que fracasó. Si no lo vende nadie, puede ser porque nadie lo compra.</p></div></div>
+    <div class="rg"><div><h3>Modelá al original</h3><p>El de más días y más anuncios es el que lo inventó. Las copias suelen copiar también sus errores.</p></div></div>
+    <div class="rg"><div><h3>Entrá a la página real</h3><p>Abrí el anuncio y llegá hasta donde se paga. A veces lo que se ve de afuera no es lo que se vende.</p></div></div>
+  </div>
+</div></section>
+
+<section style="padding-top:0"><div class="w">
+  <div class="lleva">
+    <p class="eye" style="color:#e8c77a">Para tu Claude</p>
+    <h2 style="font-size:clamp(1.9rem,6vw,2.6rem);margin-top:6px">Tu Claude ya sabe hacer esta búsqueda</h2>
+    <p class="sub">Viene en tu kit como la skill <b>«búsqueda única»</b>: busca con estas palancas, aplica las 5 reglas y te devuelve 5 productos con sus links.</p>
+    <ol>
+      <li>Si bajaste el kit después del 19 de noviembre, ya la tenés: pegale el pedido de arriba a tu Claude.</li>
+      <li>Si lo bajaste antes, descargá la skill acá abajo y decile a tu Claude: «instalá esta skill en mi kit».</li>
+    </ol>
+    <a class="bt" href="busqueda-unica-romi.zip" download>Descargar la skill</a>
+  </div>
+</div></section>
+
+<footer>La búsqueda única · RomiManifiesta · Bono de «De 0 a 100 por día»</footer>
+
+<script>
+(function(){
+const O={
+ puerta:["Un dolor que quita el sueño","Un deseo grande","Un oficio o hobby","Algo que hoy se vende en papel","Una fecha del año","Un problema de la casa"],
+ nicho:["Bienestar emocional","Crianza","Espiritualidad","Manualidades","Cocina","Estudio","Plata y ahorro","Mascotas","Pareja","Jardín y huerta","Orden de la casa","Belleza natural"],
+ palabras:["para imprimir","paso a paso","en 21 días","sin experiencia","plantillas","para principiantes","descarga inmediata","método","desde casa","cuaderno"],
+ quien:["Mamás de chicos chicos","Abuelas","Maestras","Emprendedoras","Estudiantes","Mujeres de 40 a 60","Parejas","Personas que trabajan desde casa"],
+ formato:["Diario guiado","Plan de días","Recetario","Planos o patrones","Plantillas","Kit para imprimir","Fichas","Guía corta en PDF"],
+ idioma:["Italiano · Italia","Alemán · Alemania, Austria, Suiza","Francés · Francia, Bélgica, Suiza","Polaco · Polonia","Húngaro · Hungría","Danés · Dinamarca","Hebreo · Israel","Español · España y Latinoamérica"]
+};
+const S={},$=id=>document.getElementById(id),box=$("gen");
+function pinta(){
+ box.querySelectorAll(".fila").forEach(f=>{const g=f.dataset.g;f.querySelectorAll(".op").forEach(b=>b.classList.toggle("on",(S[g]||[]).includes(b.textContent)))});
+ const v=g=>(S[g]||[]).join(" + ")||"(elegí vos)";
+ const llenas=Object.keys(O).filter(g=>(S[g]||[]).length);
+ $("cod").textContent=llenas.length?llenas.map(g=>S[g].join(" + ")).join(" · "):"Elegí tus palancas";
+ $("ped").textContent="Usá la skill «búsqueda única». Quiero buscar un producto digital por otra puerta, distinto de lo que busca todo el mundo.\n"+
+ "- Puerta: "+v("puerta")+"\n- Nicho: "+v("nicho")+"\n- Palabras: "+v("palabras")+"\n- A quién: "+v("quien")+"\n- Formato: "+v("formato")+"\n- Idioma y países: "+v("idioma")+"\n\n"+
+ "Traducí las palabras al idioma elegido como las escribiría una página de venta de ese país. Buscá en la Biblioteca de Anuncios de Meta combinando esas palabras con el nicho y el formato.\n"+
+ "Dame 5 ofertas en una tabla: qué vende, a quién, precio, anuncios activos, días del anuncio más viejo, anunciantes distintos, link al anuncio y link a la página de venta.\n"+
+ "Aplicá las 5 reglas: dos números juntos, 3 o más anunciantes, un hueco vacío no es oportunidad, modelá al original y entrá a la página real antes de recomendar.\n"+
+ "Si no aparece nada, cambiá una sola palanca y probá de nuevo. Solo lectura: no crees ni gastes nada. Lo que no puedas comprobar, decímelo.";
+}
+box.querySelectorAll(".fila").forEach(f=>{const g=f.dataset.g,max=+(f.dataset.max||1),ops=f.querySelector(".ops");
+ O[g].forEach(t=>{const b=document.createElement("button");b.type="button";b.className="op";b.textContent=t;
+  b.onclick=()=>{let a=S[g]||[];if(a.includes(t))a=a.filter(x=>x!==t);else a=max===1?[t]:a.concat(t).slice(-max);S[g]=a;pinta()};ops.appendChild(b)})});
+const azar=(a,n)=>a.slice().sort(()=>Math.random()-.5).slice(0,n);
+$("sor").onclick=()=>{S.puerta=azar(O.puerta,1);S.nicho=azar(O.nicho,2);S.palabras=azar(O.palabras,2);S.quien=azar(O.quien,1);S.formato=azar(O.formato,1);S.idioma=azar(O.idioma,1);pinta()};
+$("cero").onclick=()=>{for(const k in S)delete S[k];pinta()};
+$("cop").onclick=async()=>{const t=$("ped").textContent;try{await navigator.clipboard.writeText(t)}catch(e){const r=document.createRange();r.selectNodeContents($("ped"));const s=getSelection();s.removeAllRanges();s.addRange(r);try{document.execCommand("copy")}catch(_){}}$("cop").textContent="¡Copiado!";setTimeout(()=>$("cop").textContent="Copiar",1600)};
+pinta();
+if("IntersectionObserver" in window){const io=new IntersectionObserver(es=>es.forEach(x=>{if(x.isIntersecting){x.target.classList.add("in");io.unobserve(x.target)}}),{threshold:.12});document.querySelectorAll(".pc,.rg,.capa,.gen,.lleva").forEach(e=>{e.classList.add("rv");io.observe(e)})}
+})();
+</script>
+</body>
+</html>
