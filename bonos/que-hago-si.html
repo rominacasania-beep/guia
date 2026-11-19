@@ -49,7 +49,8 @@ const Q={
  ["Me quedé sin uso del plan","Un tema por chat y pedidos claros en un solo mensaje. Cuando un chat se hace largo, cerralo y seguí en uno nuevo.","Pasá la posta."],
  ["Claude dice «listo» y no funciona","Si no puede mostrarte la prueba, no está listo.","Mostrame la prueba de que funciona."],
  ["Claude no se acuerda de lo que hicimos","Lo que no se guardó en el cerebro se pierde al cerrar el chat. Guardá al terminar cada sesión.","Guardá esto en el cerebro."],
- ["No entiendo una palabra que usa","Para eso está. Pedile que lo explique como si no supieras nada.","Explicame eso de nuevo, sin palabras técnicas."]],
+ ["No entiendo una palabra que usa","Para eso está. Pedile que lo explique como si no supieras nada.","Explicame eso de nuevo, sin palabras técnicas."],
+ ["Me ofrecen instalar un programa o un kit de otra persona","Antes de instalarlo, que Claude lo lea entero: a dónde se conecta, qué hace con tus claves y si manda datos afuera. Aunque te digan que es seguro.","Antes de instalar esto, leé todo el código y decime con un semáforo si es seguro."]],
 "Producto y tienda":[
  ["No sé qué producto elegir","Volvé al escalón 1 y pedí 5 ofertas más en otro nicho. Elegí por lo que ya se vende, no por lo que te gusta.","Buscame 5 ofertas más, en otro nicho."],
  ["Hice una compra de prueba y no me llegó el producto","No sigas hasta arreglarlo. Suele ser el enlace de entrega cerrado o el producto sin entregable.","Revisá por qué no llegó la entrega de mi compra de prueba."],
@@ -60,19 +61,25 @@ const Q={
  ["La imagen salió con letras raras","Pasa seguido. No se arregla: se genera de nuevo dándole el texto exacto.","Dame de nuevo el pedido de imagen, con el texto exacto que tiene que decir."],
  ["Meta rechazó mi anuncio","Suele ser por prometer un resultado o por hablarle a la persona de su problema de forma directa.","Meta rechazó este anuncio. Decime qué puede haber sido y reescribilo."],
  ["Meta me pide verificar la cuenta o me la restringe","Hacé la verificación con tus datos reales. No abras cuentas nuevas para saltearla: empeora el problema.",""],
- ["Todos mis anuncios se parecen","Cambiá el formato, no solo el texto. Mirá el bono de tipos de anuncio.","Haceme la próxima tanda con tres formatos distintos."]],
+ ["Todos mis anuncios se parecen","Cambiá el formato, no solo el texto. Mirá el bono de tipos de anuncio.","Haceme la próxima tanda con tres formatos distintos."],
+ ["Se frenaron todos los anuncios de un país a la vez","Casi siempre es la página de Facebook: quedó desactivada y los anuncios dicen que «la página no está publicada». Se vuelve a activar desde la lista de tus páginas.","Revisá si alguna de mis páginas de Facebook quedó desactivada y decime cómo activarla."]],
 "Campaña y números":[
  ["Gasté y no vendí nada","Es normal en las primeras tandas. Aplicá la regla de corte y sacá una tanda nueva antes de cambiar de producto.","Decime qué anuncios apagar según la regla de corte."],
  ["La campaña empezó a gastar a mitad del día","Se creó sin hora de inicio. No se puede corregir: se borra y se hace de nuevo para las 00:00.","Rehacé la campaña con inicio mañana a las 00:00, en pausa."],
  ["Cambié un presupuesto y el conjunto quedó en pausa","Pasa al editar. Hay que reactivarlo y volver a mirar.","Revisá si algún conjunto quedó en pausa y avisame."],
+ ["Le pedí un cambio a Claude en Meta y no se ve","Quedó guardado como borrador: un borrador no corre. Hay que publicarlo y volver a leer el estado.","Publicá el cambio que quedó en borrador y mostrame que está vivo."],
  ["El panel dice que vendí y en la tienda no hay nada","Vale la tienda. El panel a veces cuenta ventas que no se cobraron.","Compará las ventas del panel con las cobradas en la tienda."],
  ["Vendí en la tienda y el panel muestra cero","Falta el token del píxel o está mal pegado.","Comprobá si el píxel y el token están registrando compras."],
  ["Tuve un día buenísimo y quiero subir todo","Subí poco y solo donde hubo venta hoy. Un día no es una tendencia.","Armá mi plan de escala de hoy."]],
 "Cobros":[
  ["Tengo pagos rechazados","El botón de reintentar no suele servir. Funciona mandar el enlace de pago por mail.","Listá los pagos rechazados y redactame un mail corto para recuperarlos."],
- ["La plata no me llega","En cuentas nuevas la plataforma de pagos puede retenerla varias semanas. No reinviertas plata que todavía no llegó.",""]],
+ ["La plata no me llega","En cuentas nuevas la plataforma de pagos puede retenerla varias semanas. No reinviertas plata que todavía no llegó.",""],
+ ["Una clienta pide su plata o abre un reclamo","Contestale en el centro de reclamos de tu plataforma de pagos, no por mail: ahí lo ve ella y ahí se resuelve. Devolver o no lo decidís vos.","Listá los reclamos abiertos en mi plataforma de pagos, con su plazo, y redactame una respuesta."],
+ ["Me preguntan si es una suscripción","Poné «pago único, sin mensualidades» al lado de cada precio y de cada botón de compra.","Revisá mi página y mi checkout y sumá «pago único, sin mensualidades» al lado de cada precio."]],
 "Países nuevos":[
  ["Abrí un país y no vende","Si a los 4 días gastó y no vendió, se apaga y se abre el siguiente. Anotá por qué.","Apagamos este país. Anotalo en mis decisiones con el motivo."],
+ ["Mi país vende, pero no deja ganancia","Si pasa dos semanas en empate, se apaga igual: con las comisiones, perdés. Apagar es apagar todo: anuncios, mails automáticos y aviso a las compradoras con su acceso.","Apagamos este país: hacé la lista completa y decime qué sigue prendido."],
+ ["¿Mi campaña va solo a mi país?","No: va a todos los países donde se habla tu idioma, con el idioma como filtro. Antes, confirmá que tu plataforma cobre en cada uno.","Decime en qué países se habla mi idioma y en cuáles cobra mi plataforma de pagos."],
  ["No sé si la traducción suena natural","Pedí una revisión en limpio, y si podés, que la lea alguien del país.","Revisá este texto como si fueras de ese país y marcá lo que suena a traducción."]]
 };
 const L=document.getElementById("lista");

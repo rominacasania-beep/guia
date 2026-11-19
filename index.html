@@ -228,6 +228,7 @@ details p{margin-top:8px;color:var(--muted)}
 .aviso{border:1px solid var(--line);border-left:4px solid var(--sea);background:var(--surface);border-radius:10px;padding:10px 14px;margin-top:10px}
 footer{margin-top:52px;padding-top:16px;border-top:1px solid var(--line);color:var(--muted);font-size:.9rem}
 @media(prefers-reduced-motion:reduce){.stage.in > *{animation:none}.barra i{transition:none}}
+.gen .genf{display:flex;flex-wrap:wrap;gap:7px;align-items:center;margin-top:10px}.gen .genf>b{flex-basis:100%;font-size:.86rem}.gen .genf small{font-weight:400;opacity:.7}.gen .op{border:1px solid var(--line);background:transparent;color:inherit;border-radius:999px;padding:6px 12px;font:inherit;font-size:.86rem;cursor:pointer}.gen .op.on{background:var(--sea);border-color:var(--sea);color:#fff}
 </style>
 
 <div class="wrap">
@@ -649,6 +650,46 @@ Abajo va también el texto completo, por si no podés abrir el enlace. Quiero qu
     </tbody>
   </table></div>
   <p class="tip"><b>Cómo elegir:</b> un nicho sirve cuando ves el mismo tipo de producto anunciado por varias personas distintas, desde hace semanas. Si lo vende una sola, todavía no está probado.</p>
+
+  <h3 id="otra-puerta">Buscá por otra puerta: tu búsqueda única</h3>
+  <p>Si escribís «ebook» o «journal» en la Biblioteca, te aparecen los mismos productos que a miles de personas que buscan igual que vos. Todas copian lo mismo y en pocas semanas ese mercado se llena. El producto no era malo: la búsqueda era la de todas.</p>
+  <p>La salida no es buscar más horas. Es <b>entrar por otra puerta</b>: cruzar cosas que casi nadie cruza. Cada capa que sumás deja menos gente buscando lo mismo que vos.</p>
+  <div class="tw"><table>
+    <thead><tr><th>Palanca</th><th>Qué elegís</th><th>Ejemplo</th></tr></thead>
+    <tbody>
+      <tr><td>1 · La puerta</td><td>Por dónde entrás al tema</td><td>Un dolor que quita el sueño, un oficio, algo que hoy se vende en papel, una fecha del año</td></tr>
+      <tr><td>2 · El nicho</td><td>El tema grande. Mejor dos cruzados</td><td>Crianza + cocina</td></tr>
+      <tr><td>3 · Las palabras</td><td>Lo que escribís en el buscador, como lo diría la página de venta</td><td>«para imprimir», «paso a paso», «en 21 días»</td></tr>
+      <tr><td>4 · A quién</td><td>La persona que compra</td><td>El mismo tema para abuelas o para maestras es otro mercado</td></tr>
+      <tr><td>5 · El formato</td><td>Qué recibe quien compra</td><td>Diario guiado, plan de días, recetario, planos, plantillas</td></tr>
+      <tr><td>6 · El idioma</td><td>Dónde lo buscás</td><td>Lo que está lleno en español puede estar vacío en polaco</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="paso gen" id="gen">
+    <header><span class="k">✦</span><h3>Armá tu búsqueda</h3></header>
+    <p class="sub">Tocá una opción de cada fila, o tocá «Sortear» y cambiá lo que no te guste. Abajo se arma el pedido para tu Claude.</p>
+    <div class="genf" data-g="puerta"><b>Puerta</b></div>
+    <div class="genf" data-g="nicho" data-max="2"><b>Nicho <small>(hasta 2)</small></b></div>
+    <div class="genf" data-g="palabras" data-max="3"><b>Palabras <small>(hasta 3)</small></b></div>
+    <div class="genf" data-g="quien"><b>A quién</b></div>
+    <div class="genf" data-g="formato"><b>Formato</b></div>
+    <div class="genf" data-g="idioma"><b>Idioma</b></div>
+    <p style="margin-top:12px"><button class="btn" type="button" id="genSort">🎲 Sortear</button> <button class="btn" type="button" id="genCero" style="background:transparent;color:inherit;border:1px solid var(--line)">Empezar de cero</button></p>
+    <div class="prompt"><div class="ph"><span>Tu pedido · búsqueda única</span><button class="btn" data-copy="pGen">Copiar</button></div><pre id="pGen"></pre></div>
+  </div>
+
+  <h3>Antes de enamorarte de un producto: 5 reglas</h3>
+  <div class="tw"><table>
+    <thead><tr><th>Regla</th><th>Por qué</th></tr></thead>
+    <tbody>
+      <tr><td>Mirá dos números juntos</td><td>Cuántos días lleva el anuncio más viejo <b>y</b> cuántos anuncios tiene prendidos. Uno solo de los dos no prueba nada</td></tr>
+      <tr><td>Tres o más anunciantes</td><td>Si lo venden tres páginas distintas desde hace semanas, está probado. Si lo vende una sola, puede ser suerte</td></tr>
+      <tr><td>Vacío no es oportunidad</td><td>La Biblioteca no muestra lo que fracasó. Si no lo vende nadie, puede ser porque nadie lo compra</td></tr>
+      <tr><td>Modelá al original</td><td>El que tiene más días y más anuncios es el que lo inventó. Los que vinieron después suelen copiar también sus errores</td></tr>
+      <tr><td>Entrá a la página real</td><td>Abrí el anuncio y llegá hasta la página donde se paga. A veces lo que se ve de afuera no es lo que se vende</td></tr>
+    </tbody>
+  </table></div>
   <h3>Los escalones en video</h3>
   <div class="vids">
     <figure class="vid"><video controls preload="metadata" src="videos/video-4.mp4"></video><figcaption><b>Video 4 · Escalones 1 a 3.</b> Elegir y armar tu producto.</figcaption></figure>
@@ -707,7 +748,7 @@ Abajo va también el texto completo, por si no podés abrir el enlace. Quiero qu
       <tr><td>Presupuesto</td><td>En cada conjunto (ABO), no en la campaña</td><td>Así los cinco anuncios reciben lo mismo y la comparación es justa</td></tr>
       <tr><td>Monto por conjunto</td><td>7 dólares por día (o el equivalente en tu moneda)</td><td>Alcanza para saber si un anuncio vende sin arriesgar de más</td></tr>
       <tr><td>Evento de conversión</td><td>Compra, con tu píxel</td><td>Meta optimiza por lo que le pedís: si le pedís visitas, trae visitas</td></tr>
-      <tr><td>Público</td><td>Solo país e idioma. Sin edad, sin género, sin intereses</td><td>Público abierto: el anuncio encuentra solo a su gente</td></tr>
+      <tr><td>Público</td><td>Los países donde se habla tu idioma, con el idioma como filtro. Sin edad, sin género, sin intereses</td><td>Público abierto: el anuncio encuentra solo a su gente. En francés, por ejemplo, va a Francia, Bélgica, Suiza, Luxemburgo, Mónaco y Quebec. Con el español elijo solo los países donde más vendo</td></tr>
       <tr><td>Ubicaciones</td><td>Automáticas</td><td>Meta reparte donde sale más barato</td></tr>
       <tr><td>Anuncios por conjunto</td><td>Uno solo</td><td>Si hay dos, no sabés cuál vendió</td></tr>
       <tr><td>Fecha de inicio</td><td>Mañana a las 00:00</td><td>Un anuncio que arranca a mitad del día gasta mal su primer día</td></tr>
@@ -737,6 +778,7 @@ Abajo va también el texto completo, por si no podés abrir el enlace. Quiero qu
       <tr><td>Cobrado por venta</td><td>Todo lo cobrado, con los extras, dividido por las ventas</td><td>En la tienda</td><td>Si sube, podés pagar más por cada venta. Ahí está la ganancia</td></tr>
       <tr><td>Visitas a la página y al checkout</td><td>Cuánta gente llega y cuánta pasa a pagar</td><td>En la tienda</td><td>Mucha visita y poco checkout: falla la página. Mucho checkout y poca venta: falla el pago</td></tr>
       <tr><td>Pagos fallados</td><td>Compras que no pasaron</td><td>En la tienda</td><td>Si son muchos, primero se arregla el cobro y después se escala</td></tr>
+      <tr><td>Dónde se va la gente</td><td>Grabaciones de cada visita y hasta qué paso llega</td><td>En Clarity, que es gratis. Claude lo pone en cada página nueva</td><td>Qué arreglar de la página. Nunca para decidir si un anuncio es ganador</td></tr>
       <tr><td>Clics y costo por clic</td><td>Cuánta gente toca el anuncio y cuánto cuesta</td><td>En Meta</td><td>Solo para saber qué arreglar del anuncio. Nunca para decidir si es ganador</td></tr>
       <tr><td>Frecuencia</td><td>Cuántas veces vio el anuncio la misma persona</td><td>En Meta</td><td>Si pasa de 2 o 3 en pocos días, el público es chico o el anuncio se cansó</td></tr>
     </tbody>
@@ -795,6 +837,7 @@ Abajo va también el texto completo, por si no podés abrir el enlace. Quiero qu
       <tr><td>El país vendió hoy y viene vendiendo los últimos 4 días</td><td>Se le sube presupuesto en su hora pico</td></tr>
       <tr><td>El país no vendió hoy</td><td>No se escala, aunque ayer haya ido bien</td></tr>
       <tr><td>País nuevo que gasta y no vende en pocos días</td><td>Se apaga y se abre el siguiente</td></tr>
+      <tr><td>El país vende, pero dos semanas seguidas lo cobrado apenas cubre lo gastado</td><td>Se apaga igual: con las comisiones, perdés. Y apagar es apagar todo: anuncios, mails automáticos y un aviso a las compradoras con su acceso</td></tr>
     </tbody>
   </table></div>
   <div class="prompt"><div class="ph"><span>Pedido · plan de escala del día</span><button class="btn" data-copy="pEsc">Copiar</button></div>
@@ -816,9 +859,9 @@ Abajo va también el texto completo, por si no podés abrir el enlace. Quiero qu
       <tr><td>3</td><td>Clienta ideal</td><td>10 dolores dichos con sus palabras</td><td><span class="chip">Claude</span></td></tr>
       <tr><td>4</td><td>Traducción nativa</td><td>Producto y bonos con el mismo diseño, con dos revisiones</td><td><span class="chip">Claude</span></td></tr>
       <tr><td>5</td><td>Entrega</td><td>Una carpeta por producto con su enlace comprobado</td><td><span class="chip">Claude</span></td></tr>
-      <tr><td>6</td><td>Tienda</td><td>Idioma, dominio, moneda local, pagos y checkout limpio</td><td><span class="chip">Claude</span></td></tr>
+      <tr><td>6</td><td>Tienda</td><td>Idioma, dominio, moneda local, pagos que cobren en ese país y checkout limpio</td><td><span class="chip">Claude</span></td></tr>
       <tr><td>7</td><td>Ofertas extra</td><td>Extras en el checkout y oferta después de la compra, con un juego del país</td><td><span class="chip">Claude</span></td></tr>
-      <tr><td>8</td><td>Landing</td><td>Los dolores arriba, sin testimonios inventados, revisada en el celular</td><td><span class="chip">Claude</span></td></tr>
+      <tr><td>8</td><td>Landing</td><td>Los dolores arriba, sin testimonios inventados, «pago único, sin mensualidades» al lado de cada precio, revisada en el celular</td><td><span class="chip">Claude</span></td></tr>
       <tr><td>9</td><td>Página de Facebook</td><td>Nombre en el idioma, perfil, portada y 4 publicaciones</td><td><span class="chip">Claude</span> <span class="chip tu">Vos das los clics</span></td></tr>
       <tr><td>10</td><td>Píxel</td><td>Conectado a la tienda y probado en vivo</td><td><span class="chip">Claude</span> <span class="chip tu">Vos pegás la clave</span></td></tr>
       <tr><td>11</td><td>Anuncios</td><td>Un ángulo por dolor, campaña armada y en pausa</td><td><span class="chip">Claude</span></td></tr>
@@ -870,6 +913,38 @@ No prendas ninguna campaña ni gastes nada sin que yo lo apruebe.</pre></div>
 const $=id=>document.getElementById(id);
 const esc=s=>s.replace(/&/g,"&amp;").replace(/</g,"&lt;");
 
+
+/* búsqueda única */
+(function(){
+const O={
+ puerta:["Un dolor que quita el sueño","Un deseo grande","Un oficio o hobby","Algo que hoy se vende en papel","Una fecha del año","Un problema de la casa"],
+ nicho:["Bienestar emocional","Crianza","Espiritualidad","Manualidades","Cocina","Estudio","Plata y ahorro","Mascotas","Pareja","Jardín y huerta","Orden de la casa","Belleza natural"],
+ palabras:["para imprimir","paso a paso","en 21 días","sin experiencia","plantillas","para principiantes","descarga inmediata","método","desde casa","cuaderno"],
+ quien:["Mamás de chicos chicos","Abuelas","Maestras","Emprendedoras","Estudiantes","Mujeres de 40 a 60","Parejas","Personas que trabajan desde casa"],
+ formato:["Diario guiado","Plan de días","Recetario","Planos o patrones","Plantillas","Kit para imprimir","Fichas","Guía corta en PDF"],
+ idioma:["Italiano · Italia","Alemán · Alemania, Austria, Suiza","Francés · Francia, Bélgica, Suiza","Polaco · Polonia","Húngaro · Hungría","Danés · Dinamarca","Hebreo · Israel","Español · España, México, Argentina, Chile"]
+};
+const S={};
+const box=document.getElementById("gen"); if(!box) return;
+function pinta(){
+ box.querySelectorAll(".genf").forEach(f=>{const g=f.dataset.g;f.querySelectorAll(".op").forEach(b=>b.classList.toggle("on",(S[g]||[]).includes(b.textContent)))});
+ const v=g=>(S[g]||[]).join(" + ")||"(elegí vos)";
+ document.getElementById("pGen").textContent=
+"Quiero buscar un producto digital por otra puerta, distinto de lo que busca todo el mundo.\n"+
+"- Puerta: "+v("puerta")+"\n- Nicho: "+v("nicho")+"\n- Palabras: "+v("palabras")+"\n- A quién: "+v("quien")+"\n- Formato: "+v("formato")+"\n- Idioma y países: "+v("idioma")+"\n\n"+
+"Traducí las palabras al idioma elegido como las escribiría una página de venta de ese país. Buscá en la Biblioteca de Anuncios de Meta, en mi navegador, combinando esas palabras con el nicho y el formato.\n"+
+"Dame 5 ofertas en una tabla: qué vende, a quién, precio, anuncios activos, días del anuncio más viejo, anunciantes distintos, link al anuncio y link a la página de venta.\n"+
+"Aplicá estas reglas: dos números juntos (días y anuncios), 3 o más anunciantes, un hueco vacío no es oportunidad, modelá al que más días y anuncios tiene, y entrá a la página real antes de recomendar.\n"+
+"Si con esa combinación no aparece nada, cambiá una sola palanca y probá de nuevo. Solo lectura: no crees ni gastes nada. Lo que no puedas comprobar, decímelo.";
+}
+box.querySelectorAll(".genf").forEach(f=>{const g=f.dataset.g,max=+(f.dataset.max||1);
+ O[g].forEach(t=>{const b=document.createElement("button");b.type="button";b.className="op";b.textContent=t;
+  b.onclick=()=>{let a=S[g]||[];if(a.includes(t))a=a.filter(x=>x!==t);else{a=max===1?[t]:a.concat(t).slice(-max)}S[g]=a;pinta()};f.appendChild(b)})});
+const azar=(a,n)=>a.slice().sort(()=>Math.random()-.5).slice(0,n);
+document.getElementById("genSort").onclick=()=>{S.puerta=azar(O.puerta,1);S.nicho=azar(O.nicho,2);S.palabras=azar(O.palabras,2);S.quien=azar(O.quien,1);S.formato=azar(O.formato,1);S.idioma=azar(O.idioma,1);pinta()};
+document.getElementById("genCero").onclick=()=>{for(const k in S)delete S[k];pinta()};
+pinta();
+})();
 /* escalones */
 const E=[
  ["Elegir qué vender","Mirás las 5 ofertas y elegís una","Busca en la Biblioteca de Anuncios qué se está vendiendo y lo ordena en una tabla",
