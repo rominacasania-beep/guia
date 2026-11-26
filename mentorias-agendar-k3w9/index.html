@@ -35,6 +35,12 @@ section{display:flex;flex-direction:column;gap:12px}
   <div class="paso"><span class="n">✦</span><p><b>Traé una sola cosa</b> que quieras llevarte: la que, si se destraba, cambia todo lo demás.</p></div>
   <div class="paso" id="ritmo"><span class="n">✦</span><p><b>Nos vemos una vez por semana o cada 15 días.</b> Más espaciado se pierde el hilo.</p></div>
 </section>
+<section>
+  <h2>Acuerdos importantes</h2>
+  <div class="paso"><span class="n">📅</span><p><b>Cada sesión se agenda siempre con anticipación.</b> No se puede agendar de un día para otro.</p></div>
+  <div class="paso"><span class="n">⏰</span><p><b>Cancelaciones o cambios: hasta 24 horas antes.</b> Con menos tiempo no se puede, salvo una urgencia de verdad.</p></div>
+  <div class="paso" id="tarea"><span class="n">📝</span><p><b>¿No llegaste con la tarea?</b> Hacemos la sesión igual para destrabar, o la corremos una semana o unos días para que la puedas hacer. Lo elegimos juntas.</p></div>
+</section>
 <div class="cien"><b>Yo pongo mi 100. Vos ponés tu 100.</b>De cada sesión te llevás tu plan de acción. La siguiente arranca de lo que hiciste: si las dos ponemos lo nuestro, esto funciona.</div>
 <p class="nota">No es una promesa de resultado: es mi mirada sobre tu caso, con lo que a mí me funcionó y lo que no.</p>
 </div>
@@ -45,6 +51,6 @@ const P={'1':['sesión 1 a 1','Una sesión de 1 hora por Zoom, las dos solas.','
 const k=new URLSearchParams(location.search).get('p'),d=P[k]||P['4'];
 document.getElementById('nom').textContent=d[0];
 document.getElementById('det').textContent=d[1]+' Gracias por confiar en mí. Ahora agendamos tu primera sesión.';
-if(k==='1'){document.getElementById('sig').textContent='';document.getElementById('ritmo').style.display='none'}
+if(k==='1'){document.getElementById('sig').textContent='';document.getElementById('ritmo').style.display='none';document.getElementById('tarea').style.display='none'}
 document.getElementById('wa').href='https://wa.me/59894167572?text='+encodeURIComponent('Hola Romi! Compré '+d[2]+' y quiero agendar la primera. Mi país es: ');
 </script></body></html>
