@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Tu mentoría con Romi</title><meta name="robots" content="noindex">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#fbf8fd;--card:#fff;--ink:#2b2530;--mut:#6c6474;--line:#e6dcef;--lila:#8e6bc4;--lila-d:#6a4aa3;--lila-s:#ece3f8;--rosa:#d0648f;--oro:#c9a24b}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Poppins,system-ui,sans-serif;font-weight:300;font-size:17px;line-height:1.55}
+.w{max-width:720px;margin:0 auto;padding:40px 18px 70px;display:flex;flex-direction:column;gap:26px}
+h1,h2{font-family:"Cormorant Garamond",Georgia,serif;margin:0;line-height:1.05}h1{font-size:clamp(2.5rem,8vw,3.6rem)}h1 em{color:var(--rosa)}h2{font-size:1.9rem}
+p{margin:0}b{font-weight:600}.eye{font-size:.76rem;letter-spacing:.16em;text-transform:uppercase;color:var(--lila-d);font-weight:600}.sub{color:var(--mut)}
+.btn{display:inline-block;background:linear-gradient(135deg,var(--lila),var(--rosa));color:#fff;text-decoration:none;font-weight:600;padding:17px 30px;border-radius:999px;font-size:1.05rem;box-shadow:0 12px 30px rgb(142 107 196 / .35)}
+.paso{display:flex;gap:14px;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px 18px}
+.n{flex:none;display:grid;place-items:center;width:32px;height:32px;border-radius:50%;background:var(--lila);color:#fff;font-weight:600}
+.cien{background:var(--lila-s);border-radius:18px;padding:20px;text-align:center;font-size:1.05rem}
+.cien b{font-family:"Cormorant Garamond",serif;font-size:1.6rem;display:block;color:var(--lila-d)}
+.nota{border-left:4px solid var(--oro);background:var(--card);border-radius:8px;padding:12px 16px;font-size:.95rem}
+section{display:flex;flex-direction:column;gap:12px}
+</style></head><body><div class="w">
+<header style="display:flex;flex-direction:column;gap:12px">
+  <span class="eye">RomiManifiesta · Mentorías 1 a 1</span>
+  <h1>¡Bienvenida a tu <em id="nom">mentoría</em>!</h1>
+  <p class="sub" id="det">Gracias por confiar en mí. Ahora agendamos tu primera sesión por Zoom.</p>
+</header>
+<section>
+  <h2>Cómo agendás</h2>
+  <div class="paso"><span class="n">1</span><p>Tocá el botón de abajo: se abre WhatsApp con un mensaje ya escrito para mí.</p></div>
+  <div class="paso"><span class="n">2</span><p>Sumale tu país y tres días y horarios que te queden bien, y mandalo.</p></div>
+  <div class="paso"><span class="n">3</span><p>Te confirmo el día y te mando el link del Zoom. <span id="sig">Al terminar cada sesión agendamos la siguiente.</span></p></div>
+  <p><a class="btn" id="wa" target="_blank" rel="noopener">Agendar por WhatsApp</a></p>
+  <p class="sub">Si preferís, también podés responder el mail de compra.</p>
+</section>
+<section>
+  <h2>Para que cada sesión rinda</h2>
+  <div class="paso"><span class="n">✦</span><p><b>Contame dónde estás trabada</b>, lo más concreto posible. Una captura vale más que una explicación.</p></div>
+  <div class="paso"><span class="n">✦</span><p><b>Traé una sola cosa</b> que quieras llevarte: la que, si se destraba, cambia todo lo demás.</p></div>
+  <div class="paso" id="ritmo"><span class="n">✦</span><p><b>Nos vemos una vez por semana o cada 15 días.</b> Más espaciado se pierde el hilo.</p></div>
+</section>
+<div class="cien"><b>Yo pongo mi 100. Vos ponés tu 100.</b>De cada sesión te llevás tu plan de acción. La siguiente arranca de lo que hiciste: si las dos ponemos lo nuestro, esto funciona.</div>
+<p class="nota">No es una promesa de resultado: es mi mirada sobre tu caso, con lo que a mí me funcionó y lo que no.</p>
+</div>
+<script>
+const P={'1':['sesión 1 a 1','Una sesión de 1 hora por Zoom, las dos solas.','la sesión 1 a 1 de 1 hora'],
+'4':['Mentoría 4','Cuatro sesiones de 1 h 30 por Zoom, las dos solas.','la Mentoría 4 (4 sesiones)'],
+'10':['Mentoría 10','Diez sesiones de 1 h 30 por Zoom, las dos solas.','la Mentoría 10 (10 sesiones)']};
+const k=new URLSearchParams(location.search).get('p'),d=P[k]||P['4'];
+document.getElementById('nom').textContent=d[0];
+document.getElementById('det').textContent=d[1]+' Gracias por confiar en mí. Ahora agendamos tu primera sesión.';
+if(k==='1'){document.getElementById('sig').textContent='';document.getElementById('ritmo').style.display='none'}
+document.getElementById('wa').href='https://wa.me/59894167572?text='+encodeURIComponent('Hola Romi! Compré '+d[2]+' y quiero agendar la primera. Mi país es: ');
+</script></body></html>
